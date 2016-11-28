@@ -11,11 +11,11 @@ import Dispatch
 
 
 
-enum FileLoadingError: Error {
+public enum FileLoadingError: Error {
 	case notUFT8
 }
 
-func loadFile(_ path: String) throws -> String {
+public func loadFile(_ path: String) throws -> String {
 	let data = try Data(contentsOf: URL(fileURLWithPath: path))
 	guard let str = String(data: data, encoding: .utf8) else {
 		throw FileLoadingError.notUFT8
@@ -24,7 +24,7 @@ func loadFile(_ path: String) throws -> String {
 	return str
 }
 
-func formatArray<T>(_ array: [T], conjunction: String) -> String {
+public func formatArray<T>(_ array: [T], conjunction: String) -> String {
 	var string = ""
 	if array.count == 1 {
 		string = "\(array.first!)"
@@ -42,7 +42,7 @@ func formatArray<T>(_ array: [T], conjunction: String) -> String {
 	return string
 }
 
-func pluralize(_ n: Int, _ singular: String, _ plural: String? = nil) -> String {
+public func pluralize(_ n: Int, _ singular: String, _ plural: String? = nil) -> String {
 	let resultPlural: String
 	if let p = plural {
 		resultPlural = p
@@ -59,7 +59,7 @@ func pluralize(_ n: Int, _ singular: String, _ plural: String? = nil) -> String 
 
 
 #if os(macOS)
-	func clearCookies(_ storage: HTTPCookieStorage) {
+	public func clearCookies(_ storage: HTTPCookieStorage) {
 		if let cookies = storage.cookies {
 			for cookie in cookies {
 				storage.deleteCookie(cookie)
@@ -68,7 +68,7 @@ func pluralize(_ n: Int, _ singular: String, _ plural: String? = nil) -> String 
 	}
 #endif
 
-func makeTable(_ heading: [String], contents: [String]...) -> String {
+public func makeTable(_ heading: [String], contents: [String]...) -> String {
 	if heading.count != contents.count {
 		fatalError("heading and contents have different counts")
 	}
@@ -116,7 +116,7 @@ func makeTable(_ heading: [String], contents: [String]...) -> String {
 
 
 
-func postIDFromURL(_ url: URL, isUser: Bool = false) -> Int? {
+public func postIDFromURL(_ url: URL, isUser: Bool = false) -> Int? {
 	if url.host != "stackoverflow.com" && url.host != "www.stackoverflow.com" {
 		return nil
 	}
@@ -158,6 +158,6 @@ public var startTime = Date()
 
 public var saveURL: URL!
 
-func saveFileNamed(_ name: String) -> URL {
+public func saveFileNamed(_ name: String) -> URL {
 	return saveURL.appendingPathComponent(name)
 }
