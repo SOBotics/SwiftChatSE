@@ -203,7 +203,7 @@ public class WebSocket {
 	
 	
 	
-	convenience init(_ str: String, origin: String? = nil, headers: String? = nil) throws {
+	public convenience init(_ str: String, origin: String? = nil, headers: String? = nil) throws {
 		guard let url = URL(string: str) else {
 			throw WebSocketError.notURL(str: str)
 		}
