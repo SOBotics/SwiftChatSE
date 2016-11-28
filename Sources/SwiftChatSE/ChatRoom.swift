@@ -106,7 +106,7 @@ open class ChatRoom: NSObject {
 	}
 	
 	///Looks up a user by ID.  If the user is not in the database, they are added.
-	func userWithID(_ id: Int) -> ChatUser {
+	open func userWithID(_ id: Int) -> ChatUser {
 		for user in userDB {
 			if user.id == id {
 				return user
@@ -125,7 +125,7 @@ open class ChatRoom: NSObject {
 	
 	
 	///Looks up a user by name.  The user must already exist in the database!
-	func userNamed(_ name: String) -> [ChatUser] {
+	open func userNamed(_ name: String) -> [ChatUser] {
 		var users = [ChatUser]()
 		for user in userDB {
 			if user.name == name {
@@ -136,7 +136,7 @@ open class ChatRoom: NSObject {
 	}
 	
 	
-	func loadUserDB() throws {
+	open func loadUserDB() throws {
 		guard let data = try? Data(contentsOf: saveFileNamed("users.json")) else {
 			return
 		}
@@ -165,7 +165,7 @@ open class ChatRoom: NSObject {
 		userDB = users
 	}
 	
-	func saveUserDB() throws {
+	open func saveUserDB() throws {
 		let db: Any
 		db = userDB.map {
 			[
@@ -178,22 +178,22 @@ open class ChatRoom: NSObject {
 		try data.write(to: saveFileNamed("users.json"), options: [.atomic])
 	}
 	
-	var ws: WebSocket!
-	fileprivate var wsRetries = 0
-	fileprivate let wsMaxRetries = 10
+	private var ws: WebSocket!
+	private var wsRetries = 0
+	private let wsMaxRetries = 10
 	
-	var inRoom = false
+	open var inRoom = false
 	
-	var timestamp: Int = 0
+	private var timestamp: Int = 0
 	
-	var messageQueue = [(String, ((Int) -> Void)?)]()
+	open var messageQueue = [(String, ((Int) -> Void)?)]()
 	
-	init(client: Client, roomID: Int) {
+	public init(client: Client, roomID: Int) {
 		self.client = client
 		self.roomID = roomID
 	}
 	
-	enum RoomJoinError: Error {
+	public enum RoomJoinError: Error {
 		case roomInfoRetrievalFailed
 	}
 	
@@ -244,7 +244,6 @@ open class ChatRoom: NSObject {
 			self.webSocketMessageData(data)
 		}
 		ws.onClose {socket in
-			self.webSocketClose(0, reason: "", wasClean: true)
 			self.webSocketEnd(0, reason: "", wasClean: true, error: socket.error)
 		}
 		ws.onError {socket in
@@ -306,7 +305,7 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
-	func postMessage(_ message: String, completion: ((Int) -> Void)? = nil) {
+	open func postMessage(_ message: String, completion: ((Int) -> Void)? = nil) {
 		if message.characters.count == 0 {
 			return
 		}
@@ -318,7 +317,7 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
-	func postReply(_ reply: String, to: ChatMessage) {
+	open func postReply(_ reply: String, to: ChatMessage) {
 		if let id = to.id {
 			postMessage(":\(id) \(reply)")
 		}
@@ -327,7 +326,7 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
-	func join() throws {
+	open func join() throws {
 		print("Joining chat room \(roomID)...")
 		
 		try connectWS()
@@ -354,7 +353,7 @@ open class ChatRoom: NSObject {
 		
 	}
 	
-	func leave() {
+	open func leave() {
 		//we don't really care if this fails
 		//...right?
 		inRoom = false
@@ -365,7 +364,7 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
-	enum EventError: Error {
+	public enum EventError: Error {
 		case jsonParsingFailed(json: String)
 		case invalidEventType(type: Int)
 	}
@@ -432,15 +431,7 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
-	public func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
-		//do nothing -- we'll handle this in webSocketEnd
-	}
-	
-	public func webSocketError(_ error: Error) {
-		//do nothing -- we'll handle this in webSocketEnd
-	}
-	
-	public func webSocketMessageText(_ text: String) {
+	private func webSocketMessageText(_ text: String) {
 		recievedMessage = true
 		do {
 			guard let json = try client.parseJSON(text) as? [String:Any] else {
@@ -465,7 +456,7 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
-	public func webSocketMessageData(_ data: Data) {
+	private func webSocketMessageData(_ data: Data) {
 		print("Recieved binary data: \(data)")
 	}
 	
@@ -485,7 +476,7 @@ open class ChatRoom: NSObject {
 		} while !done
 	}
 	
-	public func webSocketEnd(_ code: Int, reason: String, wasClean: Bool, error: Error?) {
+	private func webSocketEnd(_ code: Int, reason: String, wasClean: Bool, error: Error?) {
 		if let e = error {
 			print("Websocket error:\n\(e)")
 		}

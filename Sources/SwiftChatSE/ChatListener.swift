@@ -29,7 +29,7 @@ open class ChatListener {
 	
 	var runningCommands = [Command]()
 	
-	enum StopAction {
+	public enum StopAction {
 		case run
 		case halt
 		case reboot
@@ -186,7 +186,7 @@ open class ChatListener {
 		}
 	}
 	
-	public func processMessage(_ room: ChatRoom, message: ChatMessage, isEdit: Bool) {
+	open func processMessage(_ room: ChatRoom, message: ChatMessage, isEdit: Bool) {
 		let lowercase = message.content.lowercased()
 		if pendingStopAction == .run && lowercase.hasPrefix(shortName.lowercased()) {
 			//do a more precise check so names like @FirstStep won't cause the bot to respond
@@ -224,14 +224,14 @@ open class ChatListener {
 		}
 	}
 	
-	func stop(_ stopAction: StopAction) {
+	open func stop(_ stopAction: StopAction) {
 		pendingStopAction = stopAction
 		if self.runningCommands.isEmpty {
 			shutdownHandler(self.pendingStopAction == .reboot, self.pendingStopAction == .update)
 		}
 	}
 	
-	init(_ room: ChatRoom, commands: [Command.Type]) {
+	public init(_ room: ChatRoom, commands: [Command.Type]) {
 		self.room = room
 		self.commands = commands
 	}
