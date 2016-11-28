@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import libwebsockets
 
 private func binToStr(_ data: Data) -> String? {
 	var withNull = data
@@ -213,7 +212,7 @@ public class WebSocket {
 	
 	
 	
-	init(_ url: URL, origin: String? = nil, headers: String? = nil) throws {
+	public init(_ url: URL, origin: String? = nil, headers: String? = nil) throws {
 		if url.host == nil || url.scheme == "wss" {
 			secure = false
 		}

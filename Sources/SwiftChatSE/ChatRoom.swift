@@ -8,6 +8,7 @@
 
 import Foundation
 import Dispatch
+import libwebsockets
 
 open class ChatRoom: NSObject {
 	public enum ChatEvent: Int {
