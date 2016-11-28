@@ -8,17 +8,17 @@
 
 import Foundation
 
-class CommandStop: Command {
+open class CommandStop: Command {
     fileprivate let REBOOT_INDEX = 4
-    override class func usage() -> [String] {
+    override open class func usage() -> [String] {
         return ["stop", "halt", "shutdown", "shut down", "restart", "reboot"]
     }
 	
-	override class func privileges() -> ChatUser.Privileges {
+	override open class func privileges() -> ChatUser.Privileges {
 		return [.owner]
 	}
     
-    override func run() throws {
+    override open func run() throws {
         let action: ChatListener.StopAction
         let reply: String
         if usageIndex < REBOOT_INDEX {

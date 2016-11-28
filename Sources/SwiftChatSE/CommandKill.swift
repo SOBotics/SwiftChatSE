@@ -8,16 +8,16 @@
 
 import Foundation
 
-class CommandKill: Command {
-	override class func usage() -> [String] {
+open class CommandKill: Command {
+	override open class func usage() -> [String] {
 		return ["kill"]
 	}
 	
-	override class func privileges() -> ChatUser.Privileges {
+	override open class func privileges() -> ChatUser.Privileges {
 		return [.owner]
 	}
 	
-	override func run() throws {
+	override open func run() throws {
 		abort()
 	}
 }

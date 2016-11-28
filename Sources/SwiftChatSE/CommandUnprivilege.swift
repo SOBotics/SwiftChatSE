@@ -8,12 +8,12 @@
 
 import Foundation
 
-class CommandUnprivilege: Command {
-	override class func usage() -> [String] {
+open class CommandUnprivilege: Command {
+	override open class func usage() -> [String] {
 		return ["unprivilege * *", "remove privilege * *"]
 	}
 	
-	override class func privileges() -> ChatUser.Privileges {
+	override open class func privileges() -> ChatUser.Privileges {
 		return .owner
 	}
 	
@@ -25,7 +25,7 @@ class CommandUnprivilege: Command {
 		}
 	}
 	
-	override func run() throws {
+	override open func run() throws {
 		if arguments.count != 2 {
 			return usage()
 		}

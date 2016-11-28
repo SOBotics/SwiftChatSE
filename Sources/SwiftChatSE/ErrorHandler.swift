@@ -8,9 +8,9 @@
 
 import Foundation
 
-var errorRoom: ChatRoom?
+public var errorRoom: ChatRoom?
 
-func errorAsNSError(_ error: Error) -> NSError? {
+public func errorAsNSError(_ error: Error) -> NSError? {
 	#if os(Linux)
 		//this is the only way I could find to check if an arbitrary Error is an NSError that doesn't crash on Linux
 		//it produces a warning "'is' test is always true"
@@ -20,11 +20,11 @@ func errorAsNSError(_ error: Error) -> NSError? {
 	#endif
 }
 
-func formatNSError(_ e: NSError) -> String {
+public func formatNSError(_ e: NSError) -> String {
 	return "\(e.domain) code \(e.code) \(e.userInfo)"
 }
 
-func handleError(_ error: Error, _ context: String? = nil) {
+public func handleError(_ error: Error, _ context: String? = nil) {
 	let contextStr: String
 	let errorType: String
 	let errorDetails: String

@@ -266,12 +266,12 @@ private let characterEntities : [String: Character] = [
 ]
 
 
-extension String {
+public extension String {
 	
 	/// Returns a new string made by replacing in the `String`
 	/// all HTML character entity references with the corresponding
 	/// character.
-	var stringByDecodingHTMLEntities : String {
+	public var stringByDecodingHTMLEntities : String {
 		
 		// ===== Utility functions =====
 		

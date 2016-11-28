@@ -8,13 +8,13 @@
 
 import Foundation
 
-class CommandCheckPrivileges: Command {
-	override class func usage() -> [String] {
+public class CommandCheckPrivileges: Command {
+	override public class func usage() -> [String] {
 		return ["privileges", "amiprivileged", "am i privileged", "my privileges", "check privileges"]
 	}
 	
 	
-	override func run() throws {
+	override public func run() throws {
 		let privs = message.user.privileges.names
 		if privs.isEmpty {
 			reply("You do not have any privileges.")

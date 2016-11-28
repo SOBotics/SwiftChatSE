@@ -6,7 +6,7 @@
 * Improved with http://stackoverflow.com/questions/26990394/slow-swift-arrays-and-strings-performance
 */
 
-class Levenshtein {
+public final class Levenshtein {
 	
 	private class func min(_ numbers: Int...) -> Int {
 		return numbers.reduce(numbers[0]) {$0 < $1 ? $0 : $1}

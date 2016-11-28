@@ -8,12 +8,12 @@
 
 import Foundation
 
-class CommandSay: Command {
-	override class func usage() -> [String] {
+open class CommandSay: Command {
+	override open class func usage() -> [String] {
 		return ["say ..."]
 	}
 	
-	override func run() throws {
+	override open func run() throws {
 		message.room.postMessage(message.content.components(separatedBy: " ").dropFirst().dropFirst().joined(separator: " "))
 	}
 }

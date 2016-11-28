@@ -6,13 +6,11 @@
 //  Copyright © 2016 NobodyNada. All rights reserved.
 //
 
-import Foundation
-
-struct Post {
-	let id: Int
-	let title: String
-	let body: String
-	let tags: [String]
-	let creationDate: Int
-	let lastActivityDate: Int
+public struct Post {
+	public let id: Int
+	public let title: String
+	public let body: String
+	public let tags: [String]
+	public let creationDate: Int
+	public let lastActivityDate: Int
 }

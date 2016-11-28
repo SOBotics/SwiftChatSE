@@ -47,17 +47,12 @@ open class Client: NSObject, URLSessionDataDelegate {
 	
 	static let apiKey = "HNA2dbrFtyTZxeHN6rThNg(("
 	
-	var session: URLSession!
+	open var session: URLSession!
 	
-	var loggedIn = false
+	open var loggedIn = false
 	
-	var cookies = [HTTPCookie]()
+	open var cookies = [HTTPCookie]()
 	
-	/*public func urlSession(_ session: URLSession,
-	didReceive challenge: URLAuthenticationChallenge,
-	completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-	completionHandler(.useCredential, nil)
-	}*/
 	
 	private func processCookieDomain(domain: String) -> String {
 		return URL(string: domain)?.host ?? domain
@@ -68,7 +63,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		print(cookies.map { "\($0.domain)::\($0.name)::\($0.value)" }.joined(separator: "\n") + "\n\n")
 	}
 	
-	func addCookies(_ newCookies: [HTTPCookie], forHost host: String) {
+	open func addCookies(_ newCookies: [HTTPCookie], forHost host: String) {
 		var toAdd = newCookies.map {cookie -> HTTPCookie in
 			var properties = cookie.properties ?? [:]
 			properties[HTTPCookiePropertyKey.domain] = processCookieDomain(domain: cookie.domain)
@@ -93,7 +88,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		//printCookies(cookies)
 	}
 	
-	func cookieHost(_ host: String, matchesDomain domain: String) -> Bool {
+	open func cookieHost(_ host: String, matchesDomain domain: String) -> Bool {
 		let hostFields = host.components(separatedBy: ".")
 		var domainFields = domain.components(separatedBy: ".")
 		if hostFields.count == 0 || domainFields.count == 0 {
@@ -119,17 +114,17 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return true
 	}
 	
-	func cookieHeaders(forURL url: URL) -> [String:String] {
+	open func cookieHeaders(forURL url: URL) -> [String:String] {
 		return HTTPCookie.requestHeaderFields(with: cookies.filter {
 			cookieHost(url.host ?? "", matchesDomain: $0.domain)
 		})
 	}
 	
-	let queue = DispatchQueue(label: "Client queue", attributes: [.concurrent])
+	open let queue = DispatchQueue(label: "Client queue", attributes: [.concurrent])
 	
 	fileprivate var _fkey: String!
 	
-	var fkey: String! {
+	open var fkey: String! {
 		if _fkey == nil {
 			//Get the chat fkey.
 			let joinFavorites: String = try! get("https://chat.\(host.rawValue)/chats/join/favorite")
@@ -154,7 +149,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return _fkey
 	}
 	
-	enum Host: String {
+	public enum Host: String {
 		case StackOverflow = "stackoverflow.com"
 		case StackExchange = "stackexchange.com"
 		case MetaStackExchange = "meta.stackexchange.com"
@@ -172,9 +167,9 @@ open class Client: NSObject, URLSessionDataDelegate {
 		}
 	}
 	
-	let host: Host
+	open let host: Host
 	
-	enum RequestError: Error {
+	public enum RequestError: Error {
 		case invalidURL(url: String)
 		case notUTF8
 		case unknownError
@@ -280,7 +275,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		task.resume()
 	}
 	
-	func performRequest(_ request: URLRequest) throws -> (Data, HTTPURLResponse) {
+	open func performRequest(_ request: URLRequest) throws -> (Data, HTTPURLResponse) {
 		var req = request
 		
 		let sema = DispatchSemaphore(value: 0)
@@ -315,7 +310,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return (data, response)
 	}
 	
-	func get(_ url: String) throws -> (Data, HTTPURLResponse) {
+	open func get(_ url: String) throws -> (Data, HTTPURLResponse) {
 		guard let nsUrl = URL(string: url) else {
 			throw RequestError.invalidURL(url: url)
 		}
@@ -324,7 +319,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return try performRequest(request)
 	}
 	
-	func post(_ url: String, _ data: [String:String]) throws -> (Data, HTTPURLResponse) {
+	open func post(_ url: String, _ data: [String:String]) throws -> (Data, HTTPURLResponse) {
 		guard let nsUrl = URL(string: url) else {
 			throw RequestError.invalidURL(url: url)
 		}
@@ -368,7 +363,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return (responseData!, response)
 	}
 	
-	enum APIError: Error {
+	public enum APIError: Error {
 		case badURL(string: String)
 		case badJSON(json: String)
 		case apiError(id: Int?, name: String?, message: String?)
@@ -376,9 +371,9 @@ open class Client: NSObject, URLSessionDataDelegate {
 		case test(response: [String:Any])
 	}
 	
-	var apiFilter: String!
+	open var apiFilter: String!
 	
-	func api(_ request: String) throws -> [String:Any] {
+	open func api(_ request: String) throws -> [String:Any] {
 		var urlString = "https://api.stackexchange.com/2.2"
 		if request.hasPrefix("/") {
 			urlString.append(request)
@@ -387,21 +382,6 @@ open class Client: NSObject, URLSessionDataDelegate {
 			urlString.append("/" + request)
 		}
 		
-		//this code seems to crash on Linux
-		/*guard var components = URLComponents(string: urlString) else {
-			throw APIError.badURL(string: urlString)
-		}
-		
-		//if the request DOESN'T contain a key, add it
-		if !((components.queryItems?.contains { $0.name == "key" }) ?? false) {
-			var items = components.queryItems ?? []
-			items.append(URLQueryItem(name: "key", value: Client.apiKey))
-			components.queryItems = items
-		}
-		
-		guard let url = components.string else {
-			throw APIError.badURL(string: "how is the URL not a string")
-		}*/
 		
 		guard let url = URL(string: urlString) else {
 			throw APIError.badURL(string: urlString)
@@ -442,7 +422,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		
 	}
 	
-	func questionWithID(_ id: Int, site: String = "stackoverflow") throws -> Post {
+	open func questionWithID(_ id: Int, site: String = "stackoverflow") throws -> Post {
 		if apiFilter == nil {
 			apiFilter = try! api("filters/create?include=question.title;question.body;question.tags&unsafe=false")["filter"] as! String
 		}
@@ -466,7 +446,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 	}
 	
 	
-	func performRequest(_ request: URLRequest) throws -> String {
+	open func performRequest(_ request: URLRequest) throws -> String {
 		let (data, _) = try performRequest(request)
 		guard let string = String(data: data, encoding: String.Encoding.utf8) else {
 			throw RequestError.notUTF8
@@ -474,7 +454,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return string
 	}
 	
-	func get(_ url: String) throws -> String {
+	open func get(_ url: String) throws -> String {
 		let (data, _) = try get(url)
 		guard let string = String(data: data, encoding: String.Encoding.utf8) else {
 			throw RequestError.notUTF8
@@ -482,7 +462,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return string
 	}
 	
-	func post(_ url: String, _ fields: [String:String]) throws -> String {
+	open func post(_ url: String, _ fields: [String:String]) throws -> String {
 		let (data, _) = try post(url, fields)
 		guard let string = String(data: data, encoding: String.Encoding.utf8) else {
 			throw RequestError.notUTF8
@@ -490,16 +470,16 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return string
 	}
 	
-	func parseJSON(_ json: String) throws -> Any {
+	open func parseJSON(_ json: String) throws -> Any {
 		return try JSONSerialization.jsonObject(with: json.data(using: String.Encoding.utf8)!, options: .allowFragments)
 	}
 	
 	
-	override convenience init() {
+	public override convenience init() {
 		self.init(host: .StackOverflow)
 	}
 	
-	init(host: Host) {
+	public init(host: Host) {
 		self.host = host
 		
 		let configuration =  URLSessionConfiguration.default
@@ -517,7 +497,6 @@ open class Client: NSObject, URLSessionDataDelegate {
 		]*/
 		
 		configuration.httpCookieStorage = nil
-		//clearCookies(configuration.httpCookieStorage!)
 		
 		let delegateQueue = OperationQueue()
 		delegateQueue.maxConcurrentOperationCount = 1
@@ -528,7 +507,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		)
 	}
 	
-	enum LoginError: Error {
+	public enum LoginError: Error {
 		case alreadyLoggedIn
 		case loginDataNotFound
 		case loginFailed(message: String)
@@ -567,7 +546,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return result
 	}
 	
-	func loginWithEmail(_ email: String, password: String) throws {
+	open func loginWithEmail(_ email: String, password: String) throws {
 		if loggedIn {
 			throw LoginError.alreadyLoggedIn
 		}

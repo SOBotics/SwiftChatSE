@@ -8,12 +8,12 @@
 
 import Foundation
 
-class CommandListRunning: Command {
-    override class func usage() -> [String] {
+open class CommandListRunning: Command {
+    override open class func usage() -> [String] {
         return ["running commands"]
     }
     
-    override func run() throws {
+    override open func run() throws {
         var users = [String]()
         var commands = [String]()
         for command in listener.runningCommands {

@@ -9,12 +9,12 @@
 import Foundation
 import Dispatch
 
-class CommandStatus: Command {
-	override class func usage() -> [String] {
+open class CommandStatus: Command {
+	override open class func usage() -> [String] {
 		return ["alive", "status", "version"]
 	}
 	
-	override func run() throws {
+	override open func run() throws {
 		var uptime = Int(Date().timeIntervalSinceReferenceDate - startTime.timeIntervalSinceReferenceDate)
 		let seconds = uptime % 60
 		uptime /= 60
