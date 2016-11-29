@@ -16,8 +16,16 @@ open class ChatListener {
 	
 	open var info: Any? = nil
 	
-	open var shortName = "@Fir"
+	///The name of the bot.  A message must start with this name to be recognized as a command.
 	open var name = "@FireAlarm"
+	
+	///The number of characters of the name that must be included.
+	///
+	///
+	///For example, if `name` is `@FireAlarm` and `minNameCharacters` is 4,
+	///`@FireAlarm`, `@Fire`, and `@Fir` will all be recognized, but
+	///`@FirTree`, `@Fi`, and `@Kyll` will not.
+	open var minNameCharacters = 4
 	
 	open var shutdownHandler: (Bool, Bool) -> () = {shouldReboot, isUpdate in}
 	
@@ -188,6 +196,8 @@ open class ChatListener {
 	
 	open func processMessage(_ room: ChatRoom, message: ChatMessage, isEdit: Bool) {
 		let lowercase = message.content.lowercased()
+		
+		let shortName = name.characters[name.characters.startIndex..<name.characters.index(name.characters.startIndex, offsetBy: min(name.characters.count, requiredCharacters))]
 		if pendingStopAction == .run && lowercase.hasPrefix(shortName.lowercased()) {
 			//do a more precise check so names like @FirstStep won't cause the bot to respond
 			let name = self.name.lowercased().unicodeScalars
