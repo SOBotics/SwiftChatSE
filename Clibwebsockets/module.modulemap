@@ -1,5 +1,5 @@
 module Clibwebsockets [system] {
   header "lws.h"
-  link "libwebsockets"
+  link "websockets"
   export *
 }
