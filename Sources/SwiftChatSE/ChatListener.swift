@@ -197,7 +197,13 @@ open class ChatListener {
 	open func processMessage(_ room: ChatRoom, message: ChatMessage, isEdit: Bool) {
 		let lowercase = message.content.lowercased()
 		
-		let shortName = name.characters[name.characters.startIndex..<name.characters.index(name.characters.startIndex, offsetBy: min(name.characters.count, requiredCharacters))]
+		let shortName = String(name.characters[
+			name.characters.startIndex..<name.characters.index(
+				name.characters.startIndex,
+				offsetBy: min(name.characters.count, minNameCharacters)
+			)]
+		)
+		
 		if pendingStopAction == .run && lowercase.hasPrefix(shortName.lowercased()) {
 			//do a more precise check so names like @FirstStep won't cause the bot to respond
 			let name = self.name.lowercased().unicodeScalars
