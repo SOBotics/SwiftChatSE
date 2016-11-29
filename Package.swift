@@ -2,8 +2,7 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftChatSE",
-    targets: [
-		Target(name: "libwebsockets"),
-		Target(name: "SwiftChatSE", dependencies: ["libwebsockets"])
+    dependencies: [
+		.Package(url: "Clibwebsockets", majorVersion: 1)
 	]
 )

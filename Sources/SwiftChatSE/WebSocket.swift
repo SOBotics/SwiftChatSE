@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import libwebsockets
+import Clibwebsockets
 
 private func binToStr(_ data: Data) -> String? {
 	var withNull = data
