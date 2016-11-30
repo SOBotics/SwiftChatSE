@@ -433,6 +433,15 @@ open class Client: NSObject, URLSessionDataDelegate {
 		guard let tags = response["tags"] as? [String] else {
 			throw APIError.badJSON(json: String(describing: response))
 		}
+		guard let owner = response["owner"] as? [String:Any] else {
+			throw APIError.badJSON(json: String(describing: response))
+		}
+		guard let userID = owner["user_id"] as? Int else {
+			throw APIError.badJSON(json: String(describing: response))
+		}
+		guard let username = owner["display_name"] as? String else {
+			throw APIError.badJSON(json: String(describing: response))
+		}
 		
 		return Post(
 			id: id,
@@ -440,7 +449,9 @@ open class Client: NSObject, URLSessionDataDelegate {
 			body: body.stringByDecodingHTMLEntities,
 			tags: tags,
 			creationDate: (response["creation_date"] as? Int) ?? -1,
-			lastActivityDate: (response["last_activity_date"] as? Int) ?? -1
+			lastActivityDate: (response["last_activity_date"] as? Int) ?? -1,
+			userID: userID,
+			username: username
 		)
 		
 	}

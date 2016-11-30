@@ -13,4 +13,6 @@ public struct Post {
 	public let tags: [String]
 	public let creationDate: Int
 	public let lastActivityDate: Int
+	public let userID: Int
+	public let username: String
 }
