@@ -557,7 +557,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return result
 	}
 	
-	open func loginWithEmail(_ email: String, password: String) throws {
+	open func login(email: String, password: String) throws {
 		if loggedIn {
 			throw LoginError.alreadyLoggedIn
 		}
