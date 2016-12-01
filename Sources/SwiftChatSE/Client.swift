@@ -436,9 +436,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		guard let owner = response["owner"] as? [String:Any] else {
 			throw APIError.badJSON(json: String(describing: response))
 		}
-		guard let userID = owner["user_id"] as? Int else {
-			throw APIError.badJSON(json: String(describing: response))
-		}
+		let userID = owner["user_id"] as? Int
 		guard let username = owner["display_name"] as? String else {
 			throw APIError.badJSON(json: String(describing: response))
 		}
