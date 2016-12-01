@@ -138,7 +138,7 @@ open class ChatRoom: NSObject {
 	
 	
 	open func loadUserDB() throws {
-		guard let data = try? Data(contentsOf: saveFileNamed("users.json")) else {
+		guard let data = try? Data(contentsOf: saveFileNamed("users_\(roomID).json")) else {
 			return
 		}
 		guard let db = try JSONSerialization.jsonObject(with: data, options: []) as? [Any] else {
