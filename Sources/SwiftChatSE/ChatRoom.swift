@@ -176,7 +176,7 @@ open class ChatRoom: NSObject {
 			]
 		}
 		let data = try JSONSerialization.data(withJSONObject: db, options: .prettyPrinted)
-		try data.write(to: saveFileNamed("users.json"), options: [.atomic])
+		try data.write(to: saveFileNamed("users_111347.json"), options: [.atomic])
 	}
 	
 	private var ws: WebSocket!
