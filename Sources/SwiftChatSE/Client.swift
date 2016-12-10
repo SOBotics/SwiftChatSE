@@ -290,19 +290,17 @@ open class Client: NSObject, URLSessionDataDelegate {
 		}
 		
 		
-		//TODO: I don't think this needs to be on the client queue anymore
-		queue.async {
-			let task = self.session.dataTask(with: req)
-			self.performTask(task) {inData, inResp, inError in
-				(data, resp, error) = (inData, inResp, inError)
-				sema.signal()
-			}
-			
+		let task = self.session.dataTask(with: req)
+		self.performTask(task) {inData, inResp, inError in
+			(data, resp, error) = (inData, inResp, inError)
+			sema.signal()
 		}
+		
 		
 		sema.wait()
 		
 		guard let response = resp as? HTTPURLResponse, data != nil else {
+			print(error)
 			throw error
 		}
 		
@@ -340,12 +338,10 @@ open class Client: NSObject, URLSessionDataDelegate {
 		var resp: HTTPURLResponse?
 		var responseError: Error?
 		
-		queue.async {
-			let task = self.session.uploadTask(with: request, from: data)
-			self.performTask(task) {data, response, error in
-				(responseData, resp, responseError) = (data, response, error)
-				sema.signal()
-			}
+		let task = self.session.uploadTask(with: request, from: data)
+		self.performTask(task) {data, response, error in
+			(responseData, resp, responseError) = (data, response, error)
+			sema.signal()
 		}
 		
 		sema.wait()

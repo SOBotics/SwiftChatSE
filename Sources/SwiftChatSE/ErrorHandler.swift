@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Dispatch
 
 public var errorRoom: ChatRoom?
 
@@ -23,6 +24,16 @@ public func errorAsNSError(_ error: Error) -> NSError? {
 public func formatNSError(_ e: NSError) -> String {
 	return "\(e.domain) code \(e.code) \(e.userInfo)"
 }
+
+///The maximum amount of errors that can occur in a 30-second period.
+public var maxErrors = 2
+
+public var afterTooManyErrors: () -> () = { abort() }
+
+public var errorsInLast30Seconds = 0
+
+///A string that will be appended to the error message so that the bot's author can be pinged by errors..
+public var ping = " (cc @NobodyNada)"
 
 public func handleError(_ error: Error, _ context: String? = nil) {
 	let contextStr: String
@@ -49,7 +60,7 @@ public func handleError(_ error: Error, _ context: String? = nil) {
 		contextStr = ""
 	}
 	
-	let message1 = "    An error (\(errorType)) occured\(contextStr) (cc @NobodyNada):"
+	let message1 = "    An error (\(errorType)) occured\(contextStr)\(ping):"
 	
 	if let room = errorRoom {
 		room.postMessage(message1 + "\n    " + errorDetails.replacingOccurrences(of: "\n", with: "\n    "))
@@ -57,5 +68,15 @@ public func handleError(_ error: Error, _ context: String? = nil) {
 	else {
 		print("\(message1)\n\(errorDetails)")
 		exit(1)
+	}
+	
+	errorsInLast30Seconds += 1
+	if errorsInLast30Seconds > maxErrors {
+		afterTooManyErrors()
+	}
+	
+	DispatchQueue.global(qos: .background).async {
+		sleep(30)
+		errorsInLast30Seconds -= 1
 	}
 }
