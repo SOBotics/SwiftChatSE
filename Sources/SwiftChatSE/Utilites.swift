@@ -24,7 +24,7 @@ public func loadFile(_ path: String) throws -> String {
 	return str
 }
 
-public func formatArray<T>(_ array: [T], conjunction: String) -> String {
+public func formatArray<T>(_ array: [T], conjunction: String, separator: String = ",") -> String {
 	var string = ""
 	if array.count == 1 {
 		string = "\(array.first!)"
