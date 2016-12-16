@@ -5,10 +5,12 @@
 //  Created by NobodyNada on 8/27/16.
 //  Copyright © 2016 NobodyNada. All rights reserved.
 //
-//TODO: Refractor this class; it's kind of a mess.
+//TODO: Refactor this class; it's kind of a mess.
 
 import Foundation
 import Dispatch
+
+//MARK: - Convenience extensions
 
 extension String {
 	var urlEncodedString: String {
@@ -43,84 +45,15 @@ func += <K, V> (left: inout [K:V], right: [K:V]) {
 	}
 }
 
+//MARK: -
 open class Client: NSObject, URLSessionDataDelegate {
-	
-	static let apiKey = "HNA2dbrFtyTZxeHN6rThNg(("
-	
+	//MARK: Instance variables
 	open var session: URLSession!
+	open var cookies = [HTTPCookie]()
+	open let queue = DispatchQueue(label: "Client queue", attributes: [.concurrent])
 	
 	open var loggedIn = false
 	
-	open var cookies = [HTTPCookie]()
-	
-	
-	private func processCookieDomain(domain: String) -> String {
-		return URL(string: domain)?.host ?? domain
-	}
-	
-	//Prints all of the cookies, for debugging.
-	private func printCookies(_ cookies: [HTTPCookie]) {
-		print(cookies.map { "\($0.domain)::\($0.name)::\($0.value)" }.joined(separator: "\n") + "\n\n")
-	}
-	
-	open func addCookies(_ newCookies: [HTTPCookie], forHost host: String) {
-		var toAdd = newCookies.map {cookie -> HTTPCookie in
-			var properties = cookie.properties ?? [:]
-			properties[HTTPCookiePropertyKey.domain] = processCookieDomain(domain: cookie.domain)
-			return HTTPCookie(properties: properties) ?? cookie
-		}
-		
-		//print("Adding:")
-		//printCookies(newCookies)
-		
-		for i in 0..<cookies.count {	//for each existing cookie...
-			if let index = toAdd.index(where: {
-				$0.name == cookies[i].name && cookieHost(host, matchesDomain: cookies[i].domain)
-			}) {
-				//if this cookie needs to be replaced, replace it
-				cookies[i] = toAdd[index]
-				toAdd.remove(at: index)
-			}
-		}
-		cookies.append(contentsOf: toAdd)
-		
-		//print("Cookies:")
-		//printCookies(cookies)
-	}
-	
-	open func cookieHost(_ host: String, matchesDomain domain: String) -> Bool {
-		let hostFields = host.components(separatedBy: ".")
-		var domainFields = domain.components(separatedBy: ".")
-		if hostFields.count == 0 || domainFields.count == 0 {
-			return false
-		}
-		
-		if domainFields.first!.isEmpty {
-			domainFields.removeFirst()
-		}
-		
-		//if the domain starts with a dot, match any host which is a subdomain of domain
-		var hostIndex = hostFields.count - 1
-		for i in (0...domainFields.count - 1).reversed() {
-			if hostIndex == 0 && i != 0 {
-				return false
-			}
-			if domainFields[i] != hostFields[hostIndex] {
-				return false
-			}
-			
-			hostIndex -= 1
-		}
-		return true
-	}
-	
-	open func cookieHeaders(forURL url: URL) -> [String:String] {
-		return HTTPCookie.requestHeaderFields(with: cookies.filter {
-			cookieHost(url.host ?? "", matchesDomain: $0.domain)
-		})
-	}
-	
-	open let queue = DispatchQueue(label: "Client queue", attributes: [.concurrent])
 	
 	fileprivate var _fkey: String!
 	
@@ -175,6 +108,11 @@ open class Client: NSObject, URLSessionDataDelegate {
 		case unknownError
 	}
 	
+	
+	
+	
+	
+	//MARK: - Private variables
 	private class HTTPTask {
 		var task: URLSessionTask
 		var completion: (Data?, HTTPURLResponse?, Error?) -> Void
@@ -193,6 +131,81 @@ open class Client: NSObject, URLSessionDataDelegate {
 	
 	private var responseSemaphore: DispatchSemaphore?
 	
+	
+	
+	//MARK: - Cookie handling
+	private func processCookieDomain(domain: String) -> String {
+		return URL(string: domain)?.host ?? domain
+	}
+	
+	//Prints all of the cookies, for debugging.
+	private func printCookies(_ cookies: [HTTPCookie]) {
+		print(cookies.map { "\($0.domain)::\($0.name)::\($0.value)" }.joined(separator: "\n") + "\n\n")
+	}
+	
+	open func addCookies(_ newCookies: [HTTPCookie], forHost host: String) {
+		var toAdd = newCookies.map {cookie -> HTTPCookie in
+			var properties = cookie.properties ?? [:]
+			properties[HTTPCookiePropertyKey.domain] = processCookieDomain(domain: cookie.domain)
+			return HTTPCookie(properties: properties) ?? cookie
+		}
+		
+		//print("Adding:")
+		//printCookies(newCookies)
+		
+		for i in 0..<cookies.count {	//for each existing cookie...
+			if let index = toAdd.index(where: {
+				$0.name == cookies[i].name && cookieHost(host, matchesDomain: cookies[i].domain)
+			}) {
+				//if this cookie needs to be replaced, replace it
+				cookies[i] = toAdd[index]
+				toAdd.remove(at: index)
+			}
+		}
+		cookies.append(contentsOf: toAdd)
+		
+		//print("Cookies:")
+		//printCookies(cookies)
+	}
+	
+	///Checks whether a cookie matches a domain.
+	///- parameter host: The host of the cookie.
+	///- parameter domain: The domain.
+	open func cookieHost(_ host: String, matchesDomain domain: String) -> Bool {
+		let hostFields = host.components(separatedBy: ".")
+		var domainFields = domain.components(separatedBy: ".")
+		if hostFields.count == 0 || domainFields.count == 0 {
+			return false
+		}
+		
+		if domainFields.first!.isEmpty {
+			domainFields.removeFirst()
+		}
+		
+		//if the domain starts with a dot, match any host which is a subdomain of domain
+		var hostIndex = hostFields.count - 1
+		for i in (0...domainFields.count - 1).reversed() {
+			if hostIndex == 0 && i != 0 {
+				return false
+			}
+			if domainFields[i] != hostFields[hostIndex] {
+				return false
+			}
+			
+			hostIndex -= 1
+		}
+		return true
+	}
+	
+	///Returns the cookie headers for the specified URL.
+	open func cookieHeaders(forURL url: URL) -> [String:String] {
+		return HTTPCookie.requestHeaderFields(with: cookies.filter {
+			cookieHost(url.host ?? "", matchesDomain: $0.domain)
+		})
+	}
+	
+	
+	//MARK: - URLSession delegate methods
 	public func urlSession(
 		_ session: URLSession,
 		dataTask: URLSessionDataTask,
@@ -358,96 +371,6 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return (responseData!, response)
 	}
 	
-	public enum APIError: Error {
-		case badURL(string: String)
-		case badJSON(json: String)
-		case apiError(id: Int?, name: String?, message: String?)
-		case noItems(response: [String:Any])
-		case test(response: [String:Any])
-	}
-	
-	open var apiFilter: String!
-	
-	open func api(_ request: String) throws -> [String:Any] {
-		var urlString = "https://api.stackexchange.com/2.2"
-		if request.hasPrefix("/") {
-			urlString.append(request)
-		}
-		else {
-			urlString.append("/" + request)
-		}
-		
-		
-		guard let url = URL(string: urlString) else {
-			throw APIError.badURL(string: urlString)
-		}
-		
-		if url.query == nil {
-			urlString.append("?key=\(Client.apiKey)")
-		} else {
-			urlString.append("&key=\(Client.apiKey)")
-		}
-		
-		let responseString: String = try get(urlString)
-		
-		guard let responseData = responseString.data(using: .utf8) else {
-			throw APIError.badJSON(json: responseString)
-		}
-		
-		guard let response = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String:Any] else {
-			throw APIError.badJSON(json: responseString)
-		}
-		
-		let errorID = response["error_id"] as? Int
-		let errorName = response["error_name"] as? String
-		let errorMessage = response["error_message"] as? String
-		
-		if errorID != nil || errorName != nil || errorMessage != nil {
-			throw APIError.apiError(id: errorID, name: errorName, message: errorMessage)
-		}
-		
-		guard let item = (response["items"] as? [[String:Any]])?.first else {
-			throw APIError.noItems(response: response)
-		}
-		
-		return item
-		
-		
-		
-		
-	}
-	
-	open func questionWithID(_ id: Int, site: String = "stackoverflow") throws -> Post {
-		if apiFilter == nil {
-			apiFilter = try! api("filters/create?include=question.title;question.body;question.tags&unsafe=false")["filter"] as! String
-		}
-		let response = try api("questions/\(id)?site=\(site)&filter=\(apiFilter!)")
-		guard let title = response["title"] as? String, let body = response["body"] as? String else {
-			throw APIError.badJSON(json: String(describing: response))
-		}
-		guard let tags = response["tags"] as? [String] else {
-			throw APIError.badJSON(json: String(describing: response))
-		}
-		guard let owner = response["owner"] as? [String:Any] else {
-			throw APIError.badJSON(json: String(describing: response))
-		}
-		let userID = owner["user_id"] as? Int
-		guard let username = owner["display_name"] as? String else {
-			throw APIError.badJSON(json: String(describing: response))
-		}
-		
-		return Post(
-			id: id,
-			title: title.stringByDecodingHTMLEntities,
-			body: body.stringByDecodingHTMLEntities,
-			tags: tags,
-			creationDate: (response["creation_date"] as? Int) ?? -1,
-			lastActivityDate: (response["last_activity_date"] as? Int) ?? -1,
-			userID: userID,
-			username: username
-		)
-		
-	}
 	
 	
 	open func performRequest(_ request: URLRequest) throws -> String {
