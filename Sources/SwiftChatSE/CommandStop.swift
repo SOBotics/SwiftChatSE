@@ -19,7 +19,7 @@ open class CommandStop: Command {
 	}
     
     override open func run() throws {
-        let action: ChatListener.StopAction
+        let action: ChatListener.StopReason
         let reply: String
         if usageIndex < REBOOT_INDEX {
             action = .halt

@@ -28,13 +28,16 @@ public func formatNSError(_ e: NSError) -> String {
 ///The maximum amount of errors that can occur in a 30-second period.
 public var maxErrors = 2
 
+///What to do after too many errors.  Defaults to calling `abort`.
 public var afterTooManyErrors: () -> () = { abort() }
 
+///How many errors have occured within the last 30 seconds.
 public var errorsInLast30Seconds = 0
 
 ///A string that will be appended to the error message so that the bot's author can be pinged by errors..
 public var ping = " (cc @NobodyNada)"
 
+///Logs an error.
 public func handleError(_ error: Error, _ context: String? = nil) {
 	let contextStr: String
 	let errorType: String
