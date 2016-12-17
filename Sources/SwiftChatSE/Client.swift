@@ -46,6 +46,7 @@ func += <K, V> (left: inout [K:V], right: [K:V]) {
 }
 
 //MARK: -
+///A Client handles HTTP requests, cookie management, and logging in to Stack Exchange chat.
 open class Client: NSObject, URLSessionDataDelegate {
 	//MARK: Instance variables
 	open var session: URLSession!
@@ -57,6 +58,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 	
 	fileprivate var _fkey: String!
 	
+	///The fkey used to authorize actions in chat.
 	open var fkey: String! {
 		if _fkey == nil {
 			//Get the chat fkey.
@@ -100,6 +102,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		}
 	}
 	
+	///Which chat host this client should talk to.
 	open let host: Host
 	
 	public enum RequestError: Error {
@@ -138,11 +141,16 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return URL(string: domain)?.host ?? domain
 	}
 	
-	//Prints all of the cookies, for debugging.
+	///Prints all of the cookies, for debugging.
 	private func printCookies(_ cookies: [HTTPCookie]) {
 		print(cookies.map { "\($0.domain)::\($0.name)::\($0.value)" }.joined(separator: "\n") + "\n\n")
 	}
 	
+	
+	
+	///Adds cookies.
+	///- parameter newCookies: The cookies to add.
+	///- parameter host: The host which set the cookies..
 	open func addCookies(_ newCookies: [HTTPCookie], forHost host: String) {
 		var toAdd = newCookies.map {cookie -> HTTPCookie in
 			var properties = cookie.properties ?? [:]
@@ -167,6 +175,8 @@ open class Client: NSObject, URLSessionDataDelegate {
 		//print("Cookies:")
 		//printCookies(cookies)
 	}
+	
+	
 	
 	///Checks whether a cookie matches a domain.
 	///- parameter host: The host of the cookie.
@@ -196,6 +206,8 @@ open class Client: NSObject, URLSessionDataDelegate {
 		}
 		return true
 	}
+	
+	
 	
 	///Returns the cookie headers for the specified URL.
 	open func cookieHeaders(forURL url: URL) -> [String:String] {
@@ -288,6 +300,13 @@ open class Client: NSObject, URLSessionDataDelegate {
 		task.resume()
 	}
 	
+	
+	
+	//MARK:- Request methods.
+	
+	///Performs an `URLRequest`.
+	///- parameter request: The request to perform.
+	///- returns: The `Data` and `HTTPURLResponse` returned by the request.
 	open func performRequest(_ request: URLRequest) throws -> (Data, HTTPURLResponse) {
 		var req = request
 		
@@ -320,6 +339,11 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return (data, response)
 	}
 	
+	
+	
+	///Performs a GET request.
+	///- paramter url: The URL to make the request to.
+	///- returns: The `Data` and `HTTPURLResponse` returned by the request.
 	open func get(_ url: String) throws -> (Data, HTTPURLResponse) {
 		guard let nsUrl = URL(string: url) else {
 			throw RequestError.invalidURL(url: url)
@@ -329,6 +353,12 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return try performRequest(request)
 	}
 	
+	
+	
+	///Performs a POST request.
+	///- parameter url: The URL to make the request to.
+	///- parameter data: The fields to include in the POST request.
+	///- returns: The `Data` and `HTTPURLResponse` returned by the request.
 	open func post(_ url: String, _ data: [String:String]) throws -> (Data, HTTPURLResponse) {
 		guard let nsUrl = URL(string: url) else {
 			throw RequestError.invalidURL(url: url)
@@ -373,6 +403,11 @@ open class Client: NSObject, URLSessionDataDelegate {
 	
 	
 	
+	
+	
+	///Performs an URLRequest.
+	///- parameter request: The request to perform.
+	///- returns: The UTF-8 string returned by the request.
 	open func performRequest(_ request: URLRequest) throws -> String {
 		let (data, _) = try performRequest(request)
 		guard let string = String(data: data, encoding: String.Encoding.utf8) else {
@@ -381,6 +416,11 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return string
 	}
 	
+	
+	
+	///Performs a GET request.
+	///- paramter url: The URL to make the request to.
+	///- returns: The UTF-8 string returned by the request.
 	open func get(_ url: String) throws -> String {
 		let (data, _) = try get(url)
 		guard let string = String(data: data, encoding: String.Encoding.utf8) else {
@@ -389,6 +429,11 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return string
 	}
 	
+	
+	///Performs a POST request.
+	///- parameter url: The URL to make the request to.
+	///- parameter data: The fields to include in the POST request.
+	///- returns: The UTF-8 string returned by the request.
 	open func post(_ url: String, _ fields: [String:String]) throws -> String {
 		let (data, _) = try post(url, fields)
 		guard let string = String(data: data, encoding: String.Encoding.utf8) else {
@@ -397,15 +442,21 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return string
 	}
 	
+	
+	
+	
+	///Parses a JSON string.
 	open func parseJSON(_ json: String) throws -> Any {
 		return try JSONSerialization.jsonObject(with: json.data(using: String.Encoding.utf8)!, options: .allowFragments)
 	}
 	
 	
-	public override convenience init() {
-		self.init(host: .StackOverflow)
-	}
 	
+	
+	//MARK: - Initializers and login.
+	
+	///Initializes a Client.
+	///- parameter host: The chat host to log in to.
 	public init(host: Host) {
 		self.host = host
 		
@@ -434,45 +485,18 @@ open class Client: NSObject, URLSessionDataDelegate {
 		)
 	}
 	
+	
+	
+	
+	
 	public enum LoginError: Error {
 		case alreadyLoggedIn
 		case loginDataNotFound
 		case loginFailed(message: String)
 	}
 	
-	fileprivate func getHiddenInputs(_ string: String) -> [String:String] {
-		var result = [String:String]()
-		
-		let components = string.components(separatedBy: "<input type=\"hidden\"")
-		
-		for input in components[1..<components.count] {
-			guard let nameStartIndex = input.range(of: "name=\"")?.upperBound else {
-				continue
-			}
-			let nameStart = input.substring(from: nameStartIndex)
-			
-			guard let nameEndIndex = nameStart.range(of: "\"")?.lowerBound else {
-				continue
-			}
-			let name = nameStart.substring(to: nameEndIndex)
-			
-			guard let valueStartIndex = nameStart.range(of: "value=\"")?.upperBound else {
-				continue
-			}
-			let valueStart = nameStart.substring(from: valueStartIndex)
-			
-			guard let valueEndIndex = valueStart.range(of: "\"")?.lowerBound else {
-				continue
-			}
-			
-			let value = valueStart.substring(to: valueEndIndex)
-			
-			result[name] = value
-		}
-		
-		return result
-	}
 	
+	///Logs in to Stack Exchange.
 	open func login(email: String, password: String) throws {
 		if loggedIn {
 			throw LoginError.alreadyLoggedIn
@@ -532,6 +556,40 @@ open class Client: NSObject, URLSessionDataDelegate {
 				]
 			)
 		}
+	}
+	
+	
+	fileprivate func getHiddenInputs(_ string: String) -> [String:String] {
+		var result = [String:String]()
+		
+		let components = string.components(separatedBy: "<input type=\"hidden\"")
+		
+		for input in components[1..<components.count] {
+			guard let nameStartIndex = input.range(of: "name=\"")?.upperBound else {
+				continue
+			}
+			let nameStart = input.substring(from: nameStartIndex)
+			
+			guard let nameEndIndex = nameStart.range(of: "\"")?.lowerBound else {
+				continue
+			}
+			let name = nameStart.substring(to: nameEndIndex)
+			
+			guard let valueStartIndex = nameStart.range(of: "value=\"")?.upperBound else {
+				continue
+			}
+			let valueStart = nameStart.substring(from: valueStartIndex)
+			
+			guard let valueEndIndex = valueStart.range(of: "\"")?.lowerBound else {
+				continue
+			}
+			
+			let value = valueStart.substring(to: valueEndIndex)
+			
+			result[name] = value
+		}
+		
+		return result
 	}
 	
 	
