@@ -9,9 +9,9 @@
 import Foundation
 import Dispatch
 
+///A ChatListener parses commands from the chat room.
 open class ChatListener {
-	open let room: ChatRoom
-	
+	///The commands recognized by this ChatListener.
 	open let commands: [Command.Type]
 	
 	open var info: Any? = nil
@@ -27,24 +27,28 @@ open class ChatListener {
 	///`@FirTree`, `@Fi`, and `@Kyll` will not.
 	open var minNameCharacters = 4
 	
-	open var shutdownHandler: (Bool, Bool) -> () = {shouldReboot, isUpdate in}
+	///A closure to run when the bot shuts down.
+	open var shutdownHandler: (StopReason) -> () = {reason in}
 	
-	open func onShutdown(_ handler: @escaping (Bool, Bool) -> ()) {
+	///Runs a closure on shutdown.
+	open func onShutdown(_ handler: @escaping (StopReason) -> ()) {
 		shutdownHandler = handler
 	}
 	
-	let commandQueue = DispatchQueue(label: "Command Queue", attributes: DispatchQueue.Attributes.concurrent)
-	
-	var runningCommands = [Command]()
-	
-	public enum StopAction {
-		case run
+	public enum StopReason {
 		case halt
 		case reboot
 		case update
 	}
 	
-	fileprivate var pendingStopAction = StopAction.run
+	
+	let commandQueue = DispatchQueue(label: "Command Queue", attributes: DispatchQueue.Attributes.concurrent)
+	
+	open var runningCommands = [Command]()
+	
+	
+	
+	fileprivate var pendingStopReason: StopReason? = nil
 	
 	fileprivate func runCommand(_ command: Command) {
 		let required = type(of: command).privileges()
@@ -55,10 +59,9 @@ open class ChatListener {
 			let message = "You need the \(formatArray(missing.names, conjunction: "and")) " +
 			"\(pluralize(missing.names.count, "privilege")) to run that command."
 			
-			room.postReply(message, to: command.message)
+			command.message.room.postReply(message, to: command.message)
 			return
 		}
-		
 		
 		
 		runningCommands.append(command)
@@ -70,8 +73,8 @@ open class ChatListener {
 				handleError(error, "while running \"\(command.message.content)\"")
 			}
 			self.runningCommands.remove(at: self.runningCommands.index {$0 === command}!)
-			if (self.pendingStopAction != .run) && self.runningCommands.isEmpty {
-				self.shutdownHandler(self.pendingStopAction == .reboot, self.pendingStopAction == .update)
+			if (self.pendingStopReason != nil) && self.runningCommands.isEmpty {
+				self.shutdownHandler(self.pendingStopReason!)
 			}
 		}
 	}
@@ -138,10 +141,6 @@ open class ChatListener {
 						var bestMatch: (score: Int, component: String, usageComponent: String)?
 						
 						for usageComponent in availableUsageComponents {
-							if usageComponent == "*" || usageComponent == "..." {
-								continue
-							}
-							
 							for component in availableComponents {
 								let distance = Levenshtein.distanceBetween(usageComponent, and: component)
 								let componentScore = min(distance, usageComponent.characters.count)
@@ -166,6 +165,7 @@ open class ChatListener {
 					}
 					for _ in args {
 						if !availableComponents.isEmpty {
+							score += availableComponents.first!.characters.count / 3
 							availableComponents.removeFirst()
 						}
 					}
@@ -184,16 +184,23 @@ open class ChatListener {
 		
 		var lowest: (command: String, score: Int)?
 		for (command, score) in commandScores {
-			if score <= command.characters.count/2 && score < (lowest?.score ?? Int.max) {
+			let commandCharacters = command.components(separatedBy: " ").filter {
+				$0 != "*" && $0 != "..."
+				}.joined(separator: " ")
+			
+			if score <= commandCharacters.characters.count/2 && score < (lowest?.score ?? Int.max) {
 				lowest = (command, score)
 			}
 		}
 		
 		if let (command, _) = lowest {
-			room.postReply("Unrecognized command `\(components.joined(separator: " "))`; did you mean `\(command)`?", to: message)
+			let reply = "Unrecognized command `\(components.joined(separator: " "))`; did you mean `\(command)`?"
+			message.room.postReply(reply, to: message)
 		}
 	}
 	
+	
+	///Process a ChatMessage in the specified room.
 	open func processMessage(_ room: ChatRoom, message: ChatMessage, isEdit: Bool) {
 		let lowercase = message.content.lowercased()
 		
@@ -204,7 +211,7 @@ open class ChatListener {
 			)]
 		)
 		
-		if pendingStopAction == .run && lowercase.hasPrefix(shortName.lowercased()) {
+		if pendingStopReason == nil && lowercase.hasPrefix(shortName.lowercased()) {
 			//do a more precise check so names like @FirstStep won't cause the bot to respond
 			let name = self.name.lowercased().unicodeScalars
 			
@@ -240,15 +247,21 @@ open class ChatListener {
 		}
 	}
 	
-	open func stop(_ stopAction: StopAction) {
-		pendingStopAction = stopAction
+	///Waits for running commands to complete and calls `shutdownHandler`.
+	///- parameter reason: The reason for the shutdown.
+	open func stop(_ reason: StopReason) {
+		pendingStopReason = reason
 		if self.runningCommands.isEmpty {
-			shutdownHandler(self.pendingStopAction == .reboot, self.pendingStopAction == .update)
+			shutdownHandler(reason)
 		}
 	}
 	
-	public init(_ room: ChatRoom, commands: [Command.Type]) {
-		self.room = room
+	@available(*, unavailable, message: "Use init(commands:) instead.")
+	public init(_ room: ChatRoom, commands: [Command.Type]) {fatalError()}
+	
+	///Initializes a ChatListener.
+	///- parameter commands: The commands to listen for.
+	public init(commands: [Command.Type]) {
 		self.commands = commands
 	}
 }
