@@ -188,7 +188,7 @@ open class ChatListener {
 				$0 != "*" && $0 != "..."
 				}.joined(separator: " ")
 			
-			if score <= commandCharacters.characters.count/2 && score < (lowest?.score ?? Int.max) {
+			if score <= Int(ceil(Float(commandCharacters.characters.count)/2.0)) && score < (lowest?.score ?? Int.max) {
 				lowest = (command, score)
 			}
 		}
