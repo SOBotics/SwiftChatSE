@@ -10,7 +10,11 @@ import Foundation
 import Dispatch
 import Clibwebsockets
 
+///A ChatRoom represents a Stack Exchange chat room.
 open class ChatRoom: NSObject {
+	//MARK: - Instance variables
+	
+	///A type of event from the chat room.
 	public enum ChatEvent: Int {
 		case messagePosted = 1
 		case messageEdited = 2
@@ -39,22 +43,48 @@ open class ChatRoom: NSObject {
 		case usernameChanged = 34
 	};
 	
+	///The Client to use.
+	open let client: Client
+	
+	///The ID of this room.
+	open let roomID: Int
+	
+	///The list of known users.
+	open var userDB = [ChatUser]()
+	
+	
+	///The closure to run when a message is posted or edited.
 	open var messageHandler: (ChatMessage, Bool) -> () = {message, isEdit in}
 	
+	///Runs a closure when a message is posted or edited.
 	open func onMessage(_ handler: @escaping (ChatMessage, Bool) -> ()) {
 		messageHandler = handler
 	}
 	
-	open let client: Client
-	open let roomID: Int
+	///Whether the bot is currently in the chat room.
+	open private(set) var inRoom = false
 	
-	fileprivate var recievedMessage = false
+	///Messages that are waiting to be posted & their completion handlers.
+	open var messageQueue = [(String, ((Int) -> Void)?)]()
 	
-	fileprivate var pendingLookup = [ChatUser]()
 	
-	open var userDB = [ChatUser]()
+	private var ws: WebSocket!
+	private var wsRetries = 0
+	private let wsMaxRetries = 10
 	
-	open func lookupUserInformation() {
+	private var timestamp: Int = 0
+	
+	
+	private var recievedMessage = false
+	
+	private var pendingLookup = [ChatUser]()
+	
+	private let defaultUserDBFilename: String
+	
+	
+	//MARK: - User management
+	
+	internal func lookupUserInformation() {
 		do {
 			print("Looking up \(pendingLookup.count) user\(pendingLookup.count == 1 ? "" : "s")...")
 			let ids = pendingLookup.map {user in
@@ -106,6 +136,7 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
+	
 	///Looks up a user by ID.  If the user is not in the database, they are added.
 	open func userWithID(_ id: Int) -> ChatUser {
 		for user in userDB {
@@ -137,8 +168,12 @@ open class ChatRoom: NSObject {
 	}
 	
 	
-	open func loadUserDB() throws {
-		guard let data = try? Data(contentsOf: saveFileNamed("users_\(roomID).json")) else {
+	///Loads the user database from disk.
+	///- parameter filename: The filename to load the user databse from.
+	///The default value is `users_roomID_host.json`, for example `users_11347_stackoverflow.com.json` for SOBotics.
+	open func loadUserDB(filename: String? = nil) throws {
+		let file = filename ?? defaultUserDBFilename
+		guard let data = try? Data(contentsOf: saveFileNamed(file)) else {
 			return
 		}
 		guard let db = try JSONSerialization.jsonObject(with: data, options: []) as? [Any] else {
@@ -166,7 +201,11 @@ open class ChatRoom: NSObject {
 		userDB = users
 	}
 	
-	open func saveUserDB() throws {
+	///Saves the user database to disk.
+	///- parameter filename: The filename to save the user databse to.
+	///The default value is `users_roomID_host.json`, for example `users_11347_stackoverflow.com.json` for SOBotics.
+	open func saveUserDB(filename: String? = nil) throws {
+		let file = filename ?? defaultUserDBFilename
 		let db: Any
 		db = userDB.map {
 			[
@@ -176,27 +215,156 @@ open class ChatRoom: NSObject {
 			]
 		}
 		let data = try JSONSerialization.data(withJSONObject: db, options: .prettyPrinted)
-		try data.write(to: saveFileNamed("users_111347.json"), options: [.atomic])
+		try data.write(to: saveFileNamed(file), options: [.atomic])
 	}
 	
-	private var ws: WebSocket!
-	private var wsRetries = 0
-	private let wsMaxRetries = 10
 	
-	open var inRoom = false
 	
-	private var timestamp: Int = 0
 	
-	open var messageQueue = [(String, ((Int) -> Void)?)]()
-	
+	///Initializes a ChatRoom.
+	///- parameter client: The Client to use.
+	///- parameter roomID: The ID of the chat room.
 	public init(client: Client, roomID: Int) {
 		self.client = client
 		self.roomID = roomID
+		defaultUserDBFilename = "users_\(roomID)_\(client.host.rawValue).json"
+	}
+	
+	
+	
+	
+	fileprivate func messageQueueHandler() {
+		while messageQueue.count != 0 {
+			var result: String? = nil
+			let text = messageQueue[0].0
+			let completion = messageQueue[0].1
+			do {
+				let (data, response) = try client.post(
+					"https://chat.\(client.host.rawValue)/chats/\(roomID)/messages/new",
+					["text":text, "fkey":client.fkey]
+				)
+				if response.statusCode == 400 {
+					print("Server error while posting message")
+				}
+				else {
+					result = String(data: data, encoding: .utf8)
+				}
+			}
+			catch {
+				handleError(error)
+			}
+			do {
+				if let json = result {
+					if let data = try client.parseJSON(json) as? [String:Any] {
+						if let id = data["id"] as? Int {
+							messageQueue.removeFirst()
+							
+							if completion != nil {
+								completion!(id)
+							}
+						}
+						else {
+							print("Could not post duplicate message")
+							messageQueue.removeFirst()
+						}
+					}
+					else {
+						print(json)
+					}
+				}
+			}
+			catch {
+				if let r = result {
+					print(r)
+				}
+				else {
+					handleError(error)
+				}
+			}
+			sleep(1)
+		}
+	}
+	
+	
+	
+	///Posts a message to the ChatRoom.
+	///- paramter message: The content of the message to post, in Markdown.
+	///- parameter completion: The completion handler to call when the message is posted.
+	///The message ID will be passed to the completion handler.
+	open func postMessage(_ message: String, completion: ((Int) -> Void)? = nil) {
+		if message.characters.count == 0 {
+			return
+		}
+		messageQueue.append((message, completion))
+		if messageQueue.count == 1 {
+			client.queue.async {
+				self.messageQueueHandler()
+			}
+		}
+	}
+	
+	
+	///Replies to a ChatMessage.
+	///- paramter reply: The content of the message to post, in Markdown.
+	///- parameter to: The ChatMessage to reply to.
+	///- parameter completion: The completion handler to call when the message is posted.
+	///The message ID will be passed to the completion handler.
+	open func postReply(_ reply: String, to: ChatMessage, completion: ((Int) -> Void)? = nil) {
+		if let id = to.id {
+			postMessage(":\(id) \(reply)", completion: completion)
+		}
+		else {
+			postMessage("@\(to.user.name) \(reply)", completion: completion)
+		}
+	}
+	
+	
+	///Joins the chat room.
+	open func join() throws {
+		print("Joining chat room \(roomID)...")
+		
+		try connectWS()
+		
+		let _ = userWithID(0)   //add the Console to the database
+		let json: String = try client.get("https://chat.\(client.host.rawValue)/rooms/pingable/\(roomID)")
+		guard let users = try client.parseJSON(json) as? [Any] else {
+			throw EventError.jsonParsingFailed(json: json)
+		}
+		
+		for userObj in users {
+			guard let user = userObj as? [Any] else {
+				throw EventError.jsonParsingFailed(json: json)
+			}
+			guard let userID = user[0] as? Int else {
+				throw EventError.jsonParsingFailed(json: json)
+			}
+			let _ = userWithID(userID)
+		}
+		
+		print("Users in database: \((userDB.map {$0.description}).joined(separator: ", "))")
+		
+		inRoom = true
+		
+	}
+	
+	
+	///Leaves the chat room.
+	open func leave() {
+		//we don't really care if this fails
+		//...right?
+		inRoom = false
+		let _ = try? client.post("https://chat.\(client.host.rawValue)/chats/leave/\(roomID)", ["quiet":"true","fkey":client.fkey]) as String
+		ws.disconnect()
+		while ws.state == .disconnecting {
+			sleep(1)
+		}
 	}
 	
 	public enum RoomJoinError: Error {
 		case roomInfoRetrievalFailed
 	}
+	
+	
 	
 	fileprivate func connectWS() throws {
 		//get the timestamp
@@ -254,116 +422,7 @@ open class ChatRoom: NSObject {
 		try ws.connect()
 	}
 	
-	fileprivate func messageQueueHandler() {
-		while messageQueue.count != 0 {
-			var result: String? = nil
-			let text = messageQueue[0].0
-			let completion = messageQueue[0].1
-			do {
-				let (data, response) = try client.post(
-					"https://chat.\(client.host.rawValue)/chats/\(roomID)/messages/new",
-					["text":text, "fkey":client.fkey]
-				)
-				if response.statusCode == 400 {
-					print("Server error while posting message")
-				}
-				else {
-					result = String(data: data, encoding: .utf8)
-				}
-			}
-			catch {
-				handleError(error)
-			}
-			do {
-				if let json = result {
-					if let data = try client.parseJSON(json) as? [String:Any] {
-						if let id = data["id"] as? Int {
-							messageQueue.removeFirst()
-							
-							if completion != nil {
-								completion!(id)
-							}
-						}
-						else {
-							print("Could not post duplicate message")
-							messageQueue.removeFirst()
-						}
-					}
-					else {
-						print(json)
-					}
-				}
-			}
-			catch {
-				if let r = result {
-					print(r)
-				}
-				else {
-					handleError(error)
-				}
-			}
-			sleep(1)
-		}
-	}
 	
-	open func postMessage(_ message: String, completion: ((Int) -> Void)? = nil) {
-		if message.characters.count == 0 {
-			return
-		}
-		messageQueue.append((message, completion))
-		if messageQueue.count == 1 {
-			client.queue.async {
-				self.messageQueueHandler()
-			}
-		}
-	}
-	
-	open func postReply(_ reply: String, to: ChatMessage) {
-		if let id = to.id {
-			postMessage(":\(id) \(reply)")
-		}
-		else {
-			postMessage("@\(to.user) \(reply)")
-		}
-	}
-	
-	open func join() throws {
-		print("Joining chat room \(roomID)...")
-		
-		try connectWS()
-		
-		let _ = userWithID(0)   //add the Console to the database
-		let json: String = try client.get("https://chat.\(client.host.rawValue)/rooms/pingable/\(roomID)")
-		guard let users = try client.parseJSON(json) as? [Any] else {
-			throw EventError.jsonParsingFailed(json: json)
-		}
-		
-		for userObj in users {
-			guard let user = userObj as? [Any] else {
-				throw EventError.jsonParsingFailed(json: json)
-			}
-			guard let userID = user[0] as? Int else {
-				throw EventError.jsonParsingFailed(json: json)
-			}
-			let _ = userWithID(userID)
-		}
-		
-		print("Users in database: \((userDB.map {$0.description}).joined(separator: ", "))")
-		
-		inRoom = true
-		
-	}
-	
-	open func leave() {
-		//we don't really care if this fails
-		//...right?
-		inRoom = false
-		let _ = try? client.post("https://chat.\(client.host.rawValue)/chats/leave/\(roomID)", ["quiet":"true","fkey":client.fkey]) as String
-		ws.disconnect()
-		while ws.state == .disconnecting {
-			sleep(1)
-		}
-	}
 	
 	public enum EventError: Error {
 		case jsonParsingFailed(json: String)
@@ -420,7 +479,12 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
-	public func webSocketOpen() {
+	
+	
+	
+	//MARK: - WebSocket methods
+	
+	private func webSocketOpen() {
 		print("Websocket opened!")
 		//let _ = try? ws.write("hello")
 		wsRetries = 0
