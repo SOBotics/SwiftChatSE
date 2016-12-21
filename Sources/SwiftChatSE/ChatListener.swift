@@ -184,8 +184,9 @@ open class ChatListener {
 		
 		var lowest: (command: String, score: Int)?
 		for (command, score) in commandScores {
-			let commandCharacters = command.components(separatedBy: " ").filter {
-				$0 != "*" && $0 != "..."
+			let commandCharacters = command.components(separatedBy: " ")
+				.filter {
+					$0 != "*" && $0 != "..."
 				}.joined(separator: " ")
 			
 			if score <= Int(ceil(Float(commandCharacters.characters.count)/2.0)) && score < (lowest?.score ?? Int.max) {
