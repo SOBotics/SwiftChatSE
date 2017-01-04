@@ -147,7 +147,7 @@ public func postIDFromURL(_ url: URL, isUser: Bool = false) -> Int? {
 }
 
 public var botName = "FireAlarm-Swift"
-public var githubLink = "//github.com/NobodyNada/FireAlarm/tree/swift"
+public var githubLink = "//github.com/SOBotics/FireAlarm/tree/swift"
 
 public var currentVersion = "<unknown version>"
 public var shortVersion = "<unknown version>"
