@@ -45,6 +45,13 @@ public final class Levenshtein {
 		let a = Array(aStr.utf16)
 		let b = Array(bStr.utf16)
 		
+		if a.isEmpty {
+			return b.count
+		}
+		if b.isEmpty {
+			return a.count
+		}
+		
 		let dist = Array2D(cols: a.count + 1, rows: b.count + 1)
 		
 		for i in 1...a.count {
