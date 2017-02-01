@@ -332,7 +332,6 @@ open class Client: NSObject, URLSessionDataDelegate {
 		sema.wait()
 		
 		guard let response = resp as? HTTPURLResponse, data != nil else {
-			print(error)
 			throw error
 		}
 		
