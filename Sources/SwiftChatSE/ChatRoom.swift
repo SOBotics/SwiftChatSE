@@ -13,6 +13,7 @@ import Clibwebsockets
 ///A ChatRoom represents a Stack Exchange chat room.
 open class ChatRoom: NSObject {
 	//MARK: - Instance variables
+	let queue: DispatchQueue
 	
 	///A type of event from the chat room.
 	public enum ChatEvent: Int {
@@ -227,6 +228,8 @@ open class ChatRoom: NSObject {
 	public init(client: Client, roomID: Int) {
 		self.client = client
 		self.roomID = roomID
+		self.queue = DispatchQueue(label: "Room \(roomID) Queue")
+		
 		defaultUserDBFilename = "users_\(roomID)_\(client.host.rawValue).json"
 	}
 	
@@ -297,7 +300,7 @@ open class ChatRoom: NSObject {
 		}
 		messageQueue.append((message, completion))
 		if messageQueue.count == 1 {
-			client.queue.async {
+			queue.async {
 				self.messageQueueHandler()
 			}
 		}

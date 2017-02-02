@@ -51,7 +51,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 	//MARK: Instance variables
 	open var session: URLSession!
 	open var cookies = [HTTPCookie]()
-	open let queue = DispatchQueue(label: "Client queue", attributes: [.concurrent])
+	open let queue = DispatchQueue(label: "Client queue")
 	
 	open var loggedIn = false
 	
@@ -317,19 +317,21 @@ open class Client: NSObject, URLSessionDataDelegate {
 		
 		let url = req.url ?? URL(fileURLWithPath: ("invalid"))
 		
-		for (key, val) in cookieHeaders(forURL: url) {
-			req.addValue(val, forHTTPHeaderField: key)
+		queue.sync {
+			for (key, val) in cookieHeaders(forURL: url) {
+				req.addValue(val, forHTTPHeaderField: key)
+			}
+			
+			
+			let task = self.session.dataTask(with: req)
+			self.performTask(task) {inData, inResp, inError in
+				(data, resp, error) = (inData, inResp, inError)
+				sema.signal()
+			}
+			
+			
+			sema.wait()
 		}
-		
-		
-		let task = self.session.dataTask(with: req)
-		self.performTask(task) {inData, inResp, inError in
-			(data, resp, error) = (inData, inResp, inError)
-			sema.signal()
-		}
-		
-		
-		sema.wait()
 		
 		guard let response = resp as? HTTPURLResponse, data != nil else {
 			throw error
@@ -380,13 +382,15 @@ open class Client: NSObject, URLSessionDataDelegate {
 		var resp: HTTPURLResponse?
 		var responseError: Error?
 		
-		let task = self.session.uploadTask(with: request, from: data)
-		self.performTask(task) {data, response, error in
-			(responseData, resp, responseError) = (data, response, error)
-			sema.signal()
+		queue.sync {
+			let task = self.session.uploadTask(with: request, from: data)
+			self.performTask(task) {data, response, error in
+				(responseData, resp, responseError) = (data, response, error)
+				sema.signal()
+			}
+			
+			sema.wait()
 		}
-		
-		sema.wait()
 		
 		
 		guard let response = resp else {
