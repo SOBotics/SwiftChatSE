@@ -13,7 +13,6 @@ import Clibwebsockets
 ///A ChatRoom represents a Stack Exchange chat room.
 open class ChatRoom: NSObject {
 	//MARK: - Instance variables
-	let queue: DispatchQueue
 	
 	///A type of event from the chat room.
 	public enum ChatEvent: Int {
@@ -76,7 +75,7 @@ open class ChatRoom: NSObject {
 	private var timestamp: Int = 0
 	
 	
-	private var recievedMessage = false
+	private var lastEvent: Date?
 	
 	private var pendingLookup = [ChatUser]()
 	
@@ -228,8 +227,6 @@ open class ChatRoom: NSObject {
 	public init(client: Client, roomID: Int) {
 		self.client = client
 		self.roomID = roomID
-		self.queue = DispatchQueue(label: "Room \(roomID) Queue")
-		
 		defaultUserDBFilename = "users_\(roomID)_\(client.host.rawValue).json"
 	}
 	
@@ -300,7 +297,7 @@ open class ChatRoom: NSObject {
 		}
 		messageQueue.append((message, completion))
 		if messageQueue.count == 1 {
-			queue.async {
+			client.queue.async {
 				self.messageQueueHandler()
 			}
 		}
@@ -472,7 +469,7 @@ open class ChatRoom: NSObject {
 				//look up the user instead of getting their name to make sure they're in the DB
 				let user = userWithID(userID)
 				
-				print("\(user): \(content)")
+				print("\(roomID): \(user): \(content)")
 				
 				let message = ChatMessage(room: self, user: user, content: content, id: messageID, replyID: replyID)
 				messageHandler(message, type == .messageEdited)
@@ -493,14 +490,23 @@ open class ChatRoom: NSObject {
 		wsRetries = 0
 		DispatchQueue.global().async {
 			sleep(5)	//asyncAfter doesn't seem to work on Linux
-			if !self.recievedMessage {
+			if self.lastEvent == nil {
 				self.ws.disconnect()
+				return
+			}
+			
+			while true {
+				sleep(600)
+				if Date().timeIntervalSinceReferenceDate - self.lastEvent!.timeIntervalSince1970 > 600 {
+					self.ws.disconnect()
+					return
+				}
 			}
 		}
 	}
 	
 	private func webSocketMessageText(_ text: String) {
-		recievedMessage = true
+		lastEvent = Date()
 		do {
 			guard let json = try client.parseJSON(text) as? [String:Any] else {
 				throw EventError.jsonParsingFailed(json: text)
