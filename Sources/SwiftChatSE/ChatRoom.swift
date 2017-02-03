@@ -297,7 +297,7 @@ open class ChatRoom: NSObject {
 		}
 		messageQueue.append((message, completion))
 		if messageQueue.count == 1 {
-			client.queue.async {
+			DispatchQueue.global().async {
 				self.messageQueueHandler()
 			}
 		}
