@@ -53,8 +53,10 @@ open class CommandPrivilege: Command {
 		
 		//search for the user in the user database
 		for chatUser in message.room.userDB {
+			let cleanedName = chatUser.name.replacingOccurrences(of: " ", with: "").lowercased()
 			if chatUser.id == Int(user) ||
-				chatUser.name.replacingOccurrences(of: " ", with: "").lowercased() == user.lowercased() ||
+				cleanedName == user.lowercased() ||
+				(user.hasPrefix("@") && cleanedName == String(user.lowercased().characters.dropFirst())) || 
 				chatUser.id == idFromURL {
 				
 				targetUser = chatUser
