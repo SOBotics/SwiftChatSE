@@ -177,6 +177,6 @@ open class ChatUser: CustomStringConvertible {
 	///Returns the specified privilege that this user is missing.
 	///- note: Room owners, moderators, and the Console user implicitly have all privileges.
 	public func missing(from required: Privileges) -> Privileges {
-		return (isMod || isRO || id == 0) ? [] : privileges.subtracting(required)
+		return (isMod || isRO || id == 0) ? [] : required.subtracting(privileges)
 	}
 }
