@@ -67,6 +67,9 @@ open class ChatRoom: NSObject {
 	///Messages that are waiting to be posted & their completion handlers.
 	open var messageQueue = [(String, ((Int) -> Void)?)]()
 	
+	///Custom per-room persistent storage.  Must be serializable by JSONSerialization!
+	open var info: [String:Any] = [:]
+	
 	
 	private var ws: WebSocket!
 	private var wsRetries = 0
@@ -176,14 +179,20 @@ open class ChatRoom: NSObject {
 		guard let data = try? Data(contentsOf: saveFileNamed(file)) else {
 			return
 		}
-		guard let db = try JSONSerialization.jsonObject(with: data, options: []) as? [Any] else {
+		guard let db = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] else {
+			return
+		}
+		
+		info = (db["info"] as? [String:Any]) ?? [:]
+		
+		guard let dbUsers = db["users"] as? [Any] else {
 			return
 		}
 		
 		userDB = []
 		var users = userDB
 		
-		for item in db {
+		for item in dbUsers {
 			guard let info = (item as? [String:Any]) else {
 				continue
 			}
@@ -214,7 +223,7 @@ open class ChatRoom: NSObject {
 				"privileges":$0.privileges.rawValue
 			]
 		}
-		let data = try JSONSerialization.data(withJSONObject: db, options: .prettyPrinted)
+		let data = try JSONSerialization.data(withJSONObject: ["info":info, "users":db], options: .prettyPrinted)
 		try data.write(to: saveFileNamed(file), options: [.atomic])
 	}
 	
@@ -227,7 +236,7 @@ open class ChatRoom: NSObject {
 	public init(client: Client, roomID: Int) {
 		self.client = client
 		self.roomID = roomID
-		defaultUserDBFilename = "users_\(roomID)_\(client.host.rawValue).json"
+		defaultUserDBFilename = "room_\(roomID)_\(client.host.rawValue).json"
 	}
 	
 	
