@@ -101,7 +101,7 @@ open class ChatRoom: NSObject {
 					"roomID" : "\(roomID)"
 				]
 			)
-			
+			do { //TODO: re-indent this (I'm on my phone right now)
 			guard let results = try client.parseJSON(json) as? [String:Any] else {
 				throw EventError.jsonParsingFailed(json: json)
 			}
@@ -131,6 +131,9 @@ open class ChatRoom: NSObject {
 				chatUser.name = name
 				chatUser.isMod = isMod
 				chatUser.isRO = isRO
+			}
+			} catch {
+				handleError(error, "while looking up \(pendingLookup.count) users (json: \(json))")
 			}
 			pendingLookup.removeAll()
 		}
