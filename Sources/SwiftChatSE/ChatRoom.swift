@@ -89,6 +89,10 @@ open class ChatRoom: NSObject {
 	
 	internal func lookupUserInformation() {
 		do {
+			if pendingLookup.isEmpty {
+				return
+			}
+			
 			print("Looking up \(pendingLookup.count) user\(pendingLookup.count == 1 ? "" : "s")...")
 			let ids = pendingLookup.map {user in
 				String(user.id)
@@ -101,37 +105,37 @@ open class ChatRoom: NSObject {
 					"roomID" : "\(roomID)"
 				]
 			)
-			do { //TODO: re-indent this (I'm on my phone right now)
-			guard let results = try client.parseJSON(json) as? [String:Any] else {
-				throw EventError.jsonParsingFailed(json: json)
-			}
-			
-			guard let users = results["users"] as? [Any] else {
-				throw EventError.jsonParsingFailed(json: json)
-			}
-			
-			for obj in users {
-				guard let user = obj as? [String:Any] else {
+			do {
+				guard let results = try client.parseJSON(json) as? [String:Any] else {
 					throw EventError.jsonParsingFailed(json: json)
 				}
 				
-				guard let id = user["id"] as? Int else {
-					throw EventError.jsonParsingFailed(json: json)
-				}
-				guard let name = user["name"] as? String else {
+				guard let users = results["users"] as? [Any] else {
 					throw EventError.jsonParsingFailed(json: json)
 				}
 				
-				let isMod = (user["is_moderator"] as? Bool) ?? false
-				
-				//if user["is_owner"] is an NSNull, the user is NOT an owner.
-				let isRO = (user["is_owner"] as? NSNull) == nil ? true : false
-				
-				let chatUser = userWithID(id)
-				chatUser.name = name
-				chatUser.isMod = isMod
-				chatUser.isRO = isRO
-			}
+				for obj in users {
+					guard let user = obj as? [String:Any] else {
+						throw EventError.jsonParsingFailed(json: json)
+					}
+					
+					guard let id = user["id"] as? Int else {
+						throw EventError.jsonParsingFailed(json: json)
+					}
+					guard let name = user["name"] as? String else {
+						throw EventError.jsonParsingFailed(json: json)
+					}
+					
+					let isMod = (user["is_moderator"] as? Bool) ?? false
+					
+					//if user["is_owner"] is an NSNull, the user is NOT an owner.
+					let isRO = (user["is_owner"] as? NSNull) == nil ? true : false
+					
+					let chatUser = userWithID(id)
+					chatUser.name = name
+					chatUser.isMod = isMod
+					chatUser.isRO = isRO
+				}
 			} catch {
 				handleError(error, "while looking up \(pendingLookup.count) users (json: \(json))")
 			}
