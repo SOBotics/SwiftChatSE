@@ -146,16 +146,6 @@ public func postIDFromURL(_ url: URL, isUser: Bool = false) -> Int? {
 	return nil
 }
 
-public var botName = "FireAlarm-Swift"
-public var githubLink = "//github.com/SOBotics/FireAlarm/tree/swift"
-
-public var currentVersion = "<unknown version>"
-public var shortVersion = "<unknown version>"
-public var versionLink = githubLink
-
-public var startTime = Date()
-
-
 public var saveURL: URL!
 
 public func saveFileNamed(_ name: String) -> URL {
