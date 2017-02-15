@@ -98,12 +98,14 @@ open class ChatRoom: NSObject {
 				String(user.id)
 			}
 			
-			let json: String = try client.post(
-				"https://chat.\(client.host.rawValue)/user/info",
-				[
+			let postData = [
 					"ids" : ids.joined(separator: ","),
 					"roomID" : "\(roomID)"
-				]
+			]
+			
+			let json: String = try client.post(
+				"https://chat.\(client.host.rawValue)/user/info",
+				postData
 			)
 			do {
 				guard let results = try client.parseJSON(json) as? [String:Any] else {
@@ -137,7 +139,7 @@ open class ChatRoom: NSObject {
 					chatUser.isRO = isRO
 				}
 			} catch {
-				handleError(error, "while looking up \(pendingLookup.count) users (json: \(json))")
+				handleError(error, "while looking up \(pendingLookup.count) users (json: \(json), request: \(String(urlParameters: postData)))")
 			}
 			pendingLookup.removeAll()
 		}
