@@ -297,7 +297,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 	
 	private func performTask(_ task: URLSessionTask, completion: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) {
 		tasks[task] = HTTPTask(task: task, completion: completion)
-		usleep(200 * 1000)
+		usleep(500 * 1000)
 		task.resume()
 	}
 	
