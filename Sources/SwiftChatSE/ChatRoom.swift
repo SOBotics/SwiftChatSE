@@ -370,6 +370,10 @@ open class ChatRoom: NSObject {
 	open func leave() {
 		//we don't really care if this fails
 		//...right?
+		
+		//Checking if the bot has already left the room
+		guard inRoom else { return }
+		
 		inRoom = false
 		let _ = try? client.post("https://chat.\(client.host.rawValue)/chats/leave/\(roomID)", ["quiet":"true","fkey":client.fkey]) as String
 		ws.disconnect()
