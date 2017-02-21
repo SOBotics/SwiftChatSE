@@ -371,8 +371,8 @@ open class ChatRoom: NSObject {
 		//we don't really care if this fails
 		//...right?
 		
-		//Checking if the bot has already left the room: http://stackoverflow.com/a/38907719/4688119
-		if !(inRoom ?? false) { return } 
+		//Checking if the bot has already left the room
+		guard inRoom else { return }
 		
 		inRoom = false
 		let _ = try? client.post("https://chat.\(client.host.rawValue)/chats/leave/\(roomID)", ["quiet":"true","fkey":client.fkey]) as String
