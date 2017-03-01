@@ -17,7 +17,7 @@ open class ChatListener {
 	open var info: Any? = nil
 	
 	///The name of the bot.  A message must start with this name to be recognized as a command.
-	open var name = "@FireAlarm"
+	open var name = "@SockFireAlarm"
 	
 	///The number of characters of the name that must be included.
 	///
@@ -82,6 +82,20 @@ open class ChatListener {
 	fileprivate func handleCommand(_ message: ChatMessage) {
 		var components = message.content.lowercased().components(separatedBy: CharacterSet.whitespaces)
 		components.removeFirst()
+        
+        var i: Int!
+        i = 0
+        
+        while (i < components.count) {
+            var suffix = String (components [i].characters.suffix(1))
+            
+            while (suffix == "?" || suffix == "." || suffix == "!") {
+                components [i] = String (components [i].characters.dropLast())
+                suffix = String (components [i].characters.suffix (1))
+            }
+            
+            i = i + 1
+        }
 		
 		var args = [String]()
 		
