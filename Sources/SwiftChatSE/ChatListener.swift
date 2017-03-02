@@ -83,19 +83,9 @@ open class ChatListener {
 		var components = message.content.lowercased().components(separatedBy: CharacterSet.whitespaces)
 		components.removeFirst()
         
-        var i: Int!
-        i = 0
-        
-        while (i < components.count) {
-            var suffix = String (components [i].characters.suffix(1))
-            
-            while (suffix == "?" || suffix == "." || suffix == "!") {
-                components [i] = String (components [i].characters.dropLast())
-                suffix = String (components [i].characters.suffix (1))
-            }
-            
-            i = i + 1
-        }
+		for i in 0..<components.count {
+			components[i] = components[i].trimming(charactersIn: .punctuation)
+		}
 		
 		var args = [String]()
 		
