@@ -82,6 +82,10 @@ open class ChatListener {
 	fileprivate func handleCommand(_ message: ChatMessage) {
 		var components = message.content.lowercased().components(separatedBy: CharacterSet.whitespaces)
 		components.removeFirst()
+        
+		for i in 0..<components.count {
+			components[i] = components[i].trimming(charactersIn: .punctuation)
+		}
 		
 		var args = [String]()
 		
