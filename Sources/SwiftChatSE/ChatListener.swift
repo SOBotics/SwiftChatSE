@@ -84,7 +84,7 @@ open class ChatListener {
 		components.removeFirst()
         
 		for i in 0..<components.count {
-			components[i] = components[i].trimmingCharacters(in: .punctuation)
+			components[i] = components[i].trimmingCharacters(in: .punctuationCharacters)
 		}
 		
 		var args = [String]()
