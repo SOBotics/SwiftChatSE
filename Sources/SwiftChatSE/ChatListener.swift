@@ -17,7 +17,7 @@ open class ChatListener {
 	open var info: Any? = nil
 	
 	///The name of the bot.  A message must start with this name to be recognized as a command.
-	open var name = "@SockFireAlarm"
+	open var name = "@FireAlarm"
 	
 	///The number of characters of the name that must be included.
 	///
