@@ -49,12 +49,19 @@ func += <K, V> (left: inout [K:V], right: [K:V]) {
 ///A Client handles HTTP requests, cookie management, and logging in to Stack Exchange chat.
 open class Client: NSObject, URLSessionDataDelegate {
 	//MARK: Instance variables
-	open var session: URLSession!
+	open var session: URLSession {
+		return URLSession(
+			configuration: configuration,
+			delegate: self, delegateQueue: delegateQueue
+		)
+	}
 	open var cookies = [HTTPCookie]()
 	open let queue = DispatchQueue(label: "Client queue")
 	
 	open var loggedIn = false
 	
+	private var configuration: URLSessionConfiguration
+	private var delegateQueue: OperationQueue
 	
 	fileprivate var _fkey: String!
 	
@@ -465,6 +472,12 @@ open class Client: NSObject, URLSessionDataDelegate {
 		self.host = host
 		
 		let configuration =  URLSessionConfiguration.default
+		configuration.httpCookieStorage = nil
+		self.configuration = configuration
+		
+		let delegateQueue = OperationQueue()
+		delegateQueue.maxConcurrentOperationCount = 1
+		self.delegateQueue = delegateQueue
 		
 		super.init()
 		
@@ -477,16 +490,6 @@ open class Client: NSObject, URLSessionDataDelegate {
 		kCFNetworkProxiesHTTPSProxy as AnyHashable : "192.168.1.234",
 		kCFNetworkProxiesHTTPSPort as AnyHashable : 8080
 		]*/
-		
-		configuration.httpCookieStorage = nil
-		
-		let delegateQueue = OperationQueue()
-		delegateQueue.maxConcurrentOperationCount = 1
-		
-		session = URLSession(
-			configuration: configuration,
-			delegate: self, delegateQueue: delegateQueue
-		)
 	}
 	
 	
