@@ -2,7 +2,7 @@
 //  ErrorHandler.swift
 //  FireAlarm
 //
-//  Created by Jonathan Keller on 11/22/16.
+//  Created by NobodyNada on 11/22/16.
 //  Copyright © 2016 NobodyNada. All rights reserved.
 //
 
@@ -35,7 +35,7 @@ public var afterTooManyErrors: () -> () = { abort() }
 public var errorsInLast30Seconds = 0
 
 ///A string that will be appended to the error message so that the bot's author can be pinged by errors..
-public var ping = " (cc @NobodyNada)"
+public var ping = " (cc @AshishAhuja @NobodyNada)"
 
 ///Logs an error.
 public func handleError(_ error: Error, _ context: String? = nil) {
