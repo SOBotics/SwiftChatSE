@@ -9,7 +9,7 @@
 import Foundation
 import Dispatch
 
-
+public var userLocation = "<unknown>"
 
 public enum FileLoadingError: Error {
 	case notUFT8
