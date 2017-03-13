@@ -39,17 +39,13 @@ open class CommandStop: Command {
             
             return
         } else {
-            argLocation = arguments [0].lowercased()
+			argLocation = arguments.joined(separator: " ").lowercased()
         }
         
-        if (userLocation == "<unknown>")
-        {
-            self.reply ("Location is set to unknown!")
+        if (userLocation == "<unknown>") {
+            self.reply ("Location is unknown!")
             return
         }
-        
-        //self.reply (argLocation)
-        //self.reply (userLocation)
         
         if (userLocation.lowercased() == argLocation) {
             if usageIndex < REBOOT_INDEX {
