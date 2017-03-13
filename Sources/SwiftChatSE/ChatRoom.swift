@@ -99,8 +99,8 @@ open class ChatRoom: NSObject {
 			}
 			
 			let postData = [
-					"ids" : ids.joined(separator: ","),
-					"roomID" : "\(roomID)"
+				"ids" : ids.joined(separator: ","),
+				"roomID" : "\(roomID)"
 			]
 			
 			let json: String = try client.post(
@@ -283,7 +283,9 @@ open class ChatRoom: NSObject {
 						}
 						else {
 							print("Could not post duplicate message")
-							messageQueue.removeFirst()
+							if !messageQueue.isEmpty {
+								messageQueue.removeFirst()
+							}
 						}
 					}
 					else {
