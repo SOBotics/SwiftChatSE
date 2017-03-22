@@ -6,6 +6,9 @@
 //  Copyright © 2016 NobodyNada. All rights reserved.
 //
 
+//TODO:
+//  1. Make a proper fix for recongnising '@bots alive' and replying in SOBotics
+
 import Foundation
 import Dispatch
 
@@ -88,7 +91,7 @@ open class ChatListener {
 		}
 		
 		var args = [String]()
-		
+    
 		var commandScores = [String:Int]()
 		
 		for command in commands {
@@ -207,6 +210,14 @@ open class ChatListener {
 	
 	///Process a ChatMessage in the specified room.
 	open func processMessage(_ room: ChatRoom, message: ChatMessage, isEdit: Bool) {
+        
+        //A hack till I can get a proper fix
+        if (message.content.lowercased() == "@bots alive" || message.content.lowercased() == "🚆" || message.content.lowercased() == "🚅" || message.content.lowercased() == "🚂" || message.content.lowercased() == "🚊") && room.roomID == 111347
+        {
+            room.postMessage("[🚃](https://www.youtube.com/watch?v=dQw4w9WgXcQ)")
+            return
+        }
+        
 		let lowercase = message.content.lowercased()
 		
 		let shortName = String(name.characters[
