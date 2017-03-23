@@ -362,19 +362,15 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return try performRequest(request)
 	}
 	
-	
-	
 	///Performs a POST request.
 	///- parameter url: The URL to make the request to.
-	///- parameter data: The fields to include in the POST request.
+	///- parameter data: The body of the POST request.
 	///- returns: The `Data` and `HTTPURLResponse` returned by the request.
-	open func post(_ url: String, _ data: [String:String]) throws -> (Data, HTTPURLResponse) {
+	open func post(_ url: String, _ data: Data) throws -> (Data, HTTPURLResponse) {
 		guard let nsUrl = URL(string: url) else {
 			throw RequestError.invalidURL(url: url)
 		}
-		guard let data = String(urlParameters: data).data(using: String.Encoding.utf8) else {
-			throw RequestError.notUTF8
-		}
+		
 		var request = URLRequest(url: nsUrl)
 		request.httpMethod = "POST"
 		
@@ -413,6 +409,17 @@ open class Client: NSObject, URLSessionDataDelegate {
 	}
 	
 	
+	///Performs a POST request.
+	///- parameter url: The URL to make the request to.
+	///- parameter data: The fields to include in the POST request.
+	///- returns: The `Data` and `HTTPURLResponse` returned by the request.
+	open func post(_ url: String, _ data: [String:String]) throws -> (Data, HTTPURLResponse) {
+		guard let data = String(urlParameters: data).data(using: String.Encoding.utf8) else {
+			throw RequestError.notUTF8
+		}
+		
+		return try post(url, data)
+	}
 	
 	
 	
@@ -453,6 +460,18 @@ open class Client: NSObject, URLSessionDataDelegate {
 		return string
 	}
 	
+	
+	///Performs a POST request.
+	///- parameter url: The URL to make the request to.
+	///- parameter data: The body of the POST request.
+	///- returns: The UTF-8 string returned by the request.
+	open func post(_ url: String, _ data: Data) throws -> String {
+		let (data, _) = try post(url, data)
+		guard let string = String(data: data, encoding: String.Encoding.utf8) else {
+			throw RequestError.notUTF8
+		}
+		return string
+	}
 	
 	
 	
