@@ -103,10 +103,16 @@ open class ChatRoom: NSObject {
 				"roomID" : "\(roomID)"
 			]
 			
-			let json: String = try client.post(
-				"https://chat.\(client.host.rawValue)/user/info",
-				postData
-			)
+			let data: Data, response: HTTPURLResponse
+			
+			repeat {
+				(data, response) = try client.post(
+					"https://chat.\(client.host.rawValue)/user/info",
+					postData
+				)
+			} while response.statusCode == 400
+			
+			let json = String(data: data, encoding: .utf8)!
 			do {
 				guard let results = try client.parseJSON(json) as? [String:Any] else {
 					throw EventError.jsonParsingFailed(json: json)
