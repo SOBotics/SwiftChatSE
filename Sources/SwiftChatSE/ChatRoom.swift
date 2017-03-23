@@ -103,7 +103,7 @@ open class ChatRoom: NSObject {
 				"roomID" : "\(roomID)"
 			]
 			
-			let data: Data, response: HTTPURLResponse
+			var data: Data, response: HTTPURLResponse
 			
 			repeat {
 				(data, response) = try client.post(
