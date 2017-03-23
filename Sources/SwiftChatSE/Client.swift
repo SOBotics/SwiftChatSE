@@ -366,7 +366,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 	///- parameter url: The URL to make the request to.
 	///- parameter data: The body of the POST request.
 	///- returns: The `Data` and `HTTPURLResponse` returned by the request.
-	open func post(_ url: String, data: Data) throws -> (Data, HTTPURLResponse) {
+	open func post(_ url: String, data: Data, contentType: String? = nil) throws -> (Data, HTTPURLResponse) {
 		guard let nsUrl = URL(string: url) else {
 			throw RequestError.invalidURL(url: url)
 		}
@@ -377,6 +377,10 @@ open class Client: NSObject, URLSessionDataDelegate {
 		let url = request.url ?? URL(fileURLWithPath: ("invalid"))
 		for (key, val) in cookieHeaders(forURL: url ) {
 			request.addValue(val, forHTTPHeaderField: key)
+		}
+		
+		if let type = contentType {
+			request.setValue(type, forHTTPHeaderField: "Content-Type")
 		}
 		
 		
@@ -465,8 +469,8 @@ open class Client: NSObject, URLSessionDataDelegate {
 	///- parameter url: The URL to make the request to.
 	///- parameter data: The body of the POST request.
 	///- returns: The UTF-8 string returned by the request.
-	open func post(_ url: String, data: Data) throws -> String {
-		let (data, _) = try post(url, data: data)
+	open func post(_ url: String, data: Data, contentType: String? = nil) throws -> String {
+		let (data, _) = try post(url, data: data, contentType: contentType)
 		guard let string = String(data: data, encoding: String.Encoding.utf8) else {
 			throw RequestError.notUTF8
 		}
