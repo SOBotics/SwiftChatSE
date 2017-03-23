@@ -418,7 +418,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 			throw RequestError.notUTF8
 		}
 		
-		return try post(url, data)
+		return try post(url, data: data)
 	}
 	
 	
@@ -466,7 +466,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 	///- parameter data: The body of the POST request.
 	///- returns: The UTF-8 string returned by the request.
 	open func post(_ url: String, data: Data) throws -> String {
-		let (data, _) = try post(url, data)
+		let (data, _) = try post(url, data: data)
 		guard let string = String(data: data, encoding: String.Encoding.utf8) else {
 			throw RequestError.notUTF8
 		}
