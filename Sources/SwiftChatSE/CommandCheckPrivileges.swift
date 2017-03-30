@@ -13,7 +13,6 @@ public class CommandCheckPrivileges: Command {
 		return ["privileges", "amiprivileged", "am i privileged", "my privileges", "check privileges"]
 	}
 	
-	
 	override public func run() throws {
 		let privs = message.user.privileges.names
 		if privs.isEmpty {

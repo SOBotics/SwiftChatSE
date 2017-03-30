@@ -10,7 +10,7 @@ import Foundation
 
 open class CommandKill: Command {
 	override open class func usage() -> [String] {
-		return ["kill"]
+		return ["kill ...", "crash ...", "die ..."]
 	}
 	
 	override open class func privileges() -> ChatUser.Privileges {
@@ -18,6 +18,20 @@ open class CommandKill: Command {
 	}
 	
 	override open func run() throws {
-		abort()
+        if (arguments.count == 0) {
+            abort()
+        }
+        
+        let argLocation = arguments.joined(separator: " ").lowercased()
+        
+        if (userLocation == "<unknown>") {
+            reply ("The current instance's location is unknown.")
+            return
+        }
+        
+        if (userLocation.lowercased() == argLocation)
+        {
+            abort()
+        }
 	}
 }
