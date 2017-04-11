@@ -35,7 +35,10 @@ public var afterTooManyErrors: () -> () = { abort() }
 public var errorsInLast30Seconds = 0
 
 ///A string that will be appended to the error message so that the bot's author can be pinged by errors..
-public var ping = " (cc @NobodyNada)"
+public var ping = " (cc @<enter owner name here>)"
+
+///A bool variable which will control the usage of the ping ^ variable.
+public var pingonerror = true
 
 ///Logs an error.
 public func handleError(_ error: Error, _ context: String? = nil) {
@@ -62,8 +65,14 @@ public func handleError(_ error: Error, _ context: String? = nil) {
 	else {
 		contextStr = ""
 	}
-	
-	let message1 = "    An error (\(errorType)) occured\(contextStr)\(ping):"
+    
+    let message1: String
+    
+    if (pingonerror == true) {
+        message1 = "    An error (\(errorType)) occured\(contextStr)\(ping):"
+    } else {
+        message1 = "    An error (\(errorType)) occured\(contextStr):"
+    }
 	
 	if let room = errorRoom {
 		room.postMessage(message1 + "\n    " + errorDetails.replacingOccurrences(of: "\n", with: "\n    "))
