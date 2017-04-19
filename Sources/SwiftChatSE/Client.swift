@@ -232,6 +232,8 @@ open class Client: NSObject, URLSessionDataDelegate {
 		didReceive response: URLResponse,
 		completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
 		
+		print("Recieved response")
+		
 		guard let task = tasks[dataTask] else {
 			print("\(dataTask) is not in client task list; cancelling")
 			completionHandler(.cancel)
@@ -275,6 +277,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 			return
 		}
 		task.error = error
+		print("Task completed")
 		
 		task.completion(task.data, task.response, task.error)
 		
@@ -304,6 +307,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 	}
 	
 	private func performTask(_ task: URLSessionTask, completion: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) {
+		print("Starting task")
 		usleep(500 * 1000)
 		tasks[task] = HTTPTask(task: task, completion: completion)
 		task.resume()
@@ -341,6 +345,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 			
 			if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
 				error = RequestError.timeout
+				print("Task timed out")
 			}
 		}
 		
