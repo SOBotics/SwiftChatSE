@@ -116,6 +116,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		case invalidURL(url: String)
 		case notUTF8
 		case unknownError
+		case timeout
 	}
 	
 	
@@ -338,7 +339,9 @@ open class Client: NSObject, URLSessionDataDelegate {
 			}
 			
 			
-			sema.wait()
+			if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
+				responseError = RequestError.timeout
+			}
 		}
 		
 		guard let response = resp as? HTTPURLResponse, data != nil else {
@@ -397,7 +400,9 @@ open class Client: NSObject, URLSessionDataDelegate {
 				sema.signal()
 			}
 			
-			sema.wait()
+			if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
+				responseError = RequestError.timeout
+			}
 		}
 		
 		
