@@ -56,7 +56,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		)
 	}
 	open var cookies = [HTTPCookie]()
-	open let queue = DispatchQueue(label: "Client queue")
+	private let queue = DispatchQueue(label: "Client queue")
 	
 	open var loggedIn = false
 	
