@@ -402,7 +402,6 @@ open class Client: NSObject, URLSessionDataDelegate {
 			
 			if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
 				responseError = RequestError.timeout
-				print("Task timed out")
 			}
 		}
 		
