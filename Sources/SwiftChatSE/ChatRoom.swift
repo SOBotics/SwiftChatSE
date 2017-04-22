@@ -385,8 +385,10 @@ open class ChatRoom: NSObject {
 		inRoom = false
 		let _ = try? client.post("https://chat.\(client.host.rawValue)/chats/leave/\(roomID)", ["quiet":"true","fkey":client.fkey]) as String
 		ws.disconnect()
-		while ws.state == .disconnecting {
-			sleep(1)
+		for _ in 0..<10 {
+			if ws.state == .disconnecting {
+				sleep(1)
+			}
 		}
 	}
 	
