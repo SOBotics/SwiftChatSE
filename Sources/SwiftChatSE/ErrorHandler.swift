@@ -46,18 +46,18 @@ public func handleError(_ error: Error, _ context: String? = nil) {
 	let errorType: String
 	let errorDetails: String
 	
-	#if os(Linux)
-		if let e = errorAsNSError(error) {
-			errorType = "NSError"
-			errorDetails = formatNSError(e)
-		} else {
-			errorType = String(reflecting: type(of: error))
-			errorDetails = String(describing: error)
-		}
-	#else
-		errorType = String(reflecting: type(of: error))
-		errorDetails = String(describing: error)
-	#endif
+	/*#if os(Linux)
+	if let e = errorAsNSError(error) {
+	errorType = "NSError"
+	errorDetails = formatNSError(e)
+	} else {
+	errorType = String(reflecting: type(of: error))
+	errorDetails = String(describing: error)
+	}
+	#else*/
+	errorType = String(reflecting: type(of: error))
+	errorDetails = String(describing: error)
+	//#endif
 	
 	if context != nil {
 		contextStr = " \(context!)"
@@ -65,14 +65,14 @@ public func handleError(_ error: Error, _ context: String? = nil) {
 	else {
 		contextStr = ""
 	}
-    
-    let message1: String
-    
-    if (pingonerror == true) {
-        message1 = "    An error (\(errorType)) occured\(contextStr)\(ping):"
-    } else {
-        message1 = "    An error (\(errorType)) occured\(contextStr):"
-    }
+	
+	let message1: String
+	
+	if (pingonerror == true) {
+		message1 = "    An error (\(errorType)) occured\(contextStr)\(ping):"
+	} else {
+		message1 = "    An error (\(errorType)) occured\(contextStr):"
+	}
 	
 	if let room = errorRoom {
 		room.postMessage(message1 + "\n    " + errorDetails.replacingOccurrences(of: "\n", with: "\n    "))
