@@ -13,11 +13,11 @@ import Foundation
 open class ChatUser: CustomStringConvertible {
 	
 	///The user ID.
-	open let id: Int
-	
-	fileprivate var _name: String?
-	fileprivate var _isMod: Bool?
-	fileprivate var _isRO: Bool?
+    open let id: Int
+    
+    fileprivate var _name: String?
+    fileprivate var _isMod: Bool?
+    fileprivate var _isRO: Bool?
 	
 	///Custom per-user persistent storage.  Must be serializable by JSONSerialization!
 	open var info: [String:Any] = [:]
@@ -97,75 +97,75 @@ open class ChatUser: CustomStringConvertible {
 	
 	
 	///The name of this user.
-	open var name: String {
-		get {
-			if let n = _name {
-				return n
+    open var name: String {
+        get {
+            if let n = _name {
+                return n
 			} else if id == 0 {
 				return "Console"
 			} else {
-				room.lookupUserInformation()
-				return _name ?? "<unkown user \(id)>"
-			}
-		}
-		set {
-			_name = newValue
-		}
-	}
+                room.lookupUserInformation()
+                return _name ?? "<unkown user \(id)>"
+            }
+        }
+        set {
+            _name = newValue
+        }
+    }
 	
 	///Whether this user is a ♦ moderator.
-	open var isMod: Bool {
-		get {
-			if let i = _isMod {
-				return i
+    open var isMod: Bool {
+        get {
+            if let i = _isMod {
+                return i
 			} else if id == 0 {
 				return false
 			} else {
-				room.lookupUserInformation()
-				return _isMod ?? false
-			}
-		}
-		set {
-			_isMod = newValue
-		}
-	}
+                room.lookupUserInformation()
+                return _isMod ?? false
+            }
+        }
+        set {
+            _isMod = newValue
+        }
+    }
 	
 	///Whether this user is an owner of the room.
-	open var isRO: Bool {
-		get {
-			if let i = _isRO {
-				return i
+    open var isRO: Bool {
+        get {
+            if let i = _isRO {
+                return i
 			} else if id == 0 {
 				return false
 			} else {
-				room.lookupUserInformation()
-				return _isRO ?? false
-			}
-		}
-		set {
-			_isRO = newValue
-		}
-	}
-	
-	open var description: String {
-		return name
-	}
+                room.lookupUserInformation()
+                return _isRO ?? false
+            }
+        }
+        set {
+            _isRO = newValue
+        }
+    }
+    
+    open var description: String {
+        return name
+    }
 	
 	
 	///The privileges this user has.
-	open var privileges = Privileges()
+	open var privileges: Privileges = []
 	
 	
 	///The room this user is from.
-	open let room: ChatRoom
+    open let room: ChatRoom
 	
 	
 	
-	public init(room: ChatRoom, id: Int, name: String? = nil) {
-		self.room = room
-		self.id = id
-		_name = name
-	}
+    public init(room: ChatRoom, id: Int, name: String? = nil) {
+        self.room = room
+        self.id = id
+        _name = name
+    }
 	
 	
 	///Whether the user has the specified privileges.

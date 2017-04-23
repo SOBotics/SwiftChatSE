@@ -246,7 +246,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		let url = response.url ?? URL(fileURLWithPath: "<invalid>")
 		
 		#if os(Linux)
-			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
+			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, forURL: url), forHost: url.host ?? "")
 		#else
 			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
 		#endif
@@ -296,7 +296,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		
 		let url = response.url ?? URL(fileURLWithPath: "invalid")
 		#if os(Linux)
-			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
+			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, forURL: url), forHost: url.host ?? "")
 		#else
 			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
 		#endif
@@ -304,7 +304,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 	}
 	
 	private func performTask(_ task: URLSessionTask, completion: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) {
-		//usleep(500 * 1000)
+		usleep(500 * 1000)
 		tasks[task] = HTTPTask(task: task, completion: completion)
 		task.resume()
 	}
@@ -326,21 +326,22 @@ open class Client: NSObject, URLSessionDataDelegate {
 		
 		let url = req.url ?? URL(fileURLWithPath: ("invalid"))
 		
-		for (key, val) in cookieHeaders(forURL: url) {
-			req.addValue(val, forHTTPHeaderField: key)
-		}
-		
-		queue.async {
+		queue.sync {
+			for (key, val) in cookieHeaders(forURL: url) {
+				req.addValue(val, forHTTPHeaderField: key)
+			}
+			
+			
 			let task = self.session.dataTask(with: req)
 			self.performTask(task) {inData, inResp, inError in
 				(data, resp, error) = (inData, inResp, inError)
 				sema.signal()
 			}
-		}
-		
-		
-		if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
-			error = RequestError.timeout
+			
+			
+			if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
+				error = RequestError.timeout
+			}
 		}
 		
 		guard let response = resp as? HTTPURLResponse, data != nil else {
@@ -373,18 +374,17 @@ open class Client: NSObject, URLSessionDataDelegate {
 			throw RequestError.invalidURL(url: url)
 		}
 		
-		let contentType = contentType ?? "application/x-www-form-urlencoded"
-		
 		var request = URLRequest(url: nsUrl)
 		request.httpMethod = "POST"
-		request.httpBody = data
 		
 		let url = request.url ?? URL(fileURLWithPath: ("invalid"))
-		for (key, val) in cookieHeaders(forURL: url) {
+		for (key, val) in cookieHeaders(forURL: url ) {
 			request.addValue(val, forHTTPHeaderField: key)
 		}
 		
-		request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+		if let type = contentType {
+			request.setValue(type, forHTTPHeaderField: "Content-Type")
+		}
 		
 		
 		let sema = DispatchSemaphore(value: 0)
@@ -393,16 +393,16 @@ open class Client: NSObject, URLSessionDataDelegate {
 		var resp: HTTPURLResponse?
 		var responseError: Error?
 		
-		queue.async {
+		queue.sync {
 			let task = self.session.uploadTask(with: request, from: data)
 			self.performTask(task) {data, response, error in
 				(responseData, resp, responseError) = (data, response, error)
 				sema.signal()
 			}
-		}
-		
-		if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
-			responseError = RequestError.timeout
+			
+			if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
+				responseError = RequestError.timeout
+			}
 		}
 		
 		
@@ -538,11 +538,13 @@ open class Client: NSObject, URLSessionDataDelegate {
 		}
 		
 		print("Logging in...")
+		
 		let loginPage: String = try get(post("https://stackexchange.com/users/signin",
 		                                     ["from" : "https://stackexchange.com/users/login/log-in"]
 		))
 		
 		let hiddenInputs = getHiddenInputs(loginPage)
+		
 		guard hiddenInputs["affId"] != nil && hiddenInputs["fkey"] != nil else {
 			throw LoginError.loginDataNotFound
 		}
@@ -556,7 +558,9 @@ open class Client: NSObject, URLSessionDataDelegate {
 		let (linkData, _) = try post(
 			"https://openid.stackexchange.com/affiliate/form/login/submit", fields
 		)
+		
 		let page = String(data: linkData, encoding: String.Encoding.utf8)!
+		
 		if let errorStartIndex = page.range(of: "<div class=\"error\"><p>")?.upperBound {
 			let errorStart = page.substring(from: errorStartIndex)
 			let errorEndIndex = errorStart.range(of: "</p></div>")!.lowerBound
@@ -564,11 +568,13 @@ open class Client: NSObject, URLSessionDataDelegate {
 			
 			throw LoginError.loginFailed(message: error)
 		}
+		
 		let linkStart = page.substring(from: page.range(of: "<a href=\"")!.upperBound)
 		let linkEndIndex = linkStart.range(of: "\"")!.lowerBound
 		let link = linkStart.substring(to: linkEndIndex)
 		
 		let (_,_) = try get(link)
+		
 		
 		if !(host == .StackExchange) {
 			//Login to host.
