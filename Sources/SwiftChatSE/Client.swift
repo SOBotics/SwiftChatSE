@@ -300,6 +300,12 @@ open class Client: NSObject, URLSessionDataDelegate {
 		#else
 			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
 		#endif
+		
+		var request = request
+		let newURL = request.url ?? URL(fileURLWithPath: ("invalid"))
+		for (key, val) in cookieHeaders(forURL: newURL) {
+			request.addValue(val, forHTTPHeaderField: key)
+		}
 		completionHandler(request)
 	}
 	
