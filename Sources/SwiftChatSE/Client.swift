@@ -63,61 +63,14 @@ open class Client: NSObject, URLSessionDataDelegate {
 	private var configuration: URLSessionConfiguration
 	private var delegateQueue: OperationQueue
 	
-	fileprivate var _fkey: String!
-	
-	///The fkey used to authorize actions in chat.
-	open var fkey: String! {
-		if _fkey == nil {
-			//Get the chat fkey.
-			let joinFavorites: String = try! get("https://chat.\(host.rawValue)/chats/join/favorite")
-			
-			guard let inputIndex = joinFavorites.range(of: "type=\"hidden\"")?.upperBound else {
-				fatalError("Could not find fkey")
-			}
-			let input = joinFavorites.substring(from: inputIndex)
-			
-			guard let fkeyStartIndex = input.range(of: "value=\"")?.upperBound else {
-				fatalError("Could not find fkey")
-			}
-			let fkeyStart = input.substring(from: fkeyStartIndex)
-			
-			guard let fkeyEnd = fkeyStart.range(of: "\"")?.lowerBound else {
-				fatalError("Could not find fkey")
-			}
-			
-			
-			_fkey = fkeyStart.substring(to: fkeyEnd)
-		}
-		return _fkey
-	}
-	
-	public enum Host: String {
-		case StackOverflow = "stackoverflow.com"
-		case StackExchange = "stackexchange.com"
-		case MetaStackExchange = "meta.stackexchange.com"
-		
-		var chatHost: String {
-			return "chat." + rawValue
-		}
-		
-		var url: URL {
-			return URL(string: "https://" + rawValue)!
-		}
-		
-		var chatHostURL: URL {
-			return URL(string: "https://" + chatHost)!
-		}
-	}
-	
-	///Which chat host this client should talk to.
-	open let host: Host
-	
 	public enum RequestError: Error {
 		case invalidURL(url: String)
 		case notUTF8
 		case unknownError
 		case timeout
 	}
+	
+	open var timeoutDuration: CFTimeInterval = 30
 	
 	
 	
@@ -245,11 +198,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		
 		let url = response.url ?? URL(fileURLWithPath: "<invalid>")
 		
-		#if os(Linux)
-			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
-		#else
-			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
-		#endif
+		addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
 		
 		task.response = response as? HTTPURLResponse
 		completionHandler(.allow)
@@ -295,16 +244,11 @@ open class Client: NSObject, URLSessionDataDelegate {
 		}
 		
 		let url = response.url ?? URL(fileURLWithPath: "invalid")
-		#if os(Linux)
-			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
-		#else
-			addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
-		#endif
+		addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
 		completionHandler(request)
 	}
 	
 	private func performTask(_ task: URLSessionTask, completion: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) {
-		//usleep(500 * 1000)
 		tasks[task] = HTTPTask(task: task, completion: completion)
 		task.resume()
 	}
@@ -339,7 +283,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		}
 		
 		
-		if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
+		if sema.wait(timeout: DispatchTime.now() + timeoutDuration) == .timedOut {
 			error = RequestError.timeout
 		}
 		
@@ -401,7 +345,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 			}
 		}
 		
-		if sema.wait(timeout: DispatchTime.now() + 30) == .timedOut {
+		if sema.wait(timeout: DispatchTime.now() + timeoutDuration) == .timedOut {
 			responseError = RequestError.timeout
 		}
 		
@@ -496,9 +440,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 	
 	///Initializes a Client.
 	///- parameter host: The chat host to log in to.
-	public init(host: Host) {
-		self.host = host
-		
+	override public init() {
 		let configuration =  URLSessionConfiguration.default
 		configuration.httpCookieStorage = nil
 		self.configuration = configuration
@@ -538,11 +480,13 @@ open class Client: NSObject, URLSessionDataDelegate {
 		}
 		
 		print("Logging in...")
+		
 		let loginPage: String = try get(post("https://stackexchange.com/users/signin",
 		                                     ["from" : "https://stackexchange.com/users/login/log-in"]
 		))
 		
 		let hiddenInputs = getHiddenInputs(loginPage)
+		
 		guard hiddenInputs["affId"] != nil && hiddenInputs["fkey"] != nil else {
 			throw LoginError.loginDataNotFound
 		}
@@ -556,7 +500,9 @@ open class Client: NSObject, URLSessionDataDelegate {
 		let (linkData, _) = try post(
 			"https://openid.stackexchange.com/affiliate/form/login/submit", fields
 		)
+		
 		let page = String(data: linkData, encoding: String.Encoding.utf8)!
+		
 		if let errorStartIndex = page.range(of: "<div class=\"error\"><p>")?.upperBound {
 			let errorStart = page.substring(from: errorStartIndex)
 			let errorEndIndex = errorStart.range(of: "</p></div>")!.lowerBound
@@ -564,15 +510,16 @@ open class Client: NSObject, URLSessionDataDelegate {
 			
 			throw LoginError.loginFailed(message: error)
 		}
+		
 		let linkStart = page.substring(from: page.range(of: "<a href=\"")!.upperBound)
 		let linkEndIndex = linkStart.range(of: "\"")!.lowerBound
 		let link = linkStart.substring(to: linkEndIndex)
 		
 		let (_,_) = try get(link)
 		
-		if !(host == .StackExchange) {
+		for host: ChatRoom.Host in [.stackOverflow, .metaStackExchange] {
 			//Login to host.
-			let hostLoginURL = "https://\(host.rawValue)/users/login"
+			let hostLoginURL = "https://\(host.domain)/users/login"
 			let hostLoginPage: String = try get(hostLoginURL)
 			guard let fkey = getHiddenInputs(hostLoginPage)["fkey"] else {
 				throw LoginError.loginDataNotFound

@@ -43,14 +43,74 @@ open class ChatRoom: NSObject {
 		case usernameChanged = 34
 	};
 	
+	
+	public enum Host: Int {
+		case stackOverflow
+		case stackExchange
+		case metaStackExchange
+		
+		var domain: String {
+			switch self {
+			case .stackOverflow:
+				return "stackoverflow.com"
+			case .stackExchange:
+				return "stackexchange.com"
+			case .metaStackExchange:
+				return "meta.stackexchange.com"
+			}
+		}
+		
+		var chatDomain: String {
+			return "chat." + domain
+		}
+		
+		var url: URL {
+			return URL(string: "https://" + domain)!
+		}
+		
+		var chatHostURL: URL {
+			return URL(string: "https://" + chatDomain)!
+		}
+	}
+	
 	///The Client to use.
 	open let client: Client
 	
 	///The ID of this room.
 	open let roomID: Int
 	
+	///The Host of this room.
+	open let host: Host
+	
 	///The list of known users.
 	open var userDB = [ChatUser]()
+	
+	
+	///The fkey used to authorize actions in chat.
+	open var fkey: String! {
+		if _fkey == nil {
+			//Get the chat fkey.
+			let joinFavorites: String = try! client.get("https://\(host.chatDomain)/chats/join/favorite")
+			
+			guard let inputIndex = joinFavorites.range(of: "type=\"hidden\"")?.upperBound else {
+				fatalError("Could not find fkey")
+			}
+			let input = joinFavorites.substring(from: inputIndex)
+			
+			guard let fkeyStartIndex = input.range(of: "value=\"")?.upperBound else {
+				fatalError("Could not find fkey")
+			}
+			let fkeyStart = input.substring(from: fkeyStartIndex)
+			
+			guard let fkeyEnd = fkeyStart.range(of: "\"")?.lowerBound else {
+				fatalError("Could not find fkey")
+			}
+			
+			
+			_fkey = fkeyStart.substring(to: fkeyEnd)
+		}
+		return _fkey
+	}
 	
 	
 	///The closure to run when a message is posted or edited.
@@ -70,6 +130,8 @@ open class ChatRoom: NSObject {
 	///Custom per-room persistent storage.  Must be serializable by JSONSerialization!
 	open var info: [String:Any] = [:]
 	
+	
+	private var _fkey: String!
 	
 	private var ws: WebSocket!
 	private var wsRetries = 0
@@ -107,7 +169,7 @@ open class ChatRoom: NSObject {
 			
 			repeat {
 				(data, response) = try client.post(
-					"https://chat.\(client.host.rawValue)/user/info",
+					"https://\(host.chatDomain)/user/info",
 					postData
 				)
 			} while response.statusCode == 400
@@ -248,10 +310,11 @@ open class ChatRoom: NSObject {
 	///Initializes a ChatRoom.
 	///- parameter client: The Client to use.
 	///- parameter roomID: The ID of the chat room.
-	public init(client: Client, roomID: Int) {
+	public init(client: Client, host: Host, roomID: Int) {
 		self.client = client
+		self.host = host
 		self.roomID = roomID
-		defaultUserDBFilename = "room_\(roomID)_\(client.host.rawValue).json"
+		defaultUserDBFilename = "room_\(roomID)_\(host.domain).json"
 	}
 	
 	
@@ -264,8 +327,8 @@ open class ChatRoom: NSObject {
 			let completion = messageQueue[0].1
 			do {
 				let (data, response) = try client.post(
-					"https://chat.\(client.host.rawValue)/chats/\(roomID)/messages/new",
-					["text":text, "fkey":client.fkey]
+					"https://\(host.chatDomain)/chats/\(roomID)/messages/new",
+					["text":text, "fkey":fkey]
 				)
 				if response.statusCode == 400 {
 					print("Server error while posting message")
@@ -352,7 +415,7 @@ open class ChatRoom: NSObject {
 		try connectWS()
 		
 		let _ = userWithID(0)   //add the Console to the database
-		let json: String = try client.get("https://chat.\(client.host.rawValue)/rooms/pingable/\(roomID)")
+		let json: String = try client.get("https://\(host.chatDomain)/rooms/pingable/\(roomID)")
 		guard let users = try client.parseJSON(json) as? [Any] else {
 			throw EventError.jsonParsingFailed(json: json)
 		}
@@ -383,7 +446,7 @@ open class ChatRoom: NSObject {
 		guard inRoom else { return }
 		
 		inRoom = false
-		let _ = try? client.post("https://chat.\(client.host.rawValue)/chats/leave/\(roomID)", ["quiet":"true","fkey":client.fkey]) as String
+		let _ = try? client.post("https://\(host.chatDomain)/chats/leave/\(roomID)", ["quiet":"true","fkey":fkey]) as String
 		ws.disconnect()
 		for _ in 0..<10 {
 			if ws.state == .disconnecting {
@@ -400,9 +463,9 @@ open class ChatRoom: NSObject {
 	
 	fileprivate func connectWS() throws {
 		//get the timestamp
-		guard let time = (try client.parseJSON(client.post("https://chat.\(client.host.rawValue)/chats/\(roomID)/events", [
+		guard let time = (try client.parseJSON(client.post("https://\(host.chatDomain)/chats/\(roomID)/events", [
 			"roomid" : String(roomID),
-			"fkey": client.fkey
+			"fkey": fkey
 			])) as? [String:Any])?["time"] as? Int else {
 				throw RoomJoinError.roomInfoRetrievalFailed
 		}
@@ -410,7 +473,7 @@ open class ChatRoom: NSObject {
 		
 		//get the auth code
 		let wsAuth = try client.parseJSON(
-			client.post("https://chat.\(client.host.rawValue)/ws-auth", ["roomid":String(roomID), "fkey":client.fkey]
+			client.post("https://\(host.chatDomain)/ws-auth", ["roomid":String(roomID), "fkey":fkey]
 			)
 			) as! [String:Any]
 		
@@ -425,12 +488,11 @@ open class ChatRoom: NSObject {
 		//}
 		
 		//ws = WebSocket(request: request)
-		let origin = "chat.\(client.host.rawValue)"
 		var headers = ""
 		for (header, value) in client.cookieHeaders(forURL: url) {
 			headers += "\(header): \(value)\u{0d}\u{0a}"
 		}
-		ws = try WebSocket(url, origin: origin, headers: headers)
+		ws = try WebSocket(url, origin: host.chatDomain, headers: headers)
 		//ws.eventQueue = client.queue
 		//ws.delegate = self
 		//ws.open()
