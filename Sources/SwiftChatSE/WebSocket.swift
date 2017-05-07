@@ -214,8 +214,8 @@ public class WebSocket {
 	
 	
 	public init(_ url: URL, origin: String? = nil, headers: String? = nil) throws {
-		if url.host == nil || url.scheme == "wss" {
-			secure = false
+		if url.scheme == nil || url.scheme == "wss" {
+			secure = true
 		}
 		else if url.scheme == "ws" {
 			secure = false
