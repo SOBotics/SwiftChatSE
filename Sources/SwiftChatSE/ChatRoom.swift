@@ -125,7 +125,7 @@ open class ChatRoom: NSObject {
 	open private(set) var inRoom = false
 	
 	///Messages that are waiting to be posted & their completion handlers.
-	open var messageQueue = [(String, ((Int) -> Void)?)]()
+	open var messageQueue = [(String, ((Int?) -> Void)?)]()
 	
 	///Custom per-room persistent storage.  Must be serializable by JSONSerialization!
 	open var info: [String:Any] = [:]
@@ -346,14 +346,14 @@ open class ChatRoom: NSObject {
 						if let id = data["id"] as? Int {
 							messageQueue.removeFirst()
 							
-							if completion != nil {
-								completion!(id)
-							}
+							completion?(id)
 						}
 						else {
 							print("Could not post duplicate message")
 							if !messageQueue.isEmpty {
 								messageQueue.removeFirst()
+								
+								completion?(nil)
 							}
 						}
 					}
@@ -380,7 +380,7 @@ open class ChatRoom: NSObject {
 	///- paramter message: The content of the message to post, in Markdown.
 	///- parameter completion: The completion handler to call when the message is posted.
 	///The message ID will be passed to the completion handler.
-	open func postMessage(_ message: String, completion: ((Int) -> Void)? = nil) {
+	open func postMessage(_ message: String, completion: ((Int?) -> Void)? = nil) {
 		if message.characters.count == 0 {
 			return
 		}
@@ -398,7 +398,7 @@ open class ChatRoom: NSObject {
 	///- parameter to: The ChatMessage to reply to.
 	///- parameter completion: The completion handler to call when the message is posted.
 	///The message ID will be passed to the completion handler.
-	open func postReply(_ reply: String, to: ChatMessage, completion: ((Int) -> Void)? = nil) {
+	open func postReply(_ reply: String, to: ChatMessage, completion: ((Int?) -> Void)? = nil) {
 		if let id = to.id {
 			postMessage(":\(id) \(reply)", completion: completion)
 		}
@@ -546,7 +546,7 @@ open class ChatRoom: NSObject {
 				
 				var replyID: Int? = nil
 				
-				var content: String = try client.get("https://\(host.chatDomain)/message/\(messageID)?plain=true")
+				var content: String = try client.get("https://chat.stackoverflow.com/message/\(messageID)?plain=true")
 				
 				if let parent = event["parent_id"] as? Int {
 					replyID = parent
