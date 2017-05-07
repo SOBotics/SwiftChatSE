@@ -245,6 +245,12 @@ open class Client: NSObject, URLSessionDataDelegate {
 		
 		let url = response.url ?? URL(fileURLWithPath: "invalid")
 		addCookies(HTTPCookie.cookies(withResponseHeaderFields: headers, for: url), forHost: url.host ?? "")
+		
+		var request = request
+		let newURL = request.url ?? URL(fileURLWithPath: ("invalid"))
+		for (key, val) in cookieHeaders(forURL: newURL) {
+			request.addValue(val, forHTTPHeaderField: key)
+		}
 		completionHandler(request)
 	}
 	
