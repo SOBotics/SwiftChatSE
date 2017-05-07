@@ -49,7 +49,7 @@ open class ChatRoom: NSObject {
 		case stackExchange
 		case metaStackExchange
 		
-		var domain: String {
+		public var domain: String {
 			switch self {
 			case .stackOverflow:
 				return "stackoverflow.com"
@@ -60,15 +60,15 @@ open class ChatRoom: NSObject {
 			}
 		}
 		
-		var chatDomain: String {
+		public var chatDomain: String {
 			return "chat." + domain
 		}
 		
-		var url: URL {
+		public var url: URL {
 			return URL(string: "https://" + domain)!
 		}
 		
-		var chatHostURL: URL {
+		public var chatHostURL: URL {
 			return URL(string: "https://" + chatDomain)!
 		}
 	}

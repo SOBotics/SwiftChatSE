@@ -70,7 +70,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 		case timeout
 	}
 	
-	open var timeoutDuration: CFTimeInterval = 30
+	open var timeoutDuration: TimeInterval = 30
 	
 	
 	
