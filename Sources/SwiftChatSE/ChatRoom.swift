@@ -546,7 +546,7 @@ open class ChatRoom: NSObject {
 				
 				var replyID: Int? = nil
 				
-				var content: String = try client.get("https://chat.stackoverflow.com/message/\(messageID)?plain=true")
+				var content: String = try client.get("https://\(host.chatDomain)/message/\(messageID)?plain=true")
 				
 				if let parent = event["parent_id"] as? Int {
 					replyID = parent
