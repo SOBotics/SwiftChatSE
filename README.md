@@ -64,7 +64,7 @@ You'll have to run the following command to build:
 
     swift build -Xswiftc -lwebsockets -Xswiftc -I/usr/local/opt/openssl/include -Xswiftc -I/usr/local/include -Xlinker -lwebsockets -Xlinker -L/usr/local/lib
     
-After running the `swift build` command, the executable will be placed in the directory `.build`.  If you want to use Xcode to develop, just run:
+After running the `swift build` command, the executable will be placed in the directory `.build`.  If you want to use Xcode to develop, just copy `swiftchatse.xcconfig` to your project directory and run:
 
     swift package generate-xcodeproj --xcconfig-overrides swiftchatse.xcconfig
     
