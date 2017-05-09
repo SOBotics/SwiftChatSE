@@ -47,7 +47,7 @@ open class CommandStop: Command {
             return
         }
         
-        if (userLocation.lowercased() == argLocation) {
+        if (userLocation.lowercased().hasPrefix(argLocation)) {
             if usageIndex < REBOOT_INDEX {
                 action = .halt
                 reply = "Shutting down..."
