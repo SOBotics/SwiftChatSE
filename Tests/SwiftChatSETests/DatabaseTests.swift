@@ -2,7 +2,7 @@
 //  DatabaseTests.swift
 //  SwiftChatSE
 //
-//  Created by Jonathan Keller on 5/8/17.
+//  Created by NobodyNada on 5/8/17.
 //
 //
 
