@@ -16,11 +16,12 @@ import Foundation
 
 
 enum DatabaseError: Error {
-	case unknownSQLiteError(code: Int32)
+	case unknownSQLiteError(code: Int32, message: String?)
+	case sqliteError(error: SQLiteError, message: String?)
 	case noSuchParameter(name: String)
 }
 
-enum SQLiteError: Int32, Error {
+enum SQLiteError: Int32 {
 	case genericError = 1
 	case aborted = 4
 	case notAuthenticated = 23
@@ -46,11 +47,14 @@ enum SQLiteError: Int32, Error {
 	case stringOrBlobTooBig = 18
 }
 
-func throwSQLiteError(code: Int32) throws -> Never {
+private func throwSQLiteError(code: Int32, db: OpaquePointer?) throws -> Never {
+	let messagePtr = sqlite3_errmsg(db)
+	let message = messagePtr.map { String(cString: $0) }
+	
 	if let error = SQLiteError(rawValue: code) {
-		throw error
+		throw DatabaseError.sqliteError(error: error, message: message)
 	}
-	throw DatabaseError.unknownSQLiteError(code: code)
+	throw DatabaseError.unknownSQLiteError(code: code, message: message)
 }
 
 class DatabaseConnection {
@@ -64,7 +68,7 @@ class DatabaseConnection {
 		
 		let result = sqlite3_open(filename, &connection)
 		guard result == SQLITE_OK, connection != nil else {
-			try throwSQLiteError(code: result)
+			try throwSQLiteError(code: result, db: nil)
 		}
 		
 		db = connection!
@@ -81,6 +85,61 @@ class DatabaseConnection {
 		sqlite3_close_v2(db)
 	}
 	
+	
+	func migrate(
+		_ name: String? = nil,
+		file: String = #file,
+		function: String = #function,
+		line: Int = #line,
+		_ migration: (() throws -> Void)
+		) throws {
+		
+		let name = name ?? "\(file):\(function):\(line)"
+		
+		try performTransaction {
+			//Create the migration table if it does not exist already.
+			try run("CREATE TABLE IF NOT EXISTS migrations (name TEXT NOT NULL);")
+			try run("CREATE UNIQUE INDEX IF NOT EXISTS migration_index ON migrations (name);")
+			
+			//Check if this migration already exists.
+			let exists: Int? = try run(
+				"SELECT EXISTS(SELECT * FROM migrations WHERE name = ? LIMIT 1);",
+				name
+				).first?.column(at: 0) ?? 0
+			
+			if (exists ?? 0) == 0 {
+				//Run the migration.
+				try migration()
+				
+				try run("INSERT INTO migrations (name) VALUES (?)", name)
+			}
+		}
+	}
+	
+	///Performs a database transaction.
+	///
+	///A [database transaction](https://en.wikipedia.org/wiki/Database_transaction) is an atomic unit of work,
+	///guaranteed to either complete entirely or not at all.
+	///
+	///If either the transaction block or the `COMMIT` statement throw an error,
+	///the transaction will be automatically rolled back.  If this function throws an error,
+	///you may assume none of the database statements run by `transaction` have been performed.
+	
+	///- parameter transaction: The code to run inside of the transaction.
+	func performTransaction<Result>(_ transaction: (() throws -> Result)) throws -> Result {
+		let result: Result
+		
+		try run("BEGIN;")
+		do {
+			result = try transaction()
+			try run("COMMIT;")
+		} catch {
+			try run("ROLLBACK;")
+			throw error
+		}
+		
+		return result
+	}
 	
 	///Runs a single SQL statement, binding the specified parameters.
 	///- parameter query: The SQL statement to run.
@@ -116,7 +175,7 @@ class DatabaseConnection {
 			)
 			
 			guard result == SQLITE_OK, stmt != nil else {
-				try throwSQLiteError(code: result)
+				try throwSQLiteError(code: result, db: nil)
 			}
 			if tail != nil && tail!.pointee != 0 {
 				//programmer error, so crash instead of throwing
@@ -152,7 +211,7 @@ class DatabaseConnection {
 			}
 			
 			guard result == SQLITE_OK else {
-				try throwSQLiteError(code: result)
+				try throwSQLiteError(code: result, db: db)
 			}
 		}
 		
@@ -171,7 +230,7 @@ class DatabaseConnection {
 			}
 			
 			guard result == SQLITE_OK else {
-				try throwSQLiteError(code: result)
+				try throwSQLiteError(code: result, db: db)
 			}
 		}
 		
@@ -191,7 +250,7 @@ class DatabaseConnection {
 				results.append(Row(statement: statement))
 				break
 			default:
-				try throwSQLiteError(code: result)
+				try throwSQLiteError(code: result, db: db)
 			}
 		} while !done
 		

@@ -68,7 +68,6 @@ class DatabaseTests: XCTestCase {
 			
 			XCTAssert(result.columns.last as? String == testText)
 			
-			XCTAssert((result.column(named: "someText") as String) == testText)
 			XCTAssert((result.column(named: "someText") as String?) == testText)
 		}
 	}
@@ -93,6 +92,64 @@ class DatabaseTests: XCTestCase {
 		if let result = results.first {
 			XCTAssert((result.column(named: "someText") as String?) == nil)
 		}
+	}
+	
+	func testTransactions() throws {
+		try db.run(
+			"CREATE TABLE test (" +
+				"id INTEGER PRIMARY KEY NOT NULL," +
+				"someText TEXT" +
+			");")
+		
+		try db.performTransaction {
+			try db.run("INSERT INTO test (someText) VALUES (?);", testText)
+			try db.run("INSERT INTO test (someText) VALUES (?);", testText)
+		}
+		
+		XCTAssert(try db.run("SELECT COUNT(*) FROM test").first?.column(at: 0) == 2, "Transactions should work")
+		
+		
+		
+		XCTAssertThrowsError(try db.performTransaction {
+			try db.run("INSERT INTO test (someText) VALUES (?);", testText)
+			try db.run("HAJSDFLKJAHSDFALSDF;")
+			try db.run("DELETE FROM test;")
+		}, "A failed transaction should throw an error")
+		
+		XCTAssert(try db.run("SELECT COUNT(*) FROM test").first?.column(at: 0)  == 2,
+		          "An invalid transaction should not have any effects"
+		)
+		
+		
+		
+		try db.performTransaction {
+			try db.run("DELETE FROM test;")
+			return
+		}
+		
+		XCTAssert(try db.run("SELECT COUNT(*) FROM test").first?.column(at: 0)  == 0, "Transactions should work")
+	}
+	
+	func testMigrations() throws {
+		try db.run(
+			"CREATE TABLE test (" +
+				"id INTEGER PRIMARY KEY NOT NULL," +
+				"someText TEXT" +
+		");")
+		
+		try db.migrate {
+			try db.run("INSERT INTO test (someText) VALUES (?);", testText)
+		}
+		
+		let results = try db.run("SELECT * FROM test")
+		XCTAssert(results.count == 1, "results should have exactly one element")
+		
+		if let result = results.first {
+			XCTAssert((result.column(named: "someText") as String?) == testText)
+		}
+		
+		try db.migrate("testing") {}
+		try db.migrate("testing") { XCTFail("migration was performed twice") }
 	}
 	
 	

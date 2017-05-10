@@ -78,21 +78,6 @@ class Row {
 		return converted
 	}
 	
-	///Returns the contents of the column at the specified index.
-	///
-	///- parameter index: The index of the column to return.
-	///- parameter type: The type of the column to return.  Will be inferred by the compiler
-	///                  if not specified.  Must conform to `DatabaseType`.
-	///
-	///- returns: The contents of the column.
-	///
-	///- warning: Will crash if the index is out of range, the column has an incompatible type,
-	///           or the column is `NULL`.
-	func column<T: DatabaseType>(at index: Int, type: T.Type = T.self) -> T {
-		guard let value =  (column(at: index) as T?) else { fatalError("column \(index) is NULL") }
-		return value
-	}
-	
 	///Returns the contents of the column with the specified name.
 	///
 	///- parameter name: The name of the column to return.
@@ -107,20 +92,5 @@ class Row {
 			fatalError("column '\(name)' not found in \(Array(columnNames.keys))")
 		}
 		return column(at: index)
-	}
-	
-	///Returns the contents of the column at the specified index.
-	///
-	///- parameter name: The name of the column to return.
-	///- parameter type: The type of the column to return.  Will be inferred by the compiler
-	///                  if not specified.  Must conform to `DatabaseType`.
-	///
-	///- returns: The contents of the column.
-	///
-	///- warning: Will crash if the name does not exist, the column has an incompatible type,
-	///           or the column is `NULL`.
-	func column<T: DatabaseType>(named name: String, type: T.Type = T.self) -> T {
-		guard let value =  (column(named: name) as T?) else { fatalError("column '\(name)' is NULL") }
-		return value
 	}
 }
