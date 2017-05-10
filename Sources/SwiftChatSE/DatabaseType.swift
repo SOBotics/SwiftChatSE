@@ -51,7 +51,7 @@ extension Data: DatabaseNativeType {
 		return withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Int32 in
 			let count = self.count
 			let bytesCopy = malloc(count)
-			memcpy(bytesCopy, bytes, count)
+			memcpy(bytesCopy!, bytes, count)
 			
 			return sqlite3_bind_blob(statement, index, bytesCopy, Int32(count)) { data in free(data) }
 		}
