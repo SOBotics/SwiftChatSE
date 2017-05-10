@@ -1,0 +1,35 @@
+branches:
+  except: 
+    - rpi
+
+language: generic
+sudo: required
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      env:
+        - SWIFT_VERSION=swift-3.1
+          SWIFT_BUILD=$SWIFT_VERSION-RELEASE-ubuntu14.04
+          SWIFT_URL=https://swift.org/builds/$SWIFT_VERSION-release/ubuntu1404/$SWIFT_VERSION-RELEASE/$SWIFT_BUILD.tar.gz
+          PATH="$SWIFT_BUILD/usr/bin:$PATH"
+    - os: osx
+      osx_image: xcode8.3
+      env:
+        - OPENSSL_ROOT_DIR=$(brew --prefix openssl)
+
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      echo "Installing Swift...";
+      curl "$SWIFT_URL" | tar -xzf - || exit 2;
+    fi;
+
+    echo "Installing libwebsockets...";
+    git clone "https://github.com/warmcat/libwebsockets" || exit 3;
+    pushd libwebsockets || exit 5;
+    (cmake . && make && sudo make install) || exit 5;
+    popd
+
+script:
+  - ./build.sh
