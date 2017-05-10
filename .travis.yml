@@ -32,4 +32,4 @@ install:
     popd
 
 script:
-  - ./build.sh
+  - ./test.sh
