@@ -38,10 +38,11 @@ open class ChatListener {
 		shutdownHandler = handler
 	}
 	
+	//Tells whether to reboot, shutdown or update.
 	public enum StopReason {
-		case halt
-		case reboot
-		case update
+		case halt //Tells the bot to shutdown
+		case reboot //Tells the bot to reboot
+		case update //Tells the bot to update
 	}
 	
 	
