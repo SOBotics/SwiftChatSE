@@ -146,6 +146,7 @@ fileprivate func wsLog(level: Int32, buf: UnsafePointer<Int8>?) {
 	}
 }
 
+///Handles all the websocket connections.
 public class WebSocket {
 	public static var debugLoggingEnabled = false
 	

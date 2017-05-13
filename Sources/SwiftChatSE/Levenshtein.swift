@@ -41,6 +41,7 @@ public final class Levenshtein {
 		}
 	}
 	
+    ///Calclates and returns the levenshtein distance between two strings.
 	public class func distanceBetween(_ aStr: String, and bStr: String) -> Int {
 		let a = Array(aStr.utf16)
 		let b = Array(bStr.utf16)
