@@ -1,0 +1,544 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatListener.swift",
+      "line": 20,
+      "symbol": "ChatListener.info",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatListener.swift",
+      "line": 43,
+      "symbol": "ChatListener.StopReason.halt",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatMessage.swift",
+      "line": 29,
+      "symbol": "ChatMessage.init(room:user:content:id:replyID:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatMessage.swift",
+      "line": 37,
+      "symbol": "ChatMessage.reply(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatRoom.swift",
+      "line": 31,
+      "symbol": "ChatRoom.ChatEvent.debugMessage",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatRoom.swift",
+      "line": 42,
+      "symbol": "ChatRoom.ChatEvent.userSettingsChanged",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatRoom.swift",
+      "line": 43,
+      "symbol": "ChatRoom.ChatEvent.globalNotification",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatRoom.swift",
+      "line": 44,
+      "symbol": "ChatRoom.ChatEvent.accessLevelChanged",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatRoom.swift",
+      "line": 45,
+      "symbol": "ChatRoom.ChatEvent.userNotification",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatRoom.swift",
+      "line": 56,
+      "symbol": "ChatRoom.ChatEvent.feedTicker",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ChatUser.swift",
+      "line": 78,
+      "symbol": "ChatUser.Privileges.privilegeNames",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Client.swift",
+      "line": 52,
+      "symbol": "Client.session",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Client.swift",
+      "line": 70,
+      "symbol": "Client.RequestError.invalidURL",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Client.swift",
+      "line": 71,
+      "symbol": "Client.RequestError.notUTF8",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Client.swift",
+      "line": 72,
+      "symbol": "Client.RequestError.unknownError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Client.swift",
+      "line": 73,
+      "symbol": "Client.RequestError.timeout",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Client.swift",
+      "line": 182,
+      "symbol": "Client.urlSession(_:dataTask:didReceive:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Client.swift",
+      "line": 207,
+      "symbol": "Client.urlSession(_:dataTask:didReceive:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Client.swift",
+      "line": 221,
+      "symbol": "Client.urlSession(_:task:didCompleteWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Client.swift",
+      "line": 233,
+      "symbol": "Client.urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Command.swift",
+      "line": 11,
+      "symbol": "Command",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Command.swift",
+      "line": 24,
+      "symbol": "Command.listener",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/CommandCheckPrivileges.swift",
+      "line": 11,
+      "symbol": "CommandCheckPrivileges",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/CommandKill.swift",
+      "line": 11,
+      "symbol": "CommandKill",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/CommandListRunning.swift",
+      "line": 11,
+      "symbol": "CommandListRunning",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/CommandPrivilege.swift",
+      "line": 11,
+      "symbol": "CommandPrivilege",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/CommandSay.swift",
+      "line": 11,
+      "symbol": "CommandSay",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/CommandStop.swift",
+      "line": 11,
+      "symbol": "CommandStop",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/CommandUnprivilege.swift",
+      "line": 11,
+      "symbol": "CommandUnprivilege",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ErrorHandler.swift",
+      "line": 12,
+      "symbol": "errorRoom",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ErrorHandler.swift",
+      "line": 14,
+      "symbol": "errorAsNSError(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/ErrorHandler.swift",
+      "line": 24,
+      "symbol": "formatNSError(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 12,
+      "symbol": "userLocation",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 14,
+      "symbol": "FileLoadingError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 15,
+      "symbol": "FileLoadingError.notUFT8",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 18,
+      "symbol": "loadFile(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 27,
+      "symbol": "formatArray(_:conjunction:separator:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 45,
+      "symbol": "pluralize(_:_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 62,
+      "symbol": "clearCookies(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 71,
+      "symbol": "makeTable(_:contents:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 119,
+      "symbol": "postIDFromURL(_:isUser:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 149,
+      "symbol": "saveURL",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/Utilites.swift",
+      "line": 151,
+      "symbol": "saveFileNamed(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 151,
+      "symbol": "WebSocket.debugLoggingEnabled",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 153,
+      "symbol": "WebSocket.WebSocketError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 154,
+      "symbol": "WebSocket.WebSocketError.notURL",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 155,
+      "symbol": "WebSocket.WebSocketError.invalidURL",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 156,
+      "symbol": "WebSocket.WebSocketError.creationFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 157,
+      "symbol": "WebSocket.WebSocketError.lwsError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 158,
+      "symbol": "WebSocket.WebSocketError.textNotUTF8",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 159,
+      "symbol": "WebSocket.WebSocketError.writeFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 162,
+      "symbol": "WebSocket.WebSocketState",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 163,
+      "symbol": "WebSocket.WebSocketState.disconnected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 164,
+      "symbol": "WebSocket.WebSocketState.connecting",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 165,
+      "symbol": "WebSocket.WebSocketState.connected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 166,
+      "symbol": "WebSocket.WebSocketState.disconnecting",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 167,
+      "symbol": "WebSocket.WebSocketState.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 172,
+      "symbol": "WebSocket.origin",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 173,
+      "symbol": "WebSocket.customHeaders",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 174,
+      "symbol": "WebSocket.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 175,
+      "symbol": "WebSocket.secure",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 176,
+      "symbol": "WebSocket.state",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 177,
+      "symbol": "WebSocket.error",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 179,
+      "symbol": "WebSocket.openHandler",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 180,
+      "symbol": "WebSocket.textHandler",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 181,
+      "symbol": "WebSocket.binaryHandler",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 182,
+      "symbol": "WebSocket.errorHandler",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 183,
+      "symbol": "WebSocket.closeHandler",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 185,
+      "symbol": "WebSocket.onOpen(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 189,
+      "symbol": "WebSocket.onText(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 193,
+      "symbol": "WebSocket.onBinary(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 197,
+      "symbol": "WebSocket.onError(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 201,
+      "symbol": "WebSocket.onClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 207,
+      "symbol": "WebSocket.init(_:origin:headers:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 217,
+      "symbol": "WebSocket.init(_:origin:headers:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 238,
+      "symbol": "WebSocket.connect()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ashish/SwiftChatSE/Sources/SwiftChatSE/WebSocket.swift",
+      "line": 303,
+      "symbol": "WebSocket.disconnect()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/ashish/SwiftChatSE"
+}

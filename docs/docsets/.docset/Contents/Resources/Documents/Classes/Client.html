@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Client Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Client" class="dashAnchor"></a>
+    <a title="Client Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (66% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Client Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/ChatListener.html">ChatListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatListener/StopReason.html">– StopReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom.html">ChatRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/ChatEvent.html">– ChatEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/Host.html">– Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/RoomJoinError.html">– RoomJoinError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/EventError.html">– EventError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatUser.html">ChatUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatUser/Privileges.html">– Privileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client.html">Client</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client/RequestError.html">– RequestError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client/LoginError.html">– LoginError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Command.html">Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandCheckPrivileges.html">CommandCheckPrivileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandKill.html">CommandKill</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandListRunning.html">CommandListRunning</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandPrivilege.html">CommandPrivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandSay.html">CommandSay</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandStop.html">CommandStop</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandUnprivilege.html">CommandUnprivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Levenshtein.html">Levenshtein</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket.html">WebSocket</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket/WebSocketError.html">– WebSocketError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket/WebSocketState.html">– WebSocketState</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE18afterTooManyErrorsFT_T_">afterTooManyErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE9errorRoomGSqCS_8ChatRoom_">errorRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE21errorsInLast30SecondsSi">errorsInLast30Seconds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE9maxErrorsSi">maxErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE4pingSS">ping</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE11pingonerrorSb">pingonerror</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE7saveURLGSQV10Foundation3URL_">saveURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE12userLocationSS">userLocation</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/FileLoadingError.html">FileLoadingError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE12clearCookiesFCSo17HTTPCookieStorageT_">clearCookies(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE14errorAsNSErrorFPs5Error_GSqCSo7NSError_">errorAsNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE11formatArrayurFTGSax_11conjunctionSS9separatorSS_SS">formatArray(_:conjunction:separator:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13formatNSErrorFCSo7NSErrorSS">formatNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE11handleErrorFTPs5Error_GSqSS__T_">handleError(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE8loadFileFzSSSS">loadFile(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE9makeTableFtGSaSS_8contentsGSaGSaSS___SS">makeTable(_:contents:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE9pluralizeFTSiSSGSqSS__SS">pluralize(_:_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13postIDFromURLFTV10Foundation3URL6isUserSb_GSqSi_">postIDFromURL(_:isUser:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13saveFileNamedFSSV10Foundation3URL">saveFileNamed(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ChatMessage.html">ChatMessage</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Client</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Client</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">URLSessionDataDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>A Client handles HTTP requests, cookie management, and logging in to Stack Exchange chat.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20variables"></a>
+                <a name="//apple_ref/swift/Section/Instance variables" class="dashAnchor"></a>
+                <a href="#/Instance%20variables">
+                  <h3 class="section-name">Instance variables</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE6Client7sessionCSo10URLSession"></a>
+                    <a name="//apple_ref/swift/Property/session" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE6Client7sessionCSo10URLSession">session</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Client</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">URLSessionDataDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE6Client7cookiesGSaCSo10HTTPCookie_"></a>
+                    <a name="//apple_ref/swift/Property/cookies" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE6Client7cookiesGSaCSo10HTTPCookie_">cookies</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Pretty self explanatory</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">cookies</span> <span class="o">=</span> <span class="p">[</span><span class="kt">HTTPCookie</span><span class="p">]()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE6Client8loggedInSb"></a>
+                    <a name="//apple_ref/swift/Property/loggedIn" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE6Client8loggedInSb">loggedIn</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates whether the client is logged in or not.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">loggedIn</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC11SwiftChatSE6Client12RequestError"></a>
+                    <a name="//apple_ref/swift/Enum/RequestError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC11SwiftChatSE6Client12RequestError">RequestError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Errors which can happen while making a request</p>
+
+                        <a href="../Classes/Client/RequestError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">RequestError</span><span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE6Client15timeoutDurationSd"></a>
+                    <a name="//apple_ref/swift/Property/timeoutDuration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE6Client15timeoutDurationSd">timeoutDuration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates the duration of a timeout</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">timeoutDuration</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="o">=</span> <span class="mi">30</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Cookie%20handling"></a>
+                <a name="//apple_ref/swift/Section/Cookie handling" class="dashAnchor"></a>
+                <a href="#/Cookie%20handling">
+                  <h3 class="section-name">Cookie handling</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client10addCookiesFTGSaCSo10HTTPCookie_7forHostSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/addCookies(_:forHost:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client10addCookiesFTGSaCSo10HTTPCookie_7forHostSS_T_">addCookies(_:forHost:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds cookies.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">addCookies</span><span class="p">(</span><span class="n">_</span> <span class="nv">newCookies</span><span class="p">:</span> <span class="p">[</span><span class="kt">HTTPCookie</span><span class="p">],</span> <span class="n">forHost</span> <span class="nv">host</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newCookies</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cookies to add.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>host</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The host which set the cookies..</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client10cookieHostFTSS13matchesDomainSS_Sb"></a>
+                    <a name="//apple_ref/swift/Method/cookieHost(_:matchesDomain:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client10cookieHostFTSS13matchesDomainSS_Sb">cookieHost(_:matchesDomain:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Checks whether a cookie matches a domain.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">cookieHost</span><span class="p">(</span><span class="n">_</span> <span class="nv">host</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">matchesDomain</span> <span class="nv">domain</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>host</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The host of the cookie.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>domain</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The domain.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client13cookieHeadersFT6forURLV10Foundation3URL_GVs10DictionarySSSS_"></a>
+                    <a name="//apple_ref/swift/Method/cookieHeaders(forURL:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client13cookieHeadersFT6forURLV10Foundation3URL_GVs10DictionarySSSS_">cookieHeaders(forURL:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the cookie headers for the specified URL.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">cookieHeaders</span><span class="p">(</span><span class="n">forURL</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/URLSession%20delegate%20methods"></a>
+                <a name="//apple_ref/swift/Section/URLSession delegate methods" class="dashAnchor"></a>
+                <a href="#/URLSession%20delegate%20methods">
+                  <h3 class="section-name">URLSession delegate methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client10urlSessionFTCSo10URLSession8dataTaskCSo18URLSessionDataTask10didReceiveCSo11URLResponse17completionHandlerFOS1_19ResponseDispositionT__T_"></a>
+                    <a name="//apple_ref/swift/Method/urlSession(_:dataTask:didReceive:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client10urlSessionFTCSo10URLSession8dataTaskCSo18URLSessionDataTask10didReceiveCSo11URLResponse17completionHandlerFOS1_19ResponseDispositionT__T_">urlSession(_:dataTask:didReceive:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Client</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">URLSessionDataDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client10urlSessionFTCSo10URLSession8dataTaskCSo18URLSessionDataTask10didReceiveV10Foundation4Data_T_"></a>
+                    <a name="//apple_ref/swift/Method/urlSession(_:dataTask:didReceive:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client10urlSessionFTCSo10URLSession8dataTaskCSo18URLSessionDataTask10didReceiveV10Foundation4Data_T_">urlSession(_:dataTask:didReceive:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Client</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">URLSessionDataDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client10urlSessionFTCSo10URLSession4taskCSo14URLSessionTask20didCompleteWithErrorGSqPs5Error___T_"></a>
+                    <a name="//apple_ref/swift/Method/urlSession(_:task:didCompleteWithError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client10urlSessionFTCSo10URLSession4taskCSo14URLSessionTask20didCompleteWithErrorGSqPs5Error___T_">urlSession(_:task:didCompleteWithError:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Client</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">URLSessionDataDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client10urlSessionFTCSo10URLSession4taskCSo14URLSessionTask26willPerformHTTPRedirectionCSo15HTTPURLResponse10newRequestV10Foundation10URLRequest17completionHandlerFGSqS5__T__T_"></a>
+                    <a name="//apple_ref/swift/Method/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client10urlSessionFTCSo10URLSession4taskCSo14URLSessionTask26willPerformHTTPRedirectionCSo15HTTPURLResponse10newRequestV10Foundation10URLRequest17completionHandlerFGSqS5__T__T_">urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">Client</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">URLSessionDataDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/MARK:-%20Request%20methods."></a>
+                <a name="//apple_ref/swift/Section/MARK:- Request methods." class="dashAnchor"></a>
+                <a href="#/MARK:-%20Request%20methods.">
+                  <h3 class="section-name">MARK:- Request methods.</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client14performRequestFzV10Foundation10URLRequestTVS1_4DataCSo15HTTPURLResponse_"></a>
+                    <a name="//apple_ref/swift/Method/performRequest(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client14performRequestFzV10Foundation10URLRequestTVS1_4DataCSo15HTTPURLResponse_">performRequest(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs an <code>URLRequest</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">performRequest</span><span class="p">(</span><span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Data</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The request to perform.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code>Data</code> and <code>HTTPURLResponse</code> returned by the request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client3getFzSSTV10Foundation4DataCSo15HTTPURLResponse_"></a>
+                    <a name="//apple_ref/swift/Method/get(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client3getFzSSTV10Foundation4DataCSo15HTTPURLResponse_">get(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs a GET request.</p>
+
+<ul>
+<li>paramter url: The URL to make the request to.</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Data</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code>Data</code> and <code>HTTPURLResponse</code> returned by the request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client4postFzTSS4dataV10Foundation4Data11contentTypeGSqSS__TS2_CSo15HTTPURLResponse_"></a>
+                    <a name="//apple_ref/swift/Method/post(_:data:contentType:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client4postFzTSS4dataV10Foundation4Data11contentTypeGSqSS__TS2_CSo15HTTPURLResponse_">post(_:data:contentType:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs a POST request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">post</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">contentType</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Data</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL to make the request to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The body of the POST request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code>Data</code> and <code>HTTPURLResponse</code> returned by the request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client4postFzTSSGVs10DictionarySSSS__TV10Foundation4DataCSo15HTTPURLResponse_"></a>
+                    <a name="//apple_ref/swift/Method/post(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client4postFzTSSGVs10DictionarySSSS__TV10Foundation4DataCSo15HTTPURLResponse_">post(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs a POST request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">post</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Data</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL to make the request to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The fields to include in the POST request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code>Data</code> and <code>HTTPURLResponse</code> returned by the request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client14performRequestFzV10Foundation10URLRequestSS"></a>
+                    <a name="//apple_ref/swift/Method/performRequest(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client14performRequestFzV10Foundation10URLRequestSS">performRequest(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs an URLRequest.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">performRequest</span><span class="p">(</span><span class="n">_</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The request to perform.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The UTF-8 string returned by the request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client3getFzSSSS"></a>
+                    <a name="//apple_ref/swift/Method/get(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client3getFzSSSS">get(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs a GET request.</p>
+
+<ul>
+<li>paramter url: The URL to make the request to.</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The UTF-8 string returned by the request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client4postFzTSSGVs10DictionarySSSS__SS"></a>
+                    <a name="//apple_ref/swift/Method/post(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client4postFzTSSGVs10DictionarySSSS__SS">post(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs a POST request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">post</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">fields</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL to make the request to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The fields to include in the POST request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The UTF-8 string returned by the request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client4postFzTSS4dataV10Foundation4Data11contentTypeGSqSS__SS"></a>
+                    <a name="//apple_ref/swift/Method/post(_:data:contentType:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client4postFzTSS4dataV10Foundation4Data11contentTypeGSqSS__SS">post(_:data:contentType:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs a POST request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">post</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">contentType</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL to make the request to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The body of the POST request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The UTF-8 string returned by the request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client9parseJSONFzSSP_"></a>
+                    <a name="//apple_ref/swift/Method/parseJSON(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client9parseJSONFzSSP_">parseJSON(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Parses a JSON string.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">parseJSON</span><span class="p">(</span><span class="n">_</span> <span class="nv">json</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Any</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers%20and%20login."></a>
+                <a name="//apple_ref/swift/Section/Initializers and login." class="dashAnchor"></a>
+                <a href="#/Initializers%20and%20login.">
+                  <h3 class="section-name">Initializers and login.</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6ClientcFT_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6ClientcFT_S0_">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a Client.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>host</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The chat host to log in to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC11SwiftChatSE6Client10LoginError"></a>
+                    <a name="//apple_ref/swift/Enum/LoginError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC11SwiftChatSE6Client10LoginError">LoginError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Errors which can occur while logging in.</p>
+
+                        <a href="../Classes/Client/LoginError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">LoginError</span><span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE6Client5loginFzT5emailSS8passwordSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/login(email:password:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE6Client5loginFzT5emailSS8passwordSS_T_">login(email:password:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logs in to Stack Exchange.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">login</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2017-05-15)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

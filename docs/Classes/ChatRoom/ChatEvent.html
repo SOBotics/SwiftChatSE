@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ChatEvent Enum Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Enum/ChatEvent" class="dashAnchor"></a>
+    <a title="ChatEvent Enum Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html"> Docs</a> (66% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html"> Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        ChatEvent Enum Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes/ChatListener.html">ChatListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ChatListener/StopReason.html">– StopReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ChatRoom.html">ChatRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ChatRoom/ChatEvent.html">– ChatEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ChatRoom/Host.html">– Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ChatRoom/RoomJoinError.html">– RoomJoinError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ChatRoom/EventError.html">– EventError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ChatUser.html">ChatUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ChatUser/Privileges.html">– Privileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Client.html">Client</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Client/RequestError.html">– RequestError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Client/LoginError.html">– LoginError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Command.html">Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/CommandCheckPrivileges.html">CommandCheckPrivileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/CommandKill.html">CommandKill</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/CommandListRunning.html">CommandListRunning</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/CommandPrivilege.html">CommandPrivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/CommandSay.html">CommandSay</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/CommandStop.html">CommandStop</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/CommandUnprivilege.html">CommandUnprivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Levenshtein.html">Levenshtein</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/WebSocket.html">WebSocket</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/WebSocket/WebSocketError.html">– WebSocketError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/WebSocket/WebSocketState.html">– WebSocketState</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Global Variables.html#/s:v11SwiftChatSE18afterTooManyErrorsFT_T_">afterTooManyErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Global Variables.html#/s:v11SwiftChatSE9errorRoomGSqCS_8ChatRoom_">errorRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Global Variables.html#/s:v11SwiftChatSE21errorsInLast30SecondsSi">errorsInLast30Seconds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Global Variables.html#/s:v11SwiftChatSE9maxErrorsSi">maxErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Global Variables.html#/s:v11SwiftChatSE4pingSS">ping</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Global Variables.html#/s:v11SwiftChatSE11pingonerrorSb">pingonerror</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Global Variables.html#/s:v11SwiftChatSE7saveURLGSQV10Foundation3URL_">saveURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Global Variables.html#/s:v11SwiftChatSE12userLocationSS">userLocation</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Enums/FileLoadingError.html">FileLoadingError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE12clearCookiesFCSo17HTTPCookieStorageT_">clearCookies(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE14errorAsNSErrorFPs5Error_GSqCSo7NSError_">errorAsNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE11formatArrayurFTGSax_11conjunctionSS9separatorSS_SS">formatArray(_:conjunction:separator:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE13formatNSErrorFCSo7NSErrorSS">formatNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE11handleErrorFTPs5Error_GSqSS__T_">handleError(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE8loadFileFzSSSS">loadFile(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE9makeTableFtGSaSS_8contentsGSaGSaSS___SS">makeTable(_:contents:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE9pluralizeFTSiSSGSqSS__SS">pluralize(_:_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE13postIDFromURLFTV10Foundation3URL6isUserSb_GSqSi_">postIDFromURL(_:isUser:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F11SwiftChatSE13saveFileNamedFSSV10Foundation3URL">saveFileNamed(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/ChatMessage.html">ChatMessage</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ChatEvent</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ChatEvent</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                </div>
+              </div>
+            <p>A type of event from the chat room.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13messagePostedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/messagePosted" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13messagePostedFMS1_S1_">messagePosted</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a message is posted in the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">messagePosted</span> <span class="o">=</span> <span class="mi">1</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13messageEditedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/messageEdited" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13messageEditedFMS1_S1_">messageEdited</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a message is edited in the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">messageEdited</span> <span class="o">=</span> <span class="mi">2</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent11userEnteredFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/userEntered" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent11userEnteredFMS1_S1_">userEntered</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a user entered the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">userEntered</span> <span class="o">=</span> <span class="mi">3</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent8userLeftFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/userLeft" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent8userLeftFMS1_S1_">userLeft</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a user leaves the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">userLeft</span> <span class="o">=</span> <span class="mi">4</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent15roomNameChangedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/roomNameChanged" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent15roomNameChangedFMS1_S1_">roomNameChanged</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when the name of the room is changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">roomNameChanged</span> <span class="o">=</span> <span class="mi">5</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent14messageStarredFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/messageStarred" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent14messageStarredFMS1_S1_">messageStarred</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a message is stsrred in the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">messageStarred</span> <span class="o">=</span> <span class="mi">6</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent12debugMessageFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/debugMessage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent12debugMessageFMS1_S1_">debugMessage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ChatEvent</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13userMentionedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/userMentioned" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13userMentionedFMS1_S1_">userMentioned</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a user is mentioned in the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">userMentioned</span> <span class="o">=</span> <span class="mi">8</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent14messageFlaggedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/messageFlagged" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent14messageFlaggedFMS1_S1_">messageFlagged</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a message is flagged in the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">messageFlagged</span> <span class="o">=</span> <span class="mi">9</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent14messageDeletedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/messageDeleted" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent14messageDeletedFMS1_S1_">messageDeleted</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a message is deleted in the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">messageDeleted</span> <span class="o">=</span> <span class="mi">10</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent9fileAddedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/fileAdded" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent9fileAddedFMS1_S1_">fileAdded</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a file is uploaded in the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">fileAdded</span> <span class="o">=</span> <span class="mi">11</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13moderatorFlagFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/moderatorFlag" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13moderatorFlagFMS1_S1_">moderatorFlag</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a message is mod flagged in the chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">moderatorFlag</span> <span class="o">=</span> <span class="mi">12</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent19userSettingsChangedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/userSettingsChanged" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent19userSettingsChangedFMS1_S1_">userSettingsChanged</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ChatEvent</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent18globalNotificationFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/globalNotification" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent18globalNotificationFMS1_S1_">globalNotification</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ChatEvent</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent18accessLevelChangedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/accessLevelChanged" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent18accessLevelChangedFMS1_S1_">accessLevelChanged</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ChatEvent</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent16userNotificationFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/userNotification" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent16userNotificationFMS1_S1_">userNotification</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ChatEvent</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent10invitationFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/invitation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent10invitationFMS1_S1_">invitation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a user is invited to a chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">invitation</span> <span class="o">=</span> <span class="mi">17</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent12messageReplyFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/messageReply" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent12messageReplyFMS1_S1_">messageReply</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a message is replied to in a chat room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">messageReply</span> <span class="o">=</span> <span class="mi">18</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent15messageMovedOutFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/messageMovedOut" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent15messageMovedOutFMS1_S1_">messageMovedOut</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a Room Owner moves a message to another room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">messageMovedOut</span> <span class="o">=</span> <span class="mi">19</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent14messageMovedInFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/messageMovedIn" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent14messageMovedInFMS1_S1_">messageMovedIn</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a Room Owner moves a message to the room</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">messageMovedIn</span> <span class="o">=</span> <span class="mi">20</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent9timeBreakFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/timeBreak" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent9timeBreakFMS1_S1_">timeBreak</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when the room is placed in timeout</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">timeBreak</span> <span class="o">=</span> <span class="mi">21</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent10feedTickerFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/feedTicker" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent10feedTickerFMS1_S1_">feedTicker</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ChatEvent</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13userSuspendedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/userSuspended" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent13userSuspendedFMS1_S1_">userSuspended</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a user is suspended</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">userSuspended</span> <span class="o">=</span> <span class="mi">29</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent10userMergedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/userMerged" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent10userMergedFMS1_S1_">userMerged</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a user is merged</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">userMerged</span> <span class="o">=</span> <span class="mi">30</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FOC11SwiftChatSE8ChatRoom9ChatEvent15usernameChangedFMS1_S1_"></a>
+                    <a name="//apple_ref/swift/Element/usernameChanged" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FOC11SwiftChatSE8ChatRoom9ChatEvent15usernameChangedFMS1_S1_">usernameChanged</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Caused when a user&rsquo;s username has changed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">usernameChanged</span> <span class="o">=</span> <span class="mi">34</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2017-05-15)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
