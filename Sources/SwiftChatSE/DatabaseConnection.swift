@@ -205,7 +205,7 @@ class DatabaseConnection {
 			let result: Int32
 			
 			if let param = indexedParameters[i] {
-				result = param.asNative.bind(to: statement, index: Int32(i + 1))
+				result = param.bind(to: statement, index: Int32(i + 1))
 			} else {
 				result = sqlite3_bind_null(statement, Int32(i + 1))
 			}
@@ -224,7 +224,7 @@ class DatabaseConnection {
 			
 			let result: Int32
 			if let v = value {
-				result = v.asNative.bind(to: statement, index: index)
+				result = v.bind(to: statement, index: index)
 			} else {
 				result = sqlite3_bind_null(statement, index)
 			}

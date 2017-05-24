@@ -16,14 +16,14 @@ import Foundation
 
 ///A type which can be represented in a SQLite database.
 protocol DatabaseType {
+	///Converts `self` to a native type.
 	var asNative: DatabaseNativeType { get }
 	
+	///Converts a `DatabaseNativeType` to this type.
+	///- parameter native: The value to convert.
+	///- returns: The converted value, or `nil` if a conversion is not possible.
 	static func from(native: DatabaseNativeType) -> Self?
-}
-
-
-///A type which can be directly represented in a SQLite databse.
-protocol DatabaseNativeType: DatabaseType {
+	
 	///Binds `self` to a prepared statement.
 	///- parameter statement: The statement to bind to.
 	///- parameter index: The parameter index to bind to.
@@ -31,6 +31,9 @@ protocol DatabaseNativeType: DatabaseType {
 	func bind(to statement: OpaquePointer, index: Int32) -> Int32
 }
 
+
+///A type which can be directly represented in a SQLite databse.
+protocol DatabaseNativeType: DatabaseType {}
 extension DatabaseNativeType {
 	var asNative: DatabaseNativeType { return self }
 	
@@ -41,8 +44,13 @@ extension DatabaseNativeType {
 }
 
 
-///A type which can be converted to a DatabseNativeType.
+///A type which can be converted to a `DatabseNativeType`.
 protocol DatabaseConvertibleType: DatabaseType {}
+extension DatabaseConvertibleType {
+	func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
+		return asNative.bind(to: statement, index: index)
+	}
+}
 
 
 
@@ -78,6 +86,16 @@ extension Float: DatabaseConvertibleType {
 extension Int64: DatabaseNativeType {
 	func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
 		return sqlite3_bind_int64(statement, index, self)
+	}
+}
+
+
+extension Bool: DatabaseConvertibleType {
+	var asNative: DatabaseNativeType { return self ? 1 : 0 }
+	
+	static func from(native: DatabaseNativeType) -> Bool? {
+		guard let n = native as? Int64 else { return nil }
+		return n == 0 ? false : true
 	}
 }
 
