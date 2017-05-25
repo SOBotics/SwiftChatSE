@@ -55,14 +55,17 @@ open class Client: NSObject, URLSessionDataDelegate {
 			delegate: self, delegateQueue: delegateQueue
 		)
 	}
+    ///Pretty self explanatory
 	open var cookies = [HTTPCookie]()
 	private let queue = DispatchQueue(label: "Client queue")
 	
+    ///Indicates whether the client is logged in or not.
 	open var loggedIn = false
 	
 	private var configuration: URLSessionConfiguration
 	private var delegateQueue: OperationQueue
 	
+    ///Errors which can happen while making a request
 	public enum RequestError: Error {
 		case invalidURL(url: String)
 		case notUTF8
@@ -70,11 +73,8 @@ open class Client: NSObject, URLSessionDataDelegate {
 		case timeout
 	}
 	
+    ///Indicates the duration of a timeout
 	open var timeoutDuration: TimeInterval = 30
-	
-	
-	
-	
 	
 	//MARK: - Private variables
 	private class HTTPTask {
@@ -468,13 +468,13 @@ open class Client: NSObject, URLSessionDataDelegate {
 		]*/
 	}
 	
-	
-	
-	
-	
+	///Errors which can occur while logging in.
 	public enum LoginError: Error {
+        ///Occurs when the client is already logged in.
 		case alreadyLoggedIn
+        ///Occurs when the data to login is not found.
 		case loginDataNotFound
+        ///Occurs when a login fails.
 		case loginFailed(message: String)
 	}
 	

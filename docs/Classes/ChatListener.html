@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ChatListener Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ChatListener" class="dashAnchor"></a>
+    <a title="ChatListener Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (66% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ChatListener Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/ChatListener.html">ChatListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatListener/StopReason.html">– StopReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom.html">ChatRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/ChatEvent.html">– ChatEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/Host.html">– Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/RoomJoinError.html">– RoomJoinError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/EventError.html">– EventError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatUser.html">ChatUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatUser/Privileges.html">– Privileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client.html">Client</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client/RequestError.html">– RequestError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client/LoginError.html">– LoginError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Command.html">Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandCheckPrivileges.html">CommandCheckPrivileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandKill.html">CommandKill</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandListRunning.html">CommandListRunning</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandPrivilege.html">CommandPrivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandSay.html">CommandSay</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandStop.html">CommandStop</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandUnprivilege.html">CommandUnprivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Levenshtein.html">Levenshtein</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket.html">WebSocket</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket/WebSocketError.html">– WebSocketError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket/WebSocketState.html">– WebSocketState</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE18afterTooManyErrorsFT_T_">afterTooManyErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE9errorRoomGSqCS_8ChatRoom_">errorRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE21errorsInLast30SecondsSi">errorsInLast30Seconds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE9maxErrorsSi">maxErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE4pingSS">ping</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE11pingonerrorSb">pingonerror</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE7saveURLGSQV10Foundation3URL_">saveURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE12userLocationSS">userLocation</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/FileLoadingError.html">FileLoadingError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE12clearCookiesFCSo17HTTPCookieStorageT_">clearCookies(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE14errorAsNSErrorFPs5Error_GSqCSo7NSError_">errorAsNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE11formatArrayurFTGSax_11conjunctionSS9separatorSS_SS">formatArray(_:conjunction:separator:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13formatNSErrorFCSo7NSErrorSS">formatNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE11handleErrorFTPs5Error_GSqSS__T_">handleError(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE8loadFileFzSSSS">loadFile(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE9makeTableFtGSaSS_8contentsGSaGSaSS___SS">makeTable(_:contents:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE9pluralizeFTSiSSGSqSS__SS">pluralize(_:_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13postIDFromURLFTV10Foundation3URL6isUserSb_GSqSi_">postIDFromURL(_:isUser:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13saveFileNamedFSSV10Foundation3URL">saveFileNamed(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ChatMessage.html">ChatMessage</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ChatListener</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">ChatListener</span></code></pre>
+
+                </div>
+              </div>
+            <p>A ChatListener parses commands from the chat room.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE12ChatListener8commandsGSaMCS_7Command_"></a>
+                    <a name="//apple_ref/swift/Property/commands" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE12ChatListener8commandsGSaMCS_7Command_">commands</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The commands recognized by this ChatListener.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">let</span> <span class="nv">commands</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/Command.html">Command</a></span><span class="o">.</span><span class="k">Type</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE12ChatListener4infoGSqP__"></a>
+                    <a name="//apple_ref/swift/Property/info" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE12ChatListener4infoGSqP__">info</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">ChatListener</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE12ChatListener4nameSS"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE12ChatListener4nameSS">name</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The name of the bot.  A message must start with this name to be recognized as a command.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">"@FireAlarm"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE12ChatListener17minNameCharactersSi"></a>
+                    <a name="//apple_ref/swift/Property/minNameCharacters" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE12ChatListener17minNameCharactersSi">minNameCharacters</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The number of characters of the name that must be included.</p>
+
+<p>For example, if <code><a href="../Classes/ChatListener.html#/s:vC11SwiftChatSE12ChatListener4nameSS">name</a></code> is <code>@FireAlarm</code> and <code>minNameCharacters</code> is 4,
+<code>@FireAlarm</code>, <code>@Fire</code>, and <code>@Fir</code> will all be recognized, but
+<code>@FirTree</code>, <code>@Fi</code>, and <code>@Kyll</code> will not.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">minNameCharacters</span> <span class="o">=</span> <span class="mi">4</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE12ChatListener15shutdownHandlerFOS0_10StopReasonT_"></a>
+                    <a name="//apple_ref/swift/Property/shutdownHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE12ChatListener15shutdownHandlerFOS0_10StopReasonT_">shutdownHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A closure to run when the bot shuts down.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">shutdownHandler</span><span class="p">:</span> <span class="p">(</span><span class="kt"><a href="../Classes/ChatListener/StopReason.html">StopReason</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="o">=</span> <span class="p">{</span><span class="n">reason</span> <span class="k">in</span><span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE12ChatListener10onShutdownFFOS0_10StopReasonT_T_"></a>
+                    <a name="//apple_ref/swift/Method/onShutdown(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE12ChatListener10onShutdownFFOS0_10StopReasonT_T_">onShutdown(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Runs a closure on shutdown.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">onShutdown</span><span class="p">(</span><span class="n">_</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ChatListener/StopReason.html">StopReason</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC11SwiftChatSE12ChatListener10StopReason"></a>
+                    <a name="//apple_ref/swift/Enum/StopReason" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC11SwiftChatSE12ChatListener10StopReason">StopReason</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tells the bot whether to reboot, shutdown or update.</p>
+
+                        <a href="../Classes/ChatListener/StopReason.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">StopReason</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE12ChatListener15runningCommandsGSaCS_7Command_"></a>
+                    <a name="//apple_ref/swift/Property/runningCommands" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE12ChatListener15runningCommandsGSaCS_7Command_">runningCommands</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The commands the bot is currently running.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">runningCommands</span> <span class="o">=</span> <span class="p">[</span><span class="kt"><a href="../Classes/Command.html">Command</a></span><span class="p">]()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE12ChatListener14processMessageFTCS_8ChatRoom7messageVS_11ChatMessage6isEditSb_T_"></a>
+                    <a name="//apple_ref/swift/Method/processMessage(_:message:isEdit:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE12ChatListener14processMessageFTCS_8ChatRoom7messageVS_11ChatMessage6isEditSb_T_">processMessage(_:message:isEdit:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Process a ChatMessage in the specified room.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">processMessage</span><span class="p">(</span><span class="n">_</span> <span class="nv">room</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChatRoom.html">ChatRoom</a></span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="kt"><a href="../Structs/ChatMessage.html">ChatMessage</a></span><span class="p">,</span> <span class="nv">isEdit</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE12ChatListener4stopFOS0_10StopReasonT_"></a>
+                    <a name="//apple_ref/swift/Method/stop(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE12ChatListener4stopFOS0_10StopReasonT_">stop(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Waits for running commands to complete and calls <code><a href="../Classes/ChatListener.html#/s:vC11SwiftChatSE12ChatListener15shutdownHandlerFOS0_10StopReasonT_">shutdownHandler</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">stop</span><span class="p">(</span><span class="n">_</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChatListener/StopReason.html">StopReason</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reason</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The reason for the shutdown.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE12ChatListenercFT8commandsGSaMCS_7Command__S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(commands:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE12ChatListenercFT8commandsGSaMCS_7Command__S0_">init(commands:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a ChatListener.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">commands</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/Command.html">Command</a></span><span class="o">.</span><span class="k">Type</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>commands</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The commands to listen for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2017-05-15)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

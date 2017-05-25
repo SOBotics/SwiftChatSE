@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ChatRoom Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ChatRoom" class="dashAnchor"></a>
+    <a title="ChatRoom Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (66% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ChatRoom Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/ChatListener.html">ChatListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatListener/StopReason.html">– StopReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom.html">ChatRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/ChatEvent.html">– ChatEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/Host.html">– Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/RoomJoinError.html">– RoomJoinError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/EventError.html">– EventError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatUser.html">ChatUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatUser/Privileges.html">– Privileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client.html">Client</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client/RequestError.html">– RequestError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client/LoginError.html">– LoginError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Command.html">Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandCheckPrivileges.html">CommandCheckPrivileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandKill.html">CommandKill</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandListRunning.html">CommandListRunning</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandPrivilege.html">CommandPrivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandSay.html">CommandSay</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandStop.html">CommandStop</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandUnprivilege.html">CommandUnprivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Levenshtein.html">Levenshtein</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket.html">WebSocket</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket/WebSocketError.html">– WebSocketError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket/WebSocketState.html">– WebSocketState</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE18afterTooManyErrorsFT_T_">afterTooManyErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE9errorRoomGSqCS_8ChatRoom_">errorRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE21errorsInLast30SecondsSi">errorsInLast30Seconds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE9maxErrorsSi">maxErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE4pingSS">ping</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE11pingonerrorSb">pingonerror</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE7saveURLGSQV10Foundation3URL_">saveURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE12userLocationSS">userLocation</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/FileLoadingError.html">FileLoadingError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE12clearCookiesFCSo17HTTPCookieStorageT_">clearCookies(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE14errorAsNSErrorFPs5Error_GSqCSo7NSError_">errorAsNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE11formatArrayurFTGSax_11conjunctionSS9separatorSS_SS">formatArray(_:conjunction:separator:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13formatNSErrorFCSo7NSErrorSS">formatNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE11handleErrorFTPs5Error_GSqSS__T_">handleError(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE8loadFileFzSSSS">loadFile(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE9makeTableFtGSaSS_8contentsGSaGSaSS___SS">makeTable(_:contents:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE9pluralizeFTSiSSGSqSS__SS">pluralize(_:_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13postIDFromURLFTV10Foundation3URL6isUserSb_GSqSi_">postIDFromURL(_:isUser:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13saveFileNamedFSSV10Foundation3URL">saveFileNamed(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ChatMessage.html">ChatMessage</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ChatRoom</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">ChatRoom</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>A ChatRoom represents a Stack Exchange chat room.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20variables"></a>
+                <a name="//apple_ref/swift/Section/Instance variables" class="dashAnchor"></a>
+                <a href="#/Instance%20variables">
+                  <h3 class="section-name">Instance variables</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC11SwiftChatSE8ChatRoom9ChatEvent"></a>
+                    <a name="//apple_ref/swift/Enum/ChatEvent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC11SwiftChatSE8ChatRoom9ChatEvent">ChatEvent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A type of event from the chat room.</p>
+
+                        <a href="../Classes/ChatRoom/ChatEvent.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ChatEvent</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC11SwiftChatSE8ChatRoom4Host"></a>
+                    <a name="//apple_ref/swift/Enum/Host" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC11SwiftChatSE8ChatRoom4Host">Host</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The host the bot is running on.</p>
+
+                        <a href="../Classes/ChatRoom/Host.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Host</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatRoom6clientCS_6Client"></a>
+                    <a name="//apple_ref/swift/Property/client" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatRoom6clientCS_6Client">client</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Client to use.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">let</span> <span class="nv">client</span><span class="p">:</span> <span class="kt"><a href="../Classes/Client.html">Client</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatRoom6roomIDSi"></a>
+                    <a name="//apple_ref/swift/Property/roomID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatRoom6roomIDSi">roomID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The ID of this room.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">let</span> <span class="nv">roomID</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatRoom4hostOS0_4Host"></a>
+                    <a name="//apple_ref/swift/Property/host" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatRoom4hostOS0_4Host">host</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Host of this room.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">let</span> <span class="nv">host</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChatRoom/Host.html">Host</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatRoom6userDBGSaCS_8ChatUser_"></a>
+                    <a name="//apple_ref/swift/Property/userDB" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatRoom6userDBGSaCS_8ChatUser_">userDB</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The list of known users.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">userDB</span> <span class="o">=</span> <span class="p">[</span><span class="kt"><a href="../Classes/ChatUser.html">ChatUser</a></span><span class="p">]()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatRoom4fkeyGSQSS_"></a>
+                    <a name="//apple_ref/swift/Property/fkey" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatRoom4fkeyGSQSS_">fkey</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The fkey used to authorize actions in chat.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">fkey</span><span class="p">:</span> <span class="kt">String</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatRoom14messageHandlerFTVS_11ChatMessageSb_T_"></a>
+                    <a name="//apple_ref/swift/Property/messageHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatRoom14messageHandlerFTVS_11ChatMessageSb_T_">messageHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The closure to run when a message is posted or edited.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">messageHandler</span><span class="p">:</span> <span class="p">(</span><span class="kt"><a href="../Structs/ChatMessage.html">ChatMessage</a></span><span class="p">,</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="o">=</span> <span class="p">{</span><span class="n">message</span><span class="p">,</span> <span class="n">isEdit</span> <span class="k">in</span><span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoom9onMessageFFTVS_11ChatMessageSb_T_T_"></a>
+                    <a name="//apple_ref/swift/Method/onMessage(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoom9onMessageFFTVS_11ChatMessageSb_T_T_">onMessage(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Runs a closure when a message is posted or edited.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">onMessage</span><span class="p">(</span><span class="n">_</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/ChatMessage.html">ChatMessage</a></span><span class="p">,</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatRoom6inRoomSb"></a>
+                    <a name="//apple_ref/swift/Property/inRoom" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatRoom6inRoomSb">inRoom</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether the bot is currently in the chat room.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">inRoom</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatRoom12messageQueueGSaTSSGSqFGSqSi_T____"></a>
+                    <a name="//apple_ref/swift/Property/messageQueue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatRoom12messageQueueGSaTSSGSqFGSqSi_T____">messageQueue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Messages that are waiting to be posted &amp; their completion handlers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">messageQueue</span> <span class="o">=</span> <span class="p">[(</span><span class="kt">String</span><span class="p">,</span> <span class="p">((</span><span class="kt">Int</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)]()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatRoom4infoGVs10DictionarySSP__"></a>
+                    <a name="//apple_ref/swift/Property/info" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatRoom4infoGVs10DictionarySSP__">info</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Custom per-room persistent storage.  Must be serializable by JSONSerialization!</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">info</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/User%20management"></a>
+                <a name="//apple_ref/swift/Section/User management" class="dashAnchor"></a>
+                <a href="#/User%20management">
+                  <h3 class="section-name">User management</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoom10userWithIDFSiCS_8ChatUser"></a>
+                    <a name="//apple_ref/swift/Method/userWithID(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoom10userWithIDFSiCS_8ChatUser">userWithID(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Looks up a user by ID.  If the user is not in the database, they are added.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">userWithID</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/ChatUser.html">ChatUser</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoom9userNamedFSSGSaCS_8ChatUser_"></a>
+                    <a name="//apple_ref/swift/Method/userNamed(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoom9userNamedFSSGSaCS_8ChatUser_">userNamed(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Looks up a user by name.  The user must already exist in the database!</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">userNamed</span><span class="p">(</span><span class="n">_</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/ChatUser.html">ChatUser</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoom10loadUserDBFzT8filenameGSqSS__T_"></a>
+                    <a name="//apple_ref/swift/Method/loadUserDB(filename:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoom10loadUserDBFzT8filenameGSqSS__T_">loadUserDB(filename:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Loads the user database from disk.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">loadUserDB</span><span class="p">(</span><span class="nv">filename</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filename</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The filename to load the user databse from.
+The default value is <code>users_roomID_host.json</code>, for example <code>users_11347_stackoverflow.com.json</code> for SOBotics.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoom10saveUserDBFzT8filenameGSqSS__T_"></a>
+                    <a name="//apple_ref/swift/Method/saveUserDB(filename:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoom10saveUserDBFzT8filenameGSqSS__T_">saveUserDB(filename:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Saves the user database to disk.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">saveUserDB</span><span class="p">(</span><span class="nv">filename</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filename</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The filename to save the user databse to.
+The default value is <code>users_roomID_host.json</code>, for example <code>users_11347_stackoverflow.com.json</code> for SOBotics.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoomcFT6clientCS_6Client4hostOS0_4Host6roomIDSi_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(client:host:roomID:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoomcFT6clientCS_6Client4hostOS0_4Host6roomIDSi_S0_">init(client:host:roomID:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a ChatRoom.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">client</span><span class="p">:</span> <span class="kt"><a href="../Classes/Client.html">Client</a></span><span class="p">,</span> <span class="nv">host</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChatRoom/Host.html">Host</a></span><span class="p">,</span> <span class="nv">roomID</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>client</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Client to use.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>roomID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the chat room.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoom11postMessageFTSS10completionGSqFGSqSi_T___T_"></a>
+                    <a name="//apple_ref/swift/Method/postMessage(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoom11postMessageFTSS10completionGSqFGSqSi_T___T_">postMessage(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Posts a message to the ChatRoom.</p>
+
+<ul>
+<li>paramter message: The content of the message to post, in Markdown.</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">postMessage</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Int</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The completion handler to call when the message is posted.
+The message ID will be passed to the completion handler.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoom9postReplyFTSS2toVS_11ChatMessage10completionGSqFGSqSi_T___T_"></a>
+                    <a name="//apple_ref/swift/Method/postReply(_:to:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoom9postReplyFTSS2toVS_11ChatMessage10completionGSqFGSqSi_T___T_">postReply(_:to:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Replies to a ChatMessage.</p>
+
+<ul>
+<li>paramter reply: The content of the message to post, in Markdown.</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">postReply</span><span class="p">(</span><span class="n">_</span> <span class="nv">reply</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt"><a href="../Structs/ChatMessage.html">ChatMessage</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Int</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>to</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ChatMessage to reply to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The completion handler to call when the message is posted.
+The message ID will be passed to the completion handler.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoom4joinFzT_T_"></a>
+                    <a name="//apple_ref/swift/Method/join()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoom4joinFzT_T_">join()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Joins the chat room.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">join</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatRoom5leaveFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/leave()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatRoom5leaveFT_T_">leave()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Leaves the chat room.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">leave</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC11SwiftChatSE8ChatRoom13RoomJoinError"></a>
+                    <a name="//apple_ref/swift/Enum/RoomJoinError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC11SwiftChatSE8ChatRoom13RoomJoinError">RoomJoinError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The errors which can be caused while the bot joins the room.</p>
+
+                        <a href="../Classes/ChatRoom/RoomJoinError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">RoomJoinError</span><span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC11SwiftChatSE8ChatRoom10EventError"></a>
+                    <a name="//apple_ref/swift/Enum/EventError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC11SwiftChatSE8ChatRoom10EventError">EventError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An error which happened while the bot was processing a chat event.</p>
+
+                        <a href="../Classes/ChatRoom/EventError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">EventError</span><span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2017-05-15)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

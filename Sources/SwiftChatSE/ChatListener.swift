@@ -38,15 +38,19 @@ open class ChatListener {
 		shutdownHandler = handler
 	}
 	
+	///Tells the bot whether to reboot, shutdown or update.
 	public enum StopReason {
-		case halt
-		case reboot
+		case halt   ///Tells the bot to shutdown
+		case reboot ///Tells the bot to reboot
+        ///Tells the bot to update, that is getting the latest code from it's Github repository.
 		case update
 	}
 	
 	
 	let commandQueue = DispatchQueue(label: "Command Queue", attributes: DispatchQueue.Attributes.concurrent)
-	
+    
+    
+	///The commands the bot is currently running.
 	open var runningCommands = [Command]()
 	
 	

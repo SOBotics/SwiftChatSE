@@ -159,8 +159,7 @@ open class ChatUser: CustomStringConvertible {
 	///The room this user is from.
 	open let room: ChatRoom
 	
-	
-	
+    ///Initializes a chat user
 	public init(room: ChatRoom, id: Int, name: String? = nil) {
 		self.room = room
 		self.id = id

@@ -16,39 +16,62 @@ open class ChatRoom: NSObject {
 	
 	///A type of event from the chat room.
 	public enum ChatEvent: Int {
+        ///Caused when a message is posted in the chat room
 		case messagePosted = 1
-		case messageEdited = 2
+        ///Caused when a message is edited in the chat room
+        case messageEdited = 2
+        ///Caused when a user entered the chat room
 		case userEntered = 3
+        ///Caused when a user leaves the chat room
 		case userLeft = 4
+        ///Caused when the name of the room is changed
 		case roomNameChanged = 5
+        ///Caused when a message is stsrred in the chat room
 		case messageStarred = 6
 		case debugMessage = 7
+        ///Caused when a user is mentioned in the chat room
 		case userMentioned = 8
+        ///Caused when a message is flagged in the chat room
 		case messageFlagged = 9
+        ///Caused when a message is deleted in the chat room
 		case messageDeleted = 10
+        ///Caused when a file is uploaded in the chat room
 		case fileAdded = 11
+        ///Caused when a message is mod flagged in the chat room
 		case moderatorFlag = 12
 		case userSettingsChanged = 13
 		case globalNotification = 14
 		case accessLevelChanged = 15
 		case userNotification = 16
+        ///Caused when a user is invited to a chat room
 		case invitation = 17
+        ///Caused when a message is replied to in a chat room
 		case messageReply = 18
+        ///Caused when a Room Owner moves a message to another room
 		case messageMovedOut = 19
+        ///Caused when a Room Owner moves a message to the room
 		case messageMovedIn = 20
+        ///Caused when the room is placed in timeout
 		case timeBreak = 21
 		case feedTicker = 22
+        ///Caused when a user is suspended
 		case userSuspended = 29
+        ///Caused when a user is merged
 		case userMerged = 30
+        ///Caused when a user's username has changed
 		case usernameChanged = 34
 	};
 	
-	
+	///The host the bot is running on.
 	public enum Host: Int {
+        ///Used when the bot is running on 'stackoverflow.com'
 		case stackOverflow
+        ///Used when the bot is running on 'stackexchange.com'
 		case stackExchange
+        ///Used when the bot is running on 'meta.stackexchange.com'
 		case metaStackExchange
 		
+        ///Returns the domain for the specified host
 		public var domain: String {
 			switch self {
 			case .stackOverflow:
@@ -60,14 +83,17 @@ open class ChatRoom: NSObject {
 			}
 		}
 		
+        ///Returns the chat domain for the specified host
 		public var chatDomain: String {
 			return "chat." + domain
 		}
 		
+        ///Returns the domain URL for the host
 		public var url: URL {
 			return URL(string: "https://" + domain)!
 		}
 		
+        ///Returns the URL for the chat host
 		public var chatHostURL: URL {
 			return URL(string: "https://" + chatDomain)!
 		}
@@ -504,11 +530,11 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
+    ///The errors which can be caused while the bot joins the room.
 	public enum RoomJoinError: Error {
+        ///When the retrieval of information for a room failed.
 		case roomInfoRetrievalFailed
 	}
-	
-	
 	
 	fileprivate func connectWS() throws {
 		//get the timestamp
@@ -565,10 +591,11 @@ open class ChatRoom: NSObject {
 		try ws.connect()
 	}
 	
-	
-	
+	///An error which happened while the bot was processing a chat event.
 	public enum EventError: Error {
+        ///This is caused when the library cannot parse the specified json.
 		case jsonParsingFailed(json: String)
+        ///This is caused when the chat room event type is invalid.
 		case invalidEventType(type: Int)
 	}
 	

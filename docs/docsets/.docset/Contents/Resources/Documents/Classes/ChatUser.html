@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ChatUser Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ChatUser" class="dashAnchor"></a>
+    <a title="ChatUser Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (66% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ChatUser Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/ChatListener.html">ChatListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatListener/StopReason.html">– StopReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom.html">ChatRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/ChatEvent.html">– ChatEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/Host.html">– Host</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/RoomJoinError.html">– RoomJoinError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatRoom/EventError.html">– EventError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatUser.html">ChatUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChatUser/Privileges.html">– Privileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client.html">Client</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client/RequestError.html">– RequestError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Client/LoginError.html">– LoginError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Command.html">Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandCheckPrivileges.html">CommandCheckPrivileges</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandKill.html">CommandKill</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandListRunning.html">CommandListRunning</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandPrivilege.html">CommandPrivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandSay.html">CommandSay</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandStop.html">CommandStop</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommandUnprivilege.html">CommandUnprivilege</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Levenshtein.html">Levenshtein</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket.html">WebSocket</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket/WebSocketError.html">– WebSocketError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WebSocket/WebSocketState.html">– WebSocketState</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE18afterTooManyErrorsFT_T_">afterTooManyErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE9errorRoomGSqCS_8ChatRoom_">errorRoom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE21errorsInLast30SecondsSi">errorsInLast30Seconds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE9maxErrorsSi">maxErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE4pingSS">ping</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE11pingonerrorSb">pingonerror</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE7saveURLGSQV10Foundation3URL_">saveURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v11SwiftChatSE12userLocationSS">userLocation</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/FileLoadingError.html">FileLoadingError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE12clearCookiesFCSo17HTTPCookieStorageT_">clearCookies(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE14errorAsNSErrorFPs5Error_GSqCSo7NSError_">errorAsNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE11formatArrayurFTGSax_11conjunctionSS9separatorSS_SS">formatArray(_:conjunction:separator:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13formatNSErrorFCSo7NSErrorSS">formatNSError(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE11handleErrorFTPs5Error_GSqSS__T_">handleError(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE8loadFileFzSSSS">loadFile(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE9makeTableFtGSaSS_8contentsGSaGSaSS___SS">makeTable(_:contents:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE9pluralizeFTSiSSGSqSS__SS">pluralize(_:_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13postIDFromURLFTV10Foundation3URL6isUserSb_GSqSi_">postIDFromURL(_:isUser:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F11SwiftChatSE13saveFileNamedFSSV10Foundation3URL">saveFileNamed(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ChatMessage.html">ChatMessage</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ChatUser</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">ChatUser</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                </div>
+              </div>
+            <p>A ChatUser represents a user on Stack Exchange chat.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatUser2idSi"></a>
+                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatUser2idSi">id</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The user ID.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatUser4infoGVs10DictionarySSP__"></a>
+                    <a name="//apple_ref/swift/Property/info" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatUser4infoGVs10DictionarySSP__">info</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Custom per-user persistent storage.  Must be serializable by JSONSerialization!</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">info</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:VC11SwiftChatSE8ChatUser10Privileges"></a>
+                    <a name="//apple_ref/swift/Struct/Privileges" class="dashAnchor"></a>
+                    <a class="token" href="#/s:VC11SwiftChatSE8ChatUser10Privileges">Privileges</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Privileges of a ChatUser.  Privileges can be added by extending this struct and adding static properties.</p>
+
+                        <a href="../Classes/ChatUser/Privileges.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Privileges</span><span class="p">:</span> <span class="kt">OptionSet</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatUser4nameSS"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatUser4nameSS">name</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The name of this user.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatUser5isModSb"></a>
+                    <a name="//apple_ref/swift/Property/isMod" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatUser5isModSb">isMod</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether this user is a ♦ moderator.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">isMod</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatUser4isROSb"></a>
+                    <a name="//apple_ref/swift/Property/isRO" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatUser4isROSb">isRO</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether this user is an owner of the room.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">isRO</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vPs23CustomStringConvertible11descriptionSS"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vPs23CustomStringConvertible11descriptionSS">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether this user is an owner of the room.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatUser10privilegesVS0_10Privileges"></a>
+                    <a name="//apple_ref/swift/Property/privileges" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatUser10privilegesVS0_10Privileges">privileges</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The privileges this user has.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">privileges</span> <span class="o">=</span> <span class="kt"><a href="../Classes/ChatUser/Privileges.html">Privileges</a></span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC11SwiftChatSE8ChatUser4roomCS_8ChatRoom"></a>
+                    <a name="//apple_ref/swift/Property/room" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC11SwiftChatSE8ChatUser4roomCS_8ChatRoom">room</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The room this user is from.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">let</span> <span class="nv">room</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChatRoom.html">ChatRoom</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatUsercFT4roomCS_8ChatRoom2idSi4nameGSqSS__S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(room:id:name:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatUsercFT4roomCS_8ChatRoom2idSi4nameGSqSS__S0_">init(room:id:name:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a chat user</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">room</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChatRoom.html">ChatRoom</a></span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatUser3hasFT10privilegesVS0_10Privileges_Sb"></a>
+                    <a name="//apple_ref/swift/Method/has(privileges:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatUser3hasFT10privilegesVS0_10Privileges_Sb">has(privileges:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether the user has the specified privileges.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Room owners, moderators, and the Console user implicitly have all privileges.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">has</span><span class="p">(</span><span class="n"><a href="../Classes/ChatUser.html#/s:vC11SwiftChatSE8ChatUser10privilegesVS0_10Privileges">privileges</a></span> <span class="nv">required</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChatUser/Privileges.html">Privileges</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC11SwiftChatSE8ChatUser7missingFT4fromVS0_10Privileges_S1_"></a>
+                    <a name="//apple_ref/swift/Method/missing(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC11SwiftChatSE8ChatUser7missingFT4fromVS0_10Privileges_S1_">missing(from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the specified privilege that this user is missing.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Room owners, moderators, and the Console user implicitly have all privileges.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">missing</span><span class="p">(</span><span class="n">from</span> <span class="nv">required</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChatUser/Privileges.html">Privileges</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/ChatUser/Privileges.html">Privileges</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2017-05-15)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
