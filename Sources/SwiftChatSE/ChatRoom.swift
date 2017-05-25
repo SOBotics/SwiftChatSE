@@ -392,6 +392,23 @@ open class ChatRoom: NSObject {
 		}
 	}
 	
+	///Replies to a ChatMessage.
+	///- paramter reply: The content of the message to post, in Markdown.
+	///- parameter to: The message ID to reply to.
+	///- parameter username: The name of the user who posted the message to reply to.
+	///                      If present, will be used as a fallback if the message ID is not present.
+	///
+	///- parameter completion: The completion handler to call when the message is posted.
+	///The message ID will be passed to the completion handler.
+	open func postReply(_ reply: String, to messageID: Int?, username: String? = nil, completion: ((Int?) -> Void)? = nil) {
+		if let id = messageID {
+			postMessage(":\(id) \(reply)", completion: completion)
+		} else if let name = username {
+			postMessage("@\(name) \(reply)", completion: completion)
+		} else {
+			postMessage(reply)
+		}
+	}
 	
 	///Replies to a ChatMessage.
 	///- paramter reply: The content of the message to post, in Markdown.
@@ -399,12 +416,44 @@ open class ChatRoom: NSObject {
 	///- parameter completion: The completion handler to call when the message is posted.
 	///The message ID will be passed to the completion handler.
 	open func postReply(_ reply: String, to: ChatMessage, completion: ((Int?) -> Void)? = nil) {
-		if let id = to.id {
-			postMessage(":\(id) \(reply)", completion: completion)
+		postReply(reply, to: to.id, username: to.user.name, completion: completion)
+	}
+	
+	
+	///An error that can occur while deleting a message
+	enum DeletionError: Error {
+		///The ChatMessage's ID was nil.
+		case noMessageID
+		
+		///This user is not allowed to delete this message.
+		case notAllowed
+		
+		///It is past the 2-minute deadline for deleting messages.
+		case tooLate
+		
+		///An unknown error was returned.
+		case unknownError(result: String)
+	}
+	
+	open func delete(_ messageID: Int) throws {
+		let result: String = try client.post("https://\(host.chatDomain)/messages/\(messageID)/delete", ["fkey":fkey])
+		switch result.trimmingCharacters(in: CharacterSet(charactersIn: "\"")) {
+		case "ok":
+			break
+		case "It is too late to delete this message":
+			throw DeletionError.tooLate
+		case "You can only delete your own messages":
+			throw DeletionError.notAllowed
+		default:
+			throw DeletionError.unknownError(result: result)
 		}
-		else {
-			postMessage("@\(to.user.name) \(reply)", completion: completion)
-		}
+	}
+	
+	///Deletes a `ChatMessage`.
+	
+	open func delete(_ message: ChatMessage) throws {
+		guard let id = message.id else { throw DeletionError.noMessageID }
+		try delete(id)
 	}
 	
 	
