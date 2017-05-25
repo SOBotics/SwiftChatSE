@@ -10,7 +10,7 @@ import Foundation
 
 open class CommandDeleteMessage: Command {
 	override open class func usage() -> [String] {
-		return ["del ...", "delete ...", "poof ...", "remove ..."]
+		return ["del ...", "delete ...", "poof ...", "remove ...", "ninja'd ..."]
 	}
 	
 	enum TranscriptURLParsingError: Error {
