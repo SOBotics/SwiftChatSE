@@ -85,6 +85,11 @@ open class DatabaseConnection {
 		sqlite3_close_v2(db)
 	}
 	
+	///The primary key inserted by the last `INSERT` statement,
+	///or 0 if no successful `INSERT` statements have been performed by this connection.
+	open var lastInsertedPrimaryKey: Int64 {
+		return sqlite3_last_insert_rowid(db)
+	}
 	
 	open func migrate(
 		_ name: String? = nil,
@@ -141,6 +146,35 @@ open class DatabaseConnection {
 		return result
 	}
 	
+	
+	
+	///Runs a single SQL statement, binding the specified parameters.
+	///- parameter query: The SQL statement to run.
+	///- parameter parameters: A dictionary containing names and values to bind to the SQL statement's named parameters, like `:id`.
+	///- parameter cache: Whether the compiled statement should be cached.  Default is `true`.
+	@discardableResult open func run(
+		_ query: String,
+		_ parameters: [String:DatabaseType?],
+		cache: Bool = true
+		) throws -> [Row] {
+		
+		return try run(query, namedParameters: parameters, indexedParameters: [])
+	}
+	
+	///Runs a single SQL statement, binding the specified parameters.
+	///- parameter query: The SQL statement to run.
+	///- parameter parameters: The values to bind to the SQL statement's unnamed or indexed parameters, like `?`.
+	///- parameter cache: Whether the compiled statement should be cached.  Default is `true`.
+	@discardableResult open func run(
+		_ query: String,
+		_ parameters: DatabaseType?...,
+		cache: Bool = true
+		) throws -> [Row] {
+		
+		return try run(query, namedParameters: [:], indexedParameters: parameters)
+	}
+	
+	
 	///Runs a single SQL statement, binding the specified parameters.
 	///- parameter query: The SQL statement to run.
 	///- parameter indexedParameters: The values to bind to the SQL statement's unnamed or indexed parameters, like `?`.
@@ -148,8 +182,8 @@ open class DatabaseConnection {
 	///- parameter cache: Whether the compiled statement should be cached.  Default is `true`.
 	@discardableResult open func run(
 		_ query: String,
-		_ indexedParameters: DatabaseType?...,
-		_ namedParameters: [String:DatabaseType?] = [:],
+		namedParameters: [String:DatabaseType?],
+		indexedParameters: [DatabaseType?],
 		cache: Bool = true
 		) throws -> [Row] {
 		
@@ -175,7 +209,7 @@ open class DatabaseConnection {
 			)
 			
 			guard result == SQLITE_OK, stmt != nil else {
-				try throwSQLiteError(code: result, db: nil)
+				try throwSQLiteError(code: result, db: db)
 			}
 			if tail != nil && tail!.pointee != 0 {
 				//programmer error, so crash instead of throwing
