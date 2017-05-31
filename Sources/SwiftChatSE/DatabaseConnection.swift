@@ -63,10 +63,35 @@ open class DatabaseConnection {
 	//A cache of prepared statements.
 	open var statementCache = [String:OpaquePointer]()
 	
-	public init(_ filename: String) throws {
-		var connection: OpaquePointer?
+	
+	public struct SQLiteOpenFlags: OptionSet {
+		public var rawValue: Int32
 		
-		let result = sqlite3_open(filename, &connection)
+		public init(rawValue: Int32) { self.rawValue = rawValue }
+		
+		static let readOnly = SQLiteOpenFlags(rawValue: SQLITE_OPEN_READONLY)
+		static let readWrite = SQLiteOpenFlags(rawValue: SQLITE_OPEN_READWRITE)
+		static let createIfNotExists = SQLiteOpenFlags(rawValue: SQLITE_OPEN_CREATE)
+		static let allowURIFilenames  = SQLiteOpenFlags(rawValue: SQLITE_OPEN_CREATE)
+		static let memory = SQLiteOpenFlags(rawValue: SQLITE_OPEN_MEMORY)
+		static let noMutex = SQLiteOpenFlags(rawValue: SQLITE_OPEN_NOMUTEX)
+		static let fullMutex = SQLiteOpenFlags(rawValue: SQLITE_OPEN_FULLMUTEX)
+		static let sharedCache = SQLiteOpenFlags(rawValue: SQLITE_OPEN_SHAREDCACHE)
+		static let privateCache = SQLiteOpenFlags(rawValue: SQLITE_OPEN_PRIVATECACHE)
+	}
+	public init(_ filename: String, options: SQLiteOpenFlags = []) throws {
+		var connection: OpaquePointer?
+		var flags = options
+		
+		if (flags.contains(.readOnly) && (flags.contains(.readWrite)) || flags.contains(.createIfNotExists)) {
+			fatalError("SQLiteOpenFlags.readOnly is incompatible with .readWrite and .createIfNotExists")
+		}
+		if !flags.contains(.readOnly) && !flags.contains(.readWrite) {
+			flags.insert(.readWrite)
+			flags.insert(.createIfNotExists)
+		}
+		
+		let result = sqlite3_open_v2(filename, &connection, flags.rawValue, nil)
 		guard result == SQLITE_OK, connection != nil else {
 			try throwSQLiteError(code: result, db: nil)
 		}

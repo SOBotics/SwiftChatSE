@@ -19,6 +19,8 @@ class DatabaseTests: XCTestCase {
 		// Put setup code here. This method is called before the invocation of each test method in the class.
 		do {
 			try db = DatabaseConnection()
+			
+			FileManager.default.changeCurrentDirectoryPath("/Users/jonathan/Desktop")
 		} catch {
 			XCTFail("DatabaseConnection.init() threw an error: \(error)")
 			return
@@ -153,10 +155,26 @@ class DatabaseTests: XCTestCase {
 	}
 	
 	
+	func testReadOnlyDatabase() throws {
+		let db = try DatabaseConnection(":memory:", options: [.readOnly])
+		
+		do {
+			try db.run("CREATE TABLE test (id INTEGER PRIMARY KEY AUTOINCREMENT);")
+			XCTFail("CREATE TABLE did not throw an error")
+		} catch DatabaseError.sqliteError(let error, _){
+			XCTAssert(error == .readOnly, "CREATE TABLE should throw a readOnly error")
+		}
+	}
+	
+	
 	static var allTests : [(String, (DatabaseTests) -> () throws -> Void)] {
 		return [
 			("testOnDiskDatabse", testOnDiskDatabase),
 			("testBasicQuery", testBasicQuery),
+			("testNull", testNull),
+			("testTransactions", testTransactions),
+			("testMigrations", testMigrations),
+			("testReadOnlyDatabase", testReadOnlyDatabase)
 		]
 	}
 }
