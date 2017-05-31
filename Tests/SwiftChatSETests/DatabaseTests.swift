@@ -19,8 +19,6 @@ class DatabaseTests: XCTestCase {
 		// Put setup code here. This method is called before the invocation of each test method in the class.
 		do {
 			try db = DatabaseConnection()
-			
-			FileManager.default.changeCurrentDirectoryPath("/Users/jonathan/Desktop")
 		} catch {
 			XCTFail("DatabaseConnection.init() threw an error: \(error)")
 			return
