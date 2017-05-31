@@ -14,15 +14,15 @@ import Foundation
 	import CSQLite
 #endif
 
-class Row {
+open class Row {
 	///The columns of this row.
-	let columns: [DatabaseNativeType?]
+	open let columns: [DatabaseNativeType?]
 	
 	///A Dictionary mapping the names of this row's columns to their indices in `columns`.
-	let columnNames: [String:Int]
+	open let columnNames: [String:Int]
 	
 	///Initializes a Row with the results of a prepared statement.
-	init(statement: OpaquePointer) {
+	public init(statement: OpaquePointer) {
 		var columns = [DatabaseNativeType?]()
 		var columnNames = [String:Int]()
 		
@@ -70,7 +70,7 @@ class Row {
 	///- returns: The contents of the column, or `nil` if the contents are `NULL`.
 	///
 	///- warning: Will crash if the index is out of range or the column has an incompatible type.
-	func column<T: DatabaseType>(at index: Int, type: T.Type = T.self) -> T? {
+	open func column<T: DatabaseType>(at index: Int, type: T.Type = T.self) -> T? {
 		guard let value = columns[index] else { return nil }
 		guard let converted = T.from(native: value) else {
 			fatalError("column \(index) has an incompatible type ('\(type(of: value))' could not be converted to '\(type)')")
@@ -87,7 +87,7 @@ class Row {
 	///- returns: The contents of the column.
 	///
 	///- warning: Will crash if the name does not exist or the column has an incompatible type.
-	func column<T: DatabaseType>(named name: String, type: T.Type = T.self) -> T? {
+	open func column<T: DatabaseType>(named name: String, type: T.Type = T.self) -> T? {
 		guard let index = columnNames[name] else {
 			fatalError("column '\(name)' not found in \(Array(columnNames.keys))")
 		}

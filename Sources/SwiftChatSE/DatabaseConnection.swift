@@ -15,13 +15,13 @@ import Foundation
 #endif
 
 
-enum DatabaseError: Error {
+public enum DatabaseError: Error {
 	case unknownSQLiteError(code: Int32, message: String?)
 	case sqliteError(error: SQLiteError, message: String?)
 	case noSuchParameter(name: String)
 }
 
-enum SQLiteError: Int32 {
+public enum SQLiteError: Int32 {
 	case genericError = 1
 	case aborted = 4
 	case notAuthenticated = 23
@@ -57,13 +57,13 @@ private func throwSQLiteError(code: Int32, db: OpaquePointer?) throws -> Never {
 	throw DatabaseError.unknownSQLiteError(code: code, message: message)
 }
 
-class DatabaseConnection {
-	let db: OpaquePointer
+open class DatabaseConnection {
+	open let db: OpaquePointer
 	
 	//A cache of prepared statements.
-	var statementCache = [String:OpaquePointer]()
+	open var statementCache = [String:OpaquePointer]()
 	
-	init(_ filename: String) throws {
+	public init(_ filename: String) throws {
 		var connection: OpaquePointer?
 		
 		let result = sqlite3_open(filename, &connection)
@@ -74,7 +74,7 @@ class DatabaseConnection {
 		db = connection!
 	}
 	
-	convenience init() throws {
+	public convenience init() throws {
 		try self.init(":memory:")
 	}
 	
@@ -86,7 +86,7 @@ class DatabaseConnection {
 	}
 	
 	
-	func migrate(
+	open func migrate(
 		_ name: String? = nil,
 		file: String = #file,
 		function: String = #function,
@@ -126,7 +126,7 @@ class DatabaseConnection {
 	///you may assume none of the database statements run by `transaction` have been performed.
 	
 	///- parameter transaction: The code to run inside of the transaction.
-	func performTransaction<Result>(_ transaction: (() throws -> Result)) throws -> Result {
+	open func performTransaction<Result>(_ transaction: (() throws -> Result)) throws -> Result {
 		let result: Result
 		
 		try run("BEGIN;")
@@ -146,7 +146,7 @@ class DatabaseConnection {
 	///- parameter indexedParameters: The values to bind to the SQL statement's unnamed or indexed parameters, like `?`.
 	///- parameter namedParameters: The values to bind to the SQL statement's named parameters, like `:id`.
 	///- parameter cache: Whether the compiled statement should be cached.  Default is `true`.
-	@discardableResult func run(
+	@discardableResult open func run(
 		_ query: String,
 		_ indexedParameters: DatabaseType?...,
 		_ namedParameters: [String:DatabaseType?] = [:],

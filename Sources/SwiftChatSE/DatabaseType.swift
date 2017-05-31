@@ -15,7 +15,7 @@ import Foundation
 
 
 ///A type which can be represented in a SQLite database.
-protocol DatabaseType {
+public protocol DatabaseType {
 	///Converts `self` to a native type.
 	var asNative: DatabaseNativeType { get }
 	
@@ -33,8 +33,8 @@ protocol DatabaseType {
 
 
 ///A type which can be directly represented in a SQLite databse.
-protocol DatabaseNativeType: DatabaseType {}
-extension DatabaseNativeType {
+public protocol DatabaseNativeType: DatabaseType {}
+public extension DatabaseNativeType {
 	var asNative: DatabaseNativeType { return self }
 	
 	static func from(native: DatabaseNativeType) -> Self? {
@@ -45,8 +45,8 @@ extension DatabaseNativeType {
 
 
 ///A type which can be converted to a `DatabseNativeType`.
-protocol DatabaseConvertibleType: DatabaseType {}
-extension DatabaseConvertibleType {
+public protocol DatabaseConvertibleType: DatabaseType {}
+public extension DatabaseConvertibleType {
 	func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
 		return asNative.bind(to: statement, index: index)
 	}
@@ -55,7 +55,7 @@ extension DatabaseConvertibleType {
 
 
 extension Data: DatabaseNativeType {
-	func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
+	public func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
 		return withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Int32 in
 			let count = self.count
 			let bytesCopy = malloc(count)
@@ -68,15 +68,15 @@ extension Data: DatabaseNativeType {
 
 
 extension Double: DatabaseNativeType {
-	func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
+	public func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
 		return sqlite3_bind_double(statement, index, self)
 	}
 }
 
 extension Float: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return Double(self) }
+	public var asNative: DatabaseNativeType { return Double(self) }
 	
-	static func from(native: DatabaseNativeType) -> Float? {
+	public static func from(native: DatabaseNativeType) -> Float? {
 		guard let n = native as? Double else { return nil }
 		return Float(n)
 	}
@@ -84,82 +84,82 @@ extension Float: DatabaseConvertibleType {
 
 
 extension Int64: DatabaseNativeType {
-	func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
+	public func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
 		return sqlite3_bind_int64(statement, index, self)
 	}
 }
 
 
 extension Bool: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return self ? 1 : 0 }
+	public var asNative: DatabaseNativeType { return self ? 1 : 0 }
 	
-	static func from(native: DatabaseNativeType) -> Bool? {
+	public static func from(native: DatabaseNativeType) -> Bool? {
 		guard let n = native as? Int64 else { return nil }
 		return n == 0 ? false : true
 	}
 }
 
 extension Int8: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return Int64(self) }
+	public var asNative: DatabaseNativeType { return Int64(self) }
 	
-	static func from(native: DatabaseNativeType) -> Int8? {
+	public static func from(native: DatabaseNativeType) -> Int8? {
 		guard let n = native as? Int64 else { return nil }
 		return Int8(n)
 	}
 }
 extension Int16: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return Int64(self) }
+	public var asNative: DatabaseNativeType { return Int64(self) }
 	
-	static func from(native: DatabaseNativeType) -> Int16? {
+	public static func from(native: DatabaseNativeType) -> Int16? {
 		guard let n = native as? Int64 else { return nil }
 		return Int16(n)
 	}
 }
 extension Int32: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return Int64(self) }
+	public var asNative: DatabaseNativeType { return Int64(self) }
 	
-	static func from(native: DatabaseNativeType) -> Int32? {
+	public static func from(native: DatabaseNativeType) -> Int32? {
 		guard let n = native as? Int64 else { return nil }
 		return Int32(n)
 	}
 }
 extension Int: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return Int64(self) }
+	public var asNative: DatabaseNativeType { return Int64(self) }
 	
-	static func from(native: DatabaseNativeType) -> Int? {
+	public static func from(native: DatabaseNativeType) -> Int? {
 		guard let n = native as? Int64 else { return nil }
 		return Int(n)
 	}
 }
 
 extension UInt8: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return Int64(self) }
+	public var asNative: DatabaseNativeType { return Int64(self) }
 	
-	static func from(native: DatabaseNativeType) -> UInt8? {
+	public static func from(native: DatabaseNativeType) -> UInt8? {
 		guard let n = native as? Int64 else { return nil }
 		return UInt8(n)
 	}
 }
 extension UInt16: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return Int64(self) }
+	public var asNative: DatabaseNativeType { return Int64(self) }
 	
-	static func from(native: DatabaseNativeType) -> UInt16? {
+	public static func from(native: DatabaseNativeType) -> UInt16? {
 		guard let n = native as? Int64 else { return nil }
 		return UInt16(n)
 	}
 }
 extension UInt32: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return Int64(self) }
+	public var asNative: DatabaseNativeType { return Int64(self) }
 	
-	static func from(native: DatabaseNativeType) -> UInt32? {
+	public static func from(native: DatabaseNativeType) -> UInt32? {
 		guard let n = native as? Int64 else { return nil }
 		return UInt32(n)
 	}
 }
 extension UInt: DatabaseConvertibleType {
-	var asNative: DatabaseNativeType { return Int64(self) }
+	public var asNative: DatabaseNativeType { return Int64(self) }
 	
-	static func from(native: DatabaseNativeType) -> UInt? {
+	public static func from(native: DatabaseNativeType) -> UInt? {
 		guard let n = native as? Int64 else { return nil }
 		return UInt(n)
 	}
@@ -167,7 +167,7 @@ extension UInt: DatabaseConvertibleType {
 
 
 extension String: DatabaseNativeType {
-	func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
+	public func bind(to statement: OpaquePointer, index: Int32) -> Int32 {
 		let chars = Array(utf8)
 		let buf = malloc(chars.count).bindMemory(to: Int8.self, capacity: chars.count)
 		memcpy(buf, chars, chars.count)
