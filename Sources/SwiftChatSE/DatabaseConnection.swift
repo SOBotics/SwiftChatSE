@@ -117,14 +117,9 @@ open class DatabaseConnection {
 	}
 	
 	open func migrate(
-		_ name: String? = nil,
-		file: String = #file,
-		function: String = #function,
-		line: Int = #line,
+		_ name: String,
 		_ migration: (() throws -> Void)
 		) throws {
-		
-		let name = name ?? "\(file):\(function):\(line)"
 		
 		try performTransaction {
 			//Create the migration table if it does not exist already.

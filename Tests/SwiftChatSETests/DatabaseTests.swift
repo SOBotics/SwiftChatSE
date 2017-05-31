@@ -139,7 +139,7 @@ class DatabaseTests: XCTestCase {
 				"someText TEXT" +
 		");")
 		
-		try db.migrate {
+		try db.migrate("testMigrations #1") {
 			try db.run("INSERT INTO test (someText) VALUES (?);", testText)
 		}
 		
@@ -150,8 +150,8 @@ class DatabaseTests: XCTestCase {
 			XCTAssert((result.column(named: "someText") as String?) == testText)
 		}
 		
-		try db.migrate("testing") {}
-		try db.migrate("testing") { XCTFail("migration was performed twice") }
+		try db.migrate("testMigrations #2") {}
+		try db.migrate("testMigrations #2") { XCTFail("migration was performed twice") }
 	}
 	
 	
