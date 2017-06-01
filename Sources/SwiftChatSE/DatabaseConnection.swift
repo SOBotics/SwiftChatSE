@@ -69,15 +69,15 @@ open class DatabaseConnection {
 		
 		public init(rawValue: Int32) { self.rawValue = rawValue }
 		
-		static let readOnly = SQLiteOpenFlags(rawValue: SQLITE_OPEN_READONLY)
-		static let readWrite = SQLiteOpenFlags(rawValue: SQLITE_OPEN_READWRITE)
-		static let createIfNotExists = SQLiteOpenFlags(rawValue: SQLITE_OPEN_CREATE)
-		static let allowURIFilenames  = SQLiteOpenFlags(rawValue: SQLITE_OPEN_CREATE)
-		static let memory = SQLiteOpenFlags(rawValue: SQLITE_OPEN_MEMORY)
-		static let noMutex = SQLiteOpenFlags(rawValue: SQLITE_OPEN_NOMUTEX)
-		static let fullMutex = SQLiteOpenFlags(rawValue: SQLITE_OPEN_FULLMUTEX)
-		static let sharedCache = SQLiteOpenFlags(rawValue: SQLITE_OPEN_SHAREDCACHE)
-		static let privateCache = SQLiteOpenFlags(rawValue: SQLITE_OPEN_PRIVATECACHE)
+		public static let readOnly = SQLiteOpenFlags(rawValue: SQLITE_OPEN_READONLY)
+		public static let readWrite = SQLiteOpenFlags(rawValue: SQLITE_OPEN_READWRITE)
+		public static let createIfNotExists = SQLiteOpenFlags(rawValue: SQLITE_OPEN_CREATE)
+		public static let allowURIFilenames  = SQLiteOpenFlags(rawValue: SQLITE_OPEN_CREATE)
+		public static let memory = SQLiteOpenFlags(rawValue: SQLITE_OPEN_MEMORY)
+		public static let noMutex = SQLiteOpenFlags(rawValue: SQLITE_OPEN_NOMUTEX)
+		public static let fullMutex = SQLiteOpenFlags(rawValue: SQLITE_OPEN_FULLMUTEX)
+		public static let sharedCache = SQLiteOpenFlags(rawValue: SQLITE_OPEN_SHAREDCACHE)
+		public static let privateCache = SQLiteOpenFlags(rawValue: SQLITE_OPEN_PRIVATECACHE)
 	}
 	public init(_ filename: String, options: SQLiteOpenFlags = []) throws {
 		var connection: OpaquePointer?
@@ -97,6 +97,9 @@ open class DatabaseConnection {
 		}
 		
 		db = connection!
+        
+        busyTimeout = 1
+        sqlite3_busy_timeout(db, 1000)
 	}
 	
 	public convenience init() throws {
@@ -115,6 +118,14 @@ open class DatabaseConnection {
 	open var lastInsertedPrimaryKey: Int64 {
 		return sqlite3_last_insert_rowid(db)
 	}
+    
+    ///The amount of time to wait before a query will time out with `SQLiteError.busy`.
+    ///Default is 1 second.
+    open var busyTimeout: CFTimeInterval {
+        didSet {
+            sqlite3_busy_timeout(db, Int32(busyTimeout * 1000))
+        }
+    }
 	
 	open func migrate(
 		_ name: String,
