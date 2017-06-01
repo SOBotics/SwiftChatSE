@@ -1,4 +1,7 @@
 # SwiftChatSE
+
+[![Build Status](https://travis-ci.org/SOBotics/FireAlarm.svg?branch=swift)](https://travis-ci.org/SOBotics/FireAlarm)
+
 A Swift library for Stack Exchange chat
 
 SwiftChatSE is a library made from [FireAlarm-Swift](//github.com/NobodyNada/FireAlarm/tree/swift)'s chat code.  It works on macOS and Linux.
