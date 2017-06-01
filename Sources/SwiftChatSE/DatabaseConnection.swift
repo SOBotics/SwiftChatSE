@@ -121,7 +121,7 @@ open class DatabaseConnection {
     
     ///The amount of time to wait before a query will time out with `SQLiteError.busy`.
     ///Default is 1 second.
-    open var busyTimeout: CFTimeInterval {
+    open var busyTimeout: TimeInterval {
         didSet {
             sqlite3_busy_timeout(db, Int32(busyTimeout * 1000))
         }
