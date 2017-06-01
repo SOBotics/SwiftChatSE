@@ -7,4 +7,4 @@ swiftc -IClibwebsockets -ICSQLite -L/usr/local/lib -I/usr/local/opt/openssl/incl
 ar rcs libSwiftChatSE.a *.o || exit 1
 rm *.o
 echo "Generating swiftmodule..."
-swiftc -IClibwebsockets -ICSqlite -L/usr/local/lib -I/usr/local/opt/openssl/include -I/usr/local/include -emit-module Sources/SwiftChatSE/*.swift -module-name SwiftChatSE || exit 1
+swiftc -IClibwebsockets -ICSQLite -L/usr/local/lib -I/usr/local/opt/openssl/include -I/usr/local/include -emit-module Sources/SwiftChatSE/*.swift -module-name SwiftChatSE || exit 1
