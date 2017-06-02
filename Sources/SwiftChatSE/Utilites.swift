@@ -116,12 +116,7 @@ public func makeTable(_ heading: [String], contents: [String]...) -> String {
 
 
 
-public func postIDFromURL(_ url: URL, isUser: Bool = false) -> Int? {
-	if url.host != "stackoverflow.com" && url.host != "www.stackoverflow.com" {
-		return nil
-	}
-	
-	let componentIndex: Int
+public func postIDFromURL(_ url: URL, isUser: Bool = false) -> Int? {let componentIndex: Int
 	let component: String
 	if url.pathComponents.first == "/" {
 		if url.pathComponents.count < 3 {
