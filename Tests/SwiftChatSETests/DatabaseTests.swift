@@ -101,33 +101,43 @@ class DatabaseTests: XCTestCase {
 				"someText TEXT" +
 			");")
 		
-		try db.performTransaction {
-			try db.run("INSERT INTO test (someText) VALUES (?);", testText)
-			try db.run("INSERT INTO test (someText) VALUES (?);", testText)
+		try db.transact {t in
+			try t.run("INSERT INTO test (someText) VALUES (?);", testText)
+			try t.run("INSERT INTO test (someText) VALUES (?);", testText)
 		}
 		
 		XCTAssert(try db.run("SELECT COUNT(*) FROM test").first?.column(at: 0) == 2, "Transactions should work")
 		
 		
 		
-		XCTAssertThrowsError(try db.performTransaction {
-			try db.run("INSERT INTO test (someText) VALUES (?);", testText)
-			try db.run("HAJSDFLKJAHSDFALSDF;")
-			try db.run("DELETE FROM test;")
+		XCTAssertThrowsError(try db.transact {t in
+			try t.run("INSERT INTO test (someText) VALUES (?);", testText)
+			try t.run("HAJSDFLKJAHSDFALSDF;")
+			try t.run("DELETE FROM test;")
 		}, "A failed transaction should throw an error")
 		
 		XCTAssert(try db.run("SELECT COUNT(*) FROM test").first?.column(at: 0)  == 2,
 		          "An invalid transaction should not have any effects"
 		)
 		
+        try db.transact {t in
+            try t.run("DELETE FROM test;")
+            t.rollback()
+        }
+        XCTAssert(try db.run("SELECT COUNT(*) FROM test").first?.column(at: 0)  == 2,
+                  "A rolled-back transaction should not have any effects"
+        )
 		
-		
-		try db.performTransaction {
-			try db.run("DELETE FROM test;")
+		try db.transact {t in
+			try t.run("DELETE FROM test;")
 			return
 		}
 		
 		XCTAssert(try db.run("SELECT COUNT(*) FROM test").first?.column(at: 0)  == 0, "Transactions should work")
+        
+        XCTAssertEqual(try db.transact {_ in
+            return 5
+        }, 5, "Transactions should return their result")
 	}
 	
 	func testMigrations() throws {
@@ -137,8 +147,8 @@ class DatabaseTests: XCTestCase {
 				"someText TEXT" +
 		");")
 		
-		try db.migrate("testMigrations #1") {
-			try db.run("INSERT INTO test (someText) VALUES (?);", testText)
+		try db.migrate("testMigrations #1") {t in
+			try t.run("INSERT INTO test (someText) VALUES (?);", testText)
 		}
 		
 		let results = try db.run("SELECT * FROM test")
@@ -148,8 +158,8 @@ class DatabaseTests: XCTestCase {
 			XCTAssert((result.column(named: "someText") as String?) == testText)
 		}
 		
-		try db.migrate("testMigrations #2") {}
-		try db.migrate("testMigrations #2") { XCTFail("migration was performed twice") }
+		try db.migrate("testMigrations #2") {_ in }
+		try db.migrate("testMigrations #2") {_ in XCTFail("migration was performed twice") }
 	}
 	
 	

@@ -60,8 +60,14 @@ private func throwSQLiteError(code: Int32, db: OpaquePointer?) throws -> Never {
 open class DatabaseConnection {
     open let db: OpaquePointer
     
-    //A cache of prepared statements.
+    ///A cache of prepared statements.
     open var statementCache = [String:OpaquePointer]()
+    
+    
+    private var queue = DispatchQueue(label: "org.sobotics.swiftchatse.DatabaseConnection")
+    //A thread which is currently performing a transaction.  Used to detect when
+    //`run` is erronously called from inside a transaction
+    private var transactionThread: pthread_t?
     
     
     public struct SQLiteOpenFlags: OptionSet {
@@ -129,25 +135,25 @@ open class DatabaseConnection {
     
     open func migrate(
         _ name: String,
-        _ migration: (() throws -> Void)
+        _ migration: ((DatabaseTransaction) throws -> Void)
         ) throws {
         
-        try performTransaction {
+        try transact {t in
             //Create the migration table if it does not exist already.
-            try run("CREATE TABLE IF NOT EXISTS migrations (name TEXT NOT NULL);")
-            try run("CREATE UNIQUE INDEX IF NOT EXISTS migration_index ON migrations (name);")
+            try t.run("CREATE TABLE IF NOT EXISTS migrations (name TEXT NOT NULL);")
+            try t.run("CREATE UNIQUE INDEX IF NOT EXISTS migration_index ON migrations (name);")
             
             //Check if this migration already exists.
-            let exists: Int? = try run(
+            let exists: Int? = try t.run(
                 "SELECT EXISTS(SELECT * FROM migrations WHERE name = ? LIMIT 1);",
                 name
                 ).first?.column(at: 0) ?? 0
             
             if (exists ?? 0) == 0 {
                 //Run the migration.
-                try migration()
+                try migration(t)
                 
-                try run("INSERT INTO migrations (name) VALUES (?)", name)
+                try t.run("INSERT INTO migrations (name) VALUES (?)", name)
             }
         }
     }
@@ -157,24 +163,50 @@ open class DatabaseConnection {
     ///A [database transaction](https://en.wikipedia.org/wiki/Database_transaction) is an atomic unit of work,
     ///guaranteed to either complete entirely or not at all.
     ///
-    ///If either the transaction block or the `COMMIT` statement throw an error,
+    ///If either the transaction block or the `COMMIT` statement throws an error,
     ///the transaction will be automatically rolled back.  If this function throws an error,
     ///you may assume none of the database statements run by `transaction` have been performed.
     
     ///- parameter transaction: The code to run inside of the transaction.
-    open func performTransaction<Result>(_ transaction: (() throws -> Result)) throws -> Result {
-        let result: Result
-        
-        try run("BEGIN;")
-        do {
-            result = try transaction()
-            try run("COMMIT;")
-        } catch {
-            try run("ROLLBACK;")
-            throw error
+    open func transact<Result>(_ block: ((DatabaseTransaction) throws -> Result)) throws -> Result {
+        guard transactionThread == nil || transactionThread != pthread_self() else {
+            fatalError("Recursive transactions are not allowed.")
         }
         
-        return result
+        return try queue.sync {
+            transactionThread = pthread_self()
+            defer { transactionThread = nil }
+            
+            var result: Result!
+            var error: Error?
+            let transaction = DatabaseTransaction(db: self)
+            
+            
+            do {
+                try transaction.begin()
+            } catch {
+                transaction.state = .rolledBack
+                throw error
+            }
+            
+            
+            do {
+                result = try block(transaction)
+                if transaction.state == .inProgress { transaction.state = .committed }
+            } catch let e {
+                error = e
+                transaction.rollback()
+            }
+            
+            
+            try transaction.complete()
+            
+            if let e = error {
+                throw e
+            }
+            
+            return result
+        }
     }
     
     
@@ -212,6 +244,26 @@ open class DatabaseConnection {
     ///- parameter namedParameters: The values to bind to the SQL statement's named parameters, like `:id`.
     ///- parameter cache: Whether the compiled statement should be cached.  Default is `true`.
     @discardableResult open func run(
+        _ query: String,
+        namedParameters: [String:DatabaseType?],
+        indexedParameters: [DatabaseType?],
+        cache: Bool = true
+        ) throws -> [Row] {
+        
+        guard transactionThread == nil || transactionThread != pthread_self() else {
+            fatalError(
+                "Do not call run on a DatabaseConnection from inside a transaction; " +
+                "use the DatabaseTransaction's run method instead."
+            )
+        }
+        
+        return try queue.sync {
+            try _run(query, namedParameters: namedParameters, indexedParameters: indexedParameters)
+        }
+        
+    }
+    
+    @discardableResult fileprivate func _run(
         _ query: String,
         namedParameters: [String:DatabaseType?],
         indexedParameters: [DatabaseType?],
@@ -320,5 +372,120 @@ open class DatabaseConnection {
         } while !done
         
         return results
+    }
+}
+
+
+///A `DatabaseTransaction` represents a transaction in the database.
+///Do not create a `DatabaseTransaction` yourself; use `DatabaseConnection`'s `transact` method instead.
+///
+///A [database transaction](https://en.wikipedia.org/wiki/Database_transaction) is an atomic unit of work,
+///guaranteed to either complete entirely or not at all.
+public class DatabaseTransaction {
+    ///The `DatabaseConnection` on which this transaction is operating.
+    public let db: DatabaseConnection
+    
+    public enum State {
+        ///The transaction has not yet been completed.
+        case inProgress
+        
+        ///The transaction was rolled back.
+        case rolledBack
+        
+        ///The transaction was completed.
+        case committed
+    }
+    
+    ///The `State` of this transaction.
+    public fileprivate(set) var state: State = .inProgress
+    
+    fileprivate init(db: DatabaseConnection) {
+        self.db = db
+    }
+    
+    ///Marks a database transaction for rollback.
+    ///Queries may not be run on a transaction which has been marked for rollback.
+    ///The rollback will be performed once the `transact` block completes.
+    public func rollback() {
+        if state == .committed {
+            fatalError("attemt to  rollback a committed transaction")
+        }
+        
+        state = .rolledBack
+    }
+    
+    fileprivate func commit() {
+        if state == .rolledBack {
+            fatalError("attempt to commit a rolled-back transaction")
+        }
+        
+        state = .committed
+    }
+    
+    fileprivate func begin() throws {
+        try run("BEGIN;")
+    }
+    
+    fileprivate func complete() throws {
+        do {
+            switch state {
+            case .inProgress:
+                fatalError("attempt to complete an in-progress transaction")
+            case .rolledBack:
+                try db._run("ROLLBACK;", namedParameters: [:], indexedParameters: [])
+            case .committed:
+                try db._run("COMMIT;", namedParameters: [:], indexedParameters: [])
+            }
+        } catch {
+            let _ = try? db._run("ROLLBACK;", namedParameters: [:], indexedParameters: [])
+            state = .rolledBack
+            throw error
+        }
+    }
+    
+    ///Runs a single SQL statement, binding the specified parameters.
+    ///- parameter query: The SQL statement to run.
+    ///- parameter parameters: A dictionary containing names and values to bind to the SQL statement's named parameters, like `:id`.
+    ///- parameter cache: Whether the compiled statement should be cached.  Default is `true`.
+    @discardableResult public func run(
+        _ query: String,
+        _ parameters: [String:DatabaseType?],
+        cache: Bool = true
+        ) throws -> [Row] {
+        
+        return try run(query, namedParameters: parameters, indexedParameters: [])
+    }
+    
+    ///Runs a single SQL statement, binding the specified parameters.
+    ///- parameter query: The SQL statement to run.
+    ///- parameter parameters: The values to bind to the SQL statement's unnamed or indexed parameters, like `?`.
+    ///- parameter cache: Whether the compiled statement should be cached.  Default is `true`.
+    @discardableResult public func run(
+        _ query: String,
+        _ parameters: DatabaseType?...,
+        cache: Bool = true
+        ) throws -> [Row] {
+        
+        return try run(query, namedParameters: [:], indexedParameters: parameters)
+    }
+    
+    
+    ///Runs a single SQL statement, binding the specified parameters.
+    ///- parameter query: The SQL statement to run.
+    ///- parameter indexedParameters: The values to bind to the SQL statement's unnamed or indexed parameters, like `?`.
+    ///- parameter namedParameters: The values to bind to the SQL statement's named parameters, like `:id`.
+    ///- parameter cache: Whether the compiled statement should be cached.  Default is `true`.
+    @discardableResult public func run(
+        _ query: String,
+        namedParameters: [String:DatabaseType?],
+        indexedParameters: [DatabaseType?],
+        cache: Bool = true
+        ) throws -> [Row] {
+        
+        if state != .inProgress {
+            fatalError("attempt to run a query on a \(state == .rolledBack ? "rolled-back" : "committed") transaction")
+        }
+        
+        return try db._run(query, namedParameters: namedParameters, indexedParameters: indexedParameters)
     }
 }
