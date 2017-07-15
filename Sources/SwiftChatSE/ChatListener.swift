@@ -214,14 +214,6 @@ open class ChatListener {
 	
 	///Process a ChatMessage in the specified room.
 	open func processMessage(_ room: ChatRoom, message: ChatMessage, isEdit: Bool) {
-        
-        //A hack till I can get a proper fix
-        if (message.content.lowercased() == "@bots alive" || message.content.lowercased() == "🚆" || message.content.lowercased() == "🚅" || message.content.lowercased() == "🚂" || message.content.lowercased() == "🚊") && room.roomID == 111347
-        {
-            room.postMessage("[🚃](https://www.youtube.com/watch?v=dQw4w9WgXcQ)")
-            return
-        }
-        
 		let lowercase = message.content.lowercased()
 		
 		let shortName = String(name.characters[
