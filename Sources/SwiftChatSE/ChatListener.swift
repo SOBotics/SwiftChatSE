@@ -93,7 +93,7 @@ open class ChatListener {
                 .trimmingCharacters(in: .whitespacesAndNewlines)
                 .components(separatedBy: CharacterSet.whitespaces)
         components.removeFirst()
-        while components.first?.isEmpty { components.removeFirst() }
+        while components.first?.isEmpty ?? false { components.removeFirst() }
         
         var args = [String]()
         
