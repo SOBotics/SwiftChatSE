@@ -90,10 +90,9 @@ open class ChatListener {
         var components =
             message.content.lowercased()
                 .trimmingCharacters(in: CharacterSet(charactersIn: "?"))
-                .trimmingCharacters(in: .whitespacesAndNewlines)
                 .components(separatedBy: CharacterSet.whitespaces)
+                .filter { !$0.isEmpty }
         components.removeFirst()
-        while components.first?.isEmpty ?? false { components.removeFirst() }
         
         var args = [String]()
         
