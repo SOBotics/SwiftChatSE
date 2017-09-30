@@ -510,18 +510,18 @@ open class Client: NSObject, URLSessionDataDelegate {
 		let page = String(data: linkData, encoding: String.Encoding.utf8)!
 		
 		if let errorStartIndex = page.range(of: "<div class=\"error\"><p>")?.upperBound {
-			let errorStart = page[errorStartIndex...]
+			let errorStart = String(page[errorStartIndex...])
 			let errorEndIndex = errorStart.range(of: "</p></div>")!.lowerBound
-			let error = errorStart[...errorEndIndex]
+			let error = String(errorStart[...errorEndIndex])
 			
-			throw LoginError.loginFailed(message: String(error))
+			throw LoginError.loginFailed(message: error)
 		}
 		
-		let linkStart = page[page.range(of: "<a href=\"")!.upperBound...]
+		let linkStart = String(page[page.range(of: "<a href=\"")!.upperBound...])
 		let linkEndIndex = linkStart.range(of: "\"")!.lowerBound
-		let link = linkStart[...linkEndIndex]
+		let link = String(linkStart[...linkEndIndex])
 		
-		let (_,_) = try get(String(link))
+		let (_,_) = try get(link)
 		
 		for host: ChatRoom.Host in [.stackOverflow, .metaStackExchange] {
 			//Login to host.
@@ -550,25 +550,25 @@ open class Client: NSObject, URLSessionDataDelegate {
 			guard let nameStartIndex = input.range(of: "name=\"")?.upperBound else {
 				continue
 			}
-			let nameStart = input[nameStartIndex...]
+			let nameStart = String(input[nameStartIndex...])
 			
 			guard let nameEndIndex = nameStart.range(of: "\"")?.lowerBound else {
 				continue
 			}
-			let name = nameStart[...nameEndIndex]
+			let name = String(nameStart[...nameEndIndex])
 			
 			guard let valueStartIndex = nameStart.range(of: "value=\"")?.upperBound else {
 				continue
 			}
-			let valueStart = nameStart[valueStartIndex...]
+			let valueStart = String(nameStart[valueStartIndex...])
 			
 			guard let valueEndIndex = valueStart.range(of: "\"")?.lowerBound else {
 				continue
 			}
 			
-			let value = valueStart[...valueEndIndex]
+			let value = String(valueStart[...valueEndIndex])
 			
-			result[String(name)] = String(value)
+			result[name] = value
 		}
 		
 		return result
