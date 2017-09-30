@@ -7,7 +7,12 @@
 //
 
 import Foundation
-import CSQLite
+
+#if os(Linux)
+    import CSQLite
+#else
+    import SQLite3
+#endif
 
 ///A type which can be represented in a SQLite database.
 public protocol DatabaseType {

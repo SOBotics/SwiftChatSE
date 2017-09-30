@@ -8,7 +8,11 @@
 
 import Foundation
 
-import CSQLite
+#if os(Linux)
+    import CSQLite
+#else
+    import SQLite3
+#endif
 
 public enum DatabaseError: Error {
     case unknownSQLiteError(code: Int32, message: String?)
