@@ -121,19 +121,19 @@ open class ChatRoom: NSObject {
             guard let inputIndex = joinFavorites.range(of: "type=\"hidden\"")?.upperBound else {
                 fatalError("Could not find fkey")
             }
-            let input = joinFavorites.substring(from: inputIndex)
+            let input = joinFavorites[inputIndex...]
             
             guard let fkeyStartIndex = input.range(of: "value=\"")?.upperBound else {
                 fatalError("Could not find fkey")
             }
-            let fkeyStart = input.substring(from: fkeyStartIndex)
+            let fkeyStart = input[fkeyStartIndex...]
             
             guard let fkeyEnd = fkeyStart.range(of: "\"")?.lowerBound else {
                 fatalError("Could not find fkey")
             }
             
             
-            _fkey = fkeyStart.substring(to: fkeyEnd)
+            _fkey = String(fkeyStart[...fkeyEnd])
         }
         return _fkey
     }

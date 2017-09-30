@@ -73,7 +73,7 @@ open class Row {
 	open func column<T: DatabaseType>(at index: Int, type: T.Type = T.self) -> T? {
 		guard let value = columns[index] else { return nil }
 		guard let converted = T.from(native: value) else {
-			fatalError("column \(index) has an incompatible type ('\(type(of: value))' could not be converted to '\(type)')")
+			fatalError("column \(index) has an incompatible type ('\(Swift.type(of: value))' could not be converted to '\(type)')")
 		}
 		return converted
 	}

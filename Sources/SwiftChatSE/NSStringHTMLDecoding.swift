@@ -293,9 +293,9 @@ public extension String {
 		func decode(entity : String) -> Character? {
 			
 			if entity.hasPrefix("&#x") || entity.hasPrefix("&#X"){
-				return decodeNumeric(string: entity.substring(from: entity.index(entity.startIndex, offsetBy:3)), base: 16)
+				return decodeNumeric(string: String(entity[entity.index(entity.startIndex, offsetBy: 3)...]), base: 16)
 			} else if entity.hasPrefix("&#") {
-				return decodeNumeric(string: entity.substring(from: entity.index(entity.startIndex, offsetBy:2)), base: 10)
+				return decodeNumeric(string: String(entity[entity.index(entity.startIndex, offsetBy:2)...]), base: 10)
 			} else {
 				return characterEntities[entity]
 			}
@@ -308,12 +308,12 @@ public extension String {
 		
 		// Find the next '&' and copy the characters preceding it to `result`:
 		while let ampRange = self.range(of: "&", range: position ..< endIndex) {
-			result.append(self[position ..< ampRange.lowerBound])
+            result.append(String(self[position ..< ampRange.lowerBound]))
 			position = ampRange.lowerBound
 			
 			// Find the next ';' and copy everything from '&' to ';' into `entity`
 			if let semiRange = self.range(of: ";", range: position ..< endIndex) {
-				let entity = self[position ..< semiRange.upperBound]
+				let entity = String(self[position ..< semiRange.upperBound])
 				position = semiRange.upperBound
 				
 				if let decoded = decode(entity: entity) {
@@ -329,7 +329,7 @@ public extension String {
 			}
 		}
 		// Copy remaining characters to `result`:
-		result.append(self[position ..< endIndex])
+        result.append(String(self[position ..< endIndex]))
 		return result
 	}
 }

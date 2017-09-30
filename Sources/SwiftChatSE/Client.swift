@@ -26,7 +26,7 @@ extension String {
 			result.append("\(key.urlEncodedString)=\(value.urlEncodedString)")
 		}
 		
-		self.init(result.joined(separator: "&"))!
+		self.init(result.joined(separator: "&"))
 	}
 }
 
@@ -510,18 +510,18 @@ open class Client: NSObject, URLSessionDataDelegate {
 		let page = String(data: linkData, encoding: String.Encoding.utf8)!
 		
 		if let errorStartIndex = page.range(of: "<div class=\"error\"><p>")?.upperBound {
-			let errorStart = page.substring(from: errorStartIndex)
+			let errorStart = page[errorStartIndex...]
 			let errorEndIndex = errorStart.range(of: "</p></div>")!.lowerBound
-			let error = errorStart.substring(to: errorEndIndex)
+			let error = errorStart[...errorEndIndex]
 			
-			throw LoginError.loginFailed(message: error)
+			throw LoginError.loginFailed(message: String(error))
 		}
 		
-		let linkStart = page.substring(from: page.range(of: "<a href=\"")!.upperBound)
+		let linkStart = page[page.range(of: "<a href=\"")!.upperBound...]
 		let linkEndIndex = linkStart.range(of: "\"")!.lowerBound
-		let link = linkStart.substring(to: linkEndIndex)
+		let link = linkStart[...linkEndIndex]
 		
-		let (_,_) = try get(link)
+		let (_,_) = try get(String(link))
 		
 		for host: ChatRoom.Host in [.stackOverflow, .metaStackExchange] {
 			//Login to host.
@@ -550,25 +550,25 @@ open class Client: NSObject, URLSessionDataDelegate {
 			guard let nameStartIndex = input.range(of: "name=\"")?.upperBound else {
 				continue
 			}
-			let nameStart = input.substring(from: nameStartIndex)
+			let nameStart = input[nameStartIndex...]
 			
 			guard let nameEndIndex = nameStart.range(of: "\"")?.lowerBound else {
 				continue
 			}
-			let name = nameStart.substring(to: nameEndIndex)
+			let name = nameStart[...nameEndIndex]
 			
 			guard let valueStartIndex = nameStart.range(of: "value=\"")?.upperBound else {
 				continue
 			}
-			let valueStart = nameStart.substring(from: valueStartIndex)
+			let valueStart = nameStart[valueStartIndex...]
 			
 			guard let valueEndIndex = valueStart.range(of: "\"")?.lowerBound else {
 				continue
 			}
 			
-			let value = valueStart.substring(to: valueEndIndex)
+			let value = valueStart[...valueEndIndex]
 			
-			result[name] = value
+			result[String(name)] = String(value)
 		}
 		
 		return result
