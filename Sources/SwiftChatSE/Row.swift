@@ -7,12 +7,7 @@
 //
 
 import Foundation
-
-#if os(Linux)
-	import CSQLiteLinux
-#else
-	import CSQLite
-#endif
+import CSQLite
 
 open class Row {
 	///The columns of this row.
