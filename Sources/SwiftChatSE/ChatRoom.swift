@@ -133,7 +133,7 @@ open class ChatRoom: NSObject {
             }
             
             
-            _fkey = String(fkeyStart[...fkeyEnd])
+            _fkey = String(fkeyStart[..<fkeyEnd])
         }
         return _fkey
     }

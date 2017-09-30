@@ -512,14 +512,14 @@ open class Client: NSObject, URLSessionDataDelegate {
 		if let errorStartIndex = page.range(of: "<div class=\"error\"><p>")?.upperBound {
 			let errorStart = String(page[errorStartIndex...])
 			let errorEndIndex = errorStart.range(of: "</p></div>")!.lowerBound
-			let error = String(errorStart[...errorEndIndex])
+			let error = String(errorStart[..<errorEndIndex])
 			
 			throw LoginError.loginFailed(message: error)
 		}
 		
 		let linkStart = String(page[page.range(of: "<a href=\"")!.upperBound...])
 		let linkEndIndex = linkStart.range(of: "\"")!.lowerBound
-		let link = String(linkStart[...linkEndIndex])
+		let link = String(linkStart[..<linkEndIndex])
 		
 		let (_,_) = try get(link)
 		
@@ -555,7 +555,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 			guard let nameEndIndex = nameStart.range(of: "\"")?.lowerBound else {
 				continue
 			}
-			let name = String(nameStart[...nameEndIndex])
+			let name = String(nameStart[..<nameEndIndex])
 			
 			guard let valueStartIndex = nameStart.range(of: "value=\"")?.upperBound else {
 				continue
@@ -566,7 +566,7 @@ open class Client: NSObject, URLSessionDataDelegate {
 				continue
 			}
 			
-			let value = String(valueStart[...valueEndIndex])
+			let value = String(valueStart[..<valueEndIndex])
 			
 			result[name] = value
 		}
