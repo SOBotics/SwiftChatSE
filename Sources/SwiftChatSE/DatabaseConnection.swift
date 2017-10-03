@@ -232,8 +232,8 @@ open class DatabaseConnection {
             var stmt: OpaquePointer?
             let result = sqlite3_prepare_v2(
                 db,
-                query,
-                -1,
+                query.utf8CString,
+                query.utf8CString.count,
                 &stmt,
                 &tail
             )
