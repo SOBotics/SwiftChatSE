@@ -230,13 +230,15 @@ open class DatabaseConnection {
             //cache miss; compile the query
             var tail: UnsafePointer<Int8>?
             var stmt: OpaquePointer?
-            let result = sqlite3_prepare_v2(
-                db,
-                query.utf8CString,
-                query.utf8CString.count,
-                &stmt,
-                &tail
-            )
+            let result = query.utf8CString.withUnsafeBufferPointer {
+                sqlite3_prepare_v2(
+                    db,
+                    $0.baseAddress,
+                    Int32($0.count),
+                    &stmt,
+                    &tail
+                )
+            }
             
             guard result == SQLITE_OK, stmt != nil else {
                 try throwSQLiteError(code: result, db: db)
