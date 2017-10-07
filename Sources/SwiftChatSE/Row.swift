@@ -58,7 +58,7 @@ open class Row {
 	}
     
     ///Initializes a Row with the specified columns.
-    public init(columns: [DatabaseType?], columnNames: [String:Int]) {
+    public init(columns: [DatabaseNativeType?], columnNames: [String:Int]) {
         self.columns = columns
         self.columnNames = columnNames
     }
