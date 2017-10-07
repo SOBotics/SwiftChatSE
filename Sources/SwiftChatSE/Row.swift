@@ -56,6 +56,12 @@ open class Row {
 		self.columns = columns
 		self.columnNames = columnNames
 	}
+    
+    ///Initializes a Row with the specified columns.
+    public init(columns: [DatabaseType?], columnNames: [String:Int]) {
+        self.columns = columns
+        self.columnNames = columnNames
+    }
 	
 	
 	//MARK: - Convenience functions for accessing columns
