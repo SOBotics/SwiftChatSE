@@ -62,6 +62,8 @@ open class DatabaseConnection {
     //A cache of prepared statements.
     open var statementCache = [String:OpaquePointer]()
     
+    private let queue = DispatchQueue(label: "org.sobotics.swiftchatse.database")
+    private static let specificKey = DispatchSpecificKey<OpaquePointer>()
     
     public struct SQLiteOpenFlags: OptionSet {
         public var rawValue: Int32
@@ -96,6 +98,7 @@ open class DatabaseConnection {
         }
         
         db = connection!
+        queue.setSpecific(key: DatabaseConnection.specificKey, value: db)
         
         busyTimeout = 1
         sqlite3_busy_timeout(db, 1000)
@@ -162,18 +165,19 @@ open class DatabaseConnection {
     
     ///- parameter transaction: The code to run inside of the transaction.
     open func performTransaction<Result>(_ transaction: (() throws -> Result)) throws -> Result {
-        let result: Result
-        
-        try run("BEGIN;")
-        do {
-            result = try transaction()
-            try run("COMMIT;")
-        } catch {
-            try run("ROLLBACK;")
-            throw error
+        return try onQueue {
+            let result: Result
+            try run("BEGIN;")
+            do {
+                result = try transaction()
+                try run("COMMIT;")
+            } catch {
+                try run("ROLLBACK;")
+                throw error
+            }
+            
+            return result
         }
-        
-        return result
     }
     
     
@@ -217,8 +221,22 @@ open class DatabaseConnection {
         cache: Bool = true
         ) throws -> [Row] {
         
+        return try onQueue { try _run(query, namedParameters: namedParameters, indexedParameters: indexedParameters, cache: cache) }
         
-        
+    }
+    
+    private func onQueue<T>(execute work: () throws -> T) rethrows -> T {
+        if DispatchQueue.getSpecific(key: DatabaseConnection.specificKey) == db {
+            return try work()
+        } else {
+            return try queue.sync(execute: work)
+        }
+    }
+    
+    private func _run(_ query: String,
+                      namedParameters: [String:DatabaseType?],
+                      indexedParameters: [DatabaseType?],
+                      cache: Bool) throws -> [Row] {
         //Compile the query.
         let query = query.trimmingCharacters(in: .whitespacesAndNewlines)
         let statement: OpaquePointer
