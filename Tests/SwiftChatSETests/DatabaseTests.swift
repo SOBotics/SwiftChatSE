@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Dispatch
 @testable import SwiftChatSE
 
 class DatabaseTests: XCTestCase {
