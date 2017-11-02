@@ -249,22 +249,23 @@ open class DatabaseConnection {
             //cache miss; compile the query
             var tail: UnsafePointer<Int8>?
             var stmt: OpaquePointer?
-            let result = query.utf8CString.withUnsafeBufferPointer {
-                sqlite3_prepare_v2(
+            try query.utf8CString.withUnsafeBufferPointer {
+                let result = sqlite3_prepare_v2(
                     db,
                     $0.baseAddress,
                     Int32($0.count),
                     &stmt,
                     &tail
                 )
-            }
-            
-            guard result == SQLITE_OK, stmt != nil else {
-                try throwSQLiteError(code: result, db: db)
-            }
-            if tail != nil && tail!.pointee != 0 {
-                //programmer error, so crash instead of throwing
-                fatalError("\(#function) does not accept multiple statements: '\(query)' (tail: \(String(cString: tail!)))")
+                
+                
+                guard result == SQLITE_OK, stmt != nil else {
+                    try throwSQLiteError(code: result, db: db)
+                }
+                if tail != nil && tail!.pointee != 0 {
+                    //programmer error, so crash instead of throwing
+                    fatalError("\(#function) does not accept multiple statements: '\(query)' (tail: \(String(cString: tail!)))")
+                }
             }
             
             statement = stmt!

@@ -34,17 +34,18 @@ class DatabaseTests: XCTestCase {
     
     func testRepeatedAsynchronousQuery() throws {
         let iterations = 1000
-        let expectation = self.expectation(description: "Finished iterations")
+        let sema = DispatchSemaphore(value: 0)
         
-        expectation.expectedFulfillmentCount = iterations
         for _ in 0..<iterations {
             DispatchQueue.global().async {
                 _ = try! self.db.run("SELECT 1", cache: false)
-                expectation.fulfill()
+                sema.signal()
             }
         }
         
-        waitForExpectations(timeout: 10)
+        for _ in 0..<iterations {
+            sema.wait()
+        }
     }
     
     func testOnDiskDatabase() {
