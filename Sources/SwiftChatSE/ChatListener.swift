@@ -154,7 +154,7 @@ open class ChatListener {
                         for usageComponent in availableUsageComponents {
                             for component in availableComponents {
                                 let distance = Levenshtein.distanceBetween(usageComponent, and: component)
-                                let componentScore = min(distance, usageComponent.characters.count)
+                                let componentScore = min(distance, usageComponent.count)
                                 
                                 if componentScore < bestMatch?.score ?? Int.max {
                                     bestMatch = (score: componentScore, component: component, usageComponent: usageComponent)
@@ -176,13 +176,13 @@ open class ChatListener {
                     }
                     for _ in args {
                         if !availableComponents.isEmpty {
-                            score += availableComponents.first!.characters.count / 3
+                            score += availableComponents.first!.count / 3
                             availableComponents.removeFirst()
                         }
                     }
                     
                     for component in (availableComponents + availableUsageComponents) {
-                        score += component.characters.count
+                        score += component.count
                     }
                     
                     commandScores[usage] = score
@@ -200,7 +200,7 @@ open class ChatListener {
                     $0 != "*" && $0 != "..."
                 }.joined(separator: " ")
             
-            if score <= Int(ceil(Float(commandCharacters.characters.count)/2.0)) && score < (lowest?.score ?? Int.max) {
+            if score <= Int(ceil(Float(commandCharacters.count)/2.0)) && score < (lowest?.score ?? Int.max) {
                 lowest = (command, score)
             }
         }
@@ -216,10 +216,10 @@ open class ChatListener {
     open func processMessage(_ room: ChatRoom, message: ChatMessage, isEdit: Bool) {
         let lowercase = message.content.lowercased()
         
-        let shortName = String(name.characters[
-            name.characters.startIndex..<name.characters.index(
-                name.characters.startIndex,
-                offsetBy: min(name.characters.count, minNameCharacters)
+        let shortName = String(name[
+            name.startIndex..<name.index(
+                name.startIndex,
+                offsetBy: min(name.count, minNameCharacters)
             )]
         )
         

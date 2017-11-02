@@ -83,9 +83,9 @@ public func makeTable(_ heading: [String], contents: [String]...) -> String {
 	var tableWidth = 0
 	
 	for col in 0..<cols {
-		maxLength.append(heading[col].characters.count)
+		maxLength.append(heading[col].count)
 		for row in contents[col] {
-			maxLength[col] = max(row.characters.count, maxLength[col])
+			maxLength[col] = max(row.count, maxLength[col])
 		}
 		rows = max(contents[col].count, rows)
 		alignedHeading.append(heading[col].padding(toLength: maxLength[col], withPad: " ", startingAt: 0))

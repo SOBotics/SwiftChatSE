@@ -56,7 +56,7 @@ open class CommandPrivilege: Command {
 			let cleanedName = chatUser.name.replacingOccurrences(of: " ", with: "").lowercased()
 			if chatUser.id == Int(user) ||
 				cleanedName == user.lowercased() ||
-				(user.hasPrefix("@") && cleanedName == String(user.lowercased().characters.dropFirst())) || 
+				(user.hasPrefix("@") && cleanedName == String(user.lowercased().dropFirst())) || 
 				chatUser.id == idFromURL {
 				
 				targetUser = chatUser

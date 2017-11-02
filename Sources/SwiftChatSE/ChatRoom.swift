@@ -407,7 +407,7 @@ open class ChatRoom: NSObject {
     ///- parameter completion: The completion handler to call when the message is posted.
     ///The message ID will be passed to the completion handler.
     open func postMessage(_ message: String, completion: ((Int?) -> Void)? = nil) {
-        if message.characters.count == 0 {
+        if message.count == 0 {
             return
         }
         messageQueue.append((message, completion))
