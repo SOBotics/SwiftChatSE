@@ -24,6 +24,7 @@ open class ChatUser: CustomStringConvertible {
 	
 	///Privileges of a ChatUser.  Privileges can be added by extending this struct and adding static properties.
 	public struct Privileges: OptionSet {
+        public typealias RawValue = UInt
 		public let rawValue: UInt
 		
 		public init(rawValue: Privileges.RawValue) {
