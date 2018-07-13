@@ -487,43 +487,6 @@ open class Client: NSObject, URLSessionDataDelegate {
         }
         
         print("Logging in...")
-        
-        let loginPage: String = try get(post("https://stackexchange.com/users/signin",
-                                             ["from" : "https://stackexchange.com/users/login/log-in"]
-        ))
-        
-        let hiddenInputs = getHiddenInputs(loginPage)
-        
-        guard hiddenInputs["affId"] != nil && hiddenInputs["fkey"] != nil else {
-            throw LoginError.loginDataNotFound
-        }
-        
-        let fields: [String:String] = [
-            "email":email,
-            "password":password,
-            "affId" : hiddenInputs["affId"]!,
-            "fkey" : hiddenInputs["fkey"]!
-        ]
-        let (linkData, _) = try post(
-            "https://openid.stackexchange.com/affiliate/form/login/submit", fields
-        )
-        
-        let page = String(data: linkData, encoding: String.Encoding.utf8)!
-        
-        if let errorStartIndex = page.range(of: "<div class=\"error\"><p>")?.upperBound {
-            let errorStart = String(page[errorStartIndex...])
-            let errorEndIndex = errorStart.range(of: "</p></div>")!.lowerBound
-            let error = String(errorStart[..<errorEndIndex])
-            
-            throw LoginError.loginFailed(message: error)
-        }
-        
-        let linkStart = String(page[page.range(of: "<a href=\"")!.upperBound...])
-        let linkEndIndex = linkStart.range(of: "\"")!.lowerBound
-        let link = String(linkStart[..<linkEndIndex])
-        
-        let (_,_) = try get(link)
-        
         for host: ChatRoom.Host in [.stackOverflow, .metaStackExchange] {
             //Login to host.
             let hostLoginURL = "https://\(host.domain)/users/login"
