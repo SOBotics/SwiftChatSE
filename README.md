@@ -1,6 +1,6 @@
 # SwiftChatSE
 
-[![Build Status](https://travis-ci.org/SOBotics/FireAlarm.svg?branch=swift)](https://travis-ci.org/SOBotics/FireAlarm)
+[![Build Status](https://travis-ci.org/SOBotics/SwiftChatSE.svg)](https://travis-ci.org/SOBotics/SwiftChatSE)
 
 A Swift library for Stack Exchange chat
 
