@@ -12,16 +12,16 @@ matrix:
       dist: trusty
     - os: osx
       osx_image: xcode9
-      env:
-        - OPENSSL_ROOT_DIR=$(brew --prefix openssl)
 
 install:
   - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
 
-  - git clone "https://github.com/warmcat/libwebsockets" || exit 3;
-    pushd libwebsockets || exit 5;
-    (cmake . && make && sudo make install) || exit 5;
-    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo ldconfig; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      git clone "https://github.com/warmcat/libwebsockets" || exit 3;
+      pushd libwebsockets || exit 5;
+      (cmake . && make && sudo make install) || exit 5;
+      sudo ldconfig;
+    fi;
     popd
 
 script:
