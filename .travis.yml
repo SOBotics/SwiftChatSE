@@ -21,7 +21,7 @@ install:
       pushd libwebsockets || exit 5;
       (cmake . && make && sudo make install) || exit 5;
       sudo ldconfig;
-      popd
+      popd;
     fi;
 
 script:
