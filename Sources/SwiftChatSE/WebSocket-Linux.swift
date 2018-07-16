@@ -1,10 +1,12 @@
 //
-//  WebSocket.swift
+//  WebSocket-Linux.swift
 //  FireAlarm
 //
 //  Created by NobodyNada on 11/17/16.
 //  Copyright © 2016 NobodyNada. All rights reserved.
 //
+
+#if os(Linux)
 
 import Foundation
 import Clibwebsockets
@@ -234,6 +236,18 @@ public class WebSocket {
 		self.origin = origin
 		self.customHeaders = headers
 	}
+    
+    public static func open(_ str: String, origin: String? = nil, headers: String? = nil) throws -> WebSocket {
+        let ws = try WebSocket(str, origin: origin, headers: headers)
+        try ws.connect()
+        return ws
+    }
+    
+    public static func open(_ url: URL, origin: String? = nil, headers: String? = nil) throws -> WebSocket {
+        let ws = try WebSocket(url, origin: origin, headers: headers)
+        try ws.connect()
+        return ws
+    }
 	
 	public func connect() throws {
 		state = .connecting
@@ -476,3 +490,5 @@ public class WebSocket {
 		return _context!
 	}
 }
+
+#endif

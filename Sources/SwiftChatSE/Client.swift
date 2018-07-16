@@ -473,10 +473,10 @@ open class Client: NSObject, URLSessionDataDelegate {
     public enum LoginError: Error {
         ///Occurs when the client is already logged in.
         case alreadyLoggedIn
-        ///Occurs when the data to login is not found.
-        case loginDataNotFound
+        ///Occurs when the fkey required to log in is not found.
+        case fkeyNotFound
         ///Occurs when a login fails.
-        case loginFailed(message: String)
+        case loginFailed
     }
     
     
@@ -492,15 +492,19 @@ open class Client: NSObject, URLSessionDataDelegate {
             let hostLoginURL = "https://\(host.domain)/users/login"
             let hostLoginPage: String = try get(hostLoginURL)
             guard let fkey = getHiddenInputs(hostLoginPage)["fkey"] else {
-                throw LoginError.loginDataNotFound
+                throw LoginError.fkeyNotFound
             }
             
-            let (_,_) = try post(hostLoginURL, [
+            let (_, _) = try post(hostLoginURL, [
                 "email" : email,
                 "password" : password,
                 "fkey" : fkey
                 ]
             )
+            
+            if !cookies.contains(where: { $0.name == "acct" && cookieHost(host.domain, matchesDomain: $0.domain) }) {
+                throw LoginError.loginFailed
+            }
         }
     }
     

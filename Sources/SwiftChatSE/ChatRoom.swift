@@ -8,7 +8,6 @@
 
 import Foundation
 import Dispatch
-import Clibwebsockets
 
 ///A ChatRoom represents a Stack Exchange chat room.
 open class ChatRoom: NSObject {
@@ -565,7 +564,7 @@ open class ChatRoom: NSObject {
         
         let wsURL = (wsAuth["url"] as! String)
         
-        let url = URL(string: "\(wsURL)?l=\(timestamp)")!
+        let url = URL(string: "\(wsURL.replacingOccurrences(of: "wss:", with: "ws:"))?l=\(timestamp)")!
         //var request = URLRequest(url: url)
         
         //request.setValue("https://chat.\(client.host.rawValue)", forHTTPHeaderField: "Origin")
@@ -578,7 +577,14 @@ open class ChatRoom: NSObject {
         for (header, value) in client.cookieHeaders(forURL: url) {
             headers += "\(header): \(value)\u{0d}\u{0a}"
         }
-        ws = try WebSocket(url, origin: host.chatDomain, headers: headers)
+        
+        #if os(Linux)
+        let origin = host.chatDomain
+        #else
+        let origin = "http://\(host.chatDomain)"
+        #endif
+        
+        ws = try WebSocket.open(url, origin: origin, headers: headers)
         //ws.eventQueue = client.queue
         //ws.delegate = self
         //ws.open()
@@ -598,8 +604,6 @@ open class ChatRoom: NSObject {
         ws.onError {socket in
             self.webSocketEnd(0, reason: "", wasClean: true, error: socket.error)
         }
-        
-        try ws.connect()
     }
     
     ///An error which happened while the bot was processing a chat event.
