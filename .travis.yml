@@ -25,4 +25,4 @@ install:
     fi;
 
 script:
-  - ./test.sh
+  - swift test
