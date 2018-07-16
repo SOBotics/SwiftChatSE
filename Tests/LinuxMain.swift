@@ -3,4 +3,5 @@ import XCTest
 
 XCTMain([
      testCase(ListenerTests.allTests),
+	 testCase(DatabaseTests.allTests)
 ])
