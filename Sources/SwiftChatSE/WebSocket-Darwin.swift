@@ -93,13 +93,13 @@ public extension WebSocket {
         event.close = { _, _, _ in handler?(self) }
     }
     
-    public static func open(_ str: String, origin: String? = nil, headers: String? = nil) throws -> Self {
+    public static func open(_ str: String, origin: String? = nil, headers: String? = nil) throws -> WebSocket {
         guard let url = URL(string: str) else { throw WebSocketError.invalidAddress }
         
         return try open(url, origin: origin, headers: headers)
     }
     
-    public static func open(_ url: URL, origin: String? = nil, headers: String? = nil) throws -> Self {
+    public static func open(_ url: URL, origin: String? = nil, headers: String? = nil) throws -> WebSocket {
         var request = URLRequest(url: url)
         
         var headerDict = (headers?
@@ -119,7 +119,7 @@ public extension WebSocket {
         
         request.allHTTPHeaderFields = headerDict
         
-        let ws = self.init()
+        let ws = WebSocket()
         ws.eventQueue = wsEventQueue
         ws.open(request: request)
         return ws
