@@ -15,7 +15,7 @@ import Dispatch
 ///A ChatListener parses commands from the chat room.
 open class ChatListener {
     ///The commands recognized by this ChatListener.
-    open let commands: [Command.Type]
+    public let commands: [Command.Type]
     
     open var info: Any? = nil
     

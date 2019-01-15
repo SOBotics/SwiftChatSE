@@ -42,17 +42,17 @@ open class CommandDeleteMessage: Command {
 			//Get the message ID canidates.
 			([
 				//the raw message ID as arguments
-				arguments.flatMap { Int($0) },
+                arguments.compactMap { Int($0) },
 				
 				//the transcript URL as arguments
-				try arguments.flatMap {
+				try arguments.compactMap {
 					if let url = URL(string: $0), url.host != nil {
 						return try parseTranscriptURL(url)
 					} else { return nil }
 				},
 				
 				//the reply ID
-				[arguments.isEmpty ? message.replyID : nil].flatMap { $0 }
+				[arguments.isEmpty ? message.replyID : nil].compactMap { $0 }
 				
 				] as [[Int]])
 				.reduce([], +)

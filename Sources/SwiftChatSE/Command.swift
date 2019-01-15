@@ -20,18 +20,18 @@ open class Command {
 	}
     
     ///The message that triggered this command.
-    open let message: ChatMessage
-    open let listener: ChatListener
+    public let message: ChatMessage
+    public let listener: ChatListener
     
     ///Whether the command has completed execution.  Will be set to true automatically by ChatListener.
     open internal(set) var finished = false
     
     ///Arguments passed to the command.
-    open let arguments: [String]
+    public let arguments: [String]
     
     ///Which usage of the command was run.  Useful for implementing
     ///commands that share most of their code, like shutdown/reboot.
-    open let usageIndex: Int
+    public let usageIndex: Int
 	
 	
 	///Replies to the message.

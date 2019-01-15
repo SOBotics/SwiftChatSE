@@ -16,10 +16,10 @@ import Foundation
 
 open class Row {
 	///The columns of this row.
-	open let columns: [DatabaseNativeType?]
+	public let columns: [DatabaseNativeType?]
 	
 	///A Dictionary mapping the names of this row's columns to their indices in `columns`.
-	open let columnNames: [String:Int]
+	public let columnNames: [String:Int]
 	
 	///Initializes a Row with the results of a prepared statement.
 	public init(statement: OpaquePointer) {

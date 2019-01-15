@@ -99,13 +99,13 @@ open class ChatRoom: NSObject {
     }
     
     ///The Client to use.
-    open let client: Client
+    public let client: Client
     
     ///The ID of this room.
-    open let roomID: Int
+    public let roomID: Int
     
     ///The Host of this room.
-    open let host: Host
+    public let host: Host
     
     ///The list of known users.
     open var userDB = [ChatUser]()

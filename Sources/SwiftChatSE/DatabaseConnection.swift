@@ -58,7 +58,7 @@ private func throwSQLiteError(code: Int32, db: OpaquePointer?) throws -> Never {
 }
 
 open class DatabaseConnection {
-    open let db: OpaquePointer
+    public let db: OpaquePointer
     
     //A cache of prepared statements.
     open var statementCache = [String:OpaquePointer]()

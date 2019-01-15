@@ -13,7 +13,7 @@ import Foundation
 open class ChatUser: CustomStringConvertible {
 	
 	///The user ID.
-	open let id: Int
+	public let id: Int
 	
 	fileprivate var _name: String?
 	fileprivate var _isMod: Bool?
@@ -158,7 +158,7 @@ open class ChatUser: CustomStringConvertible {
 	
 	
 	///The room this user is from.
-	open let room: ChatRoom
+	public let room: ChatRoom
 	
     ///Initializes a chat user
 	public init(room: ChatRoom, id: Int, name: String? = nil) {
