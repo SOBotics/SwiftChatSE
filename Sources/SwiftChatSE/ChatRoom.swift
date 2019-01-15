@@ -389,7 +389,16 @@ open class ChatRoom: NSObject {
             }
             catch {
                 if let r = result {
-                    print(r)
+                    if json.hasPrefix("This room has been frozen") {
+                        print("Could not post message to a frozen room")
+                        if !messageQueue.isEmpty {
+                            messageQueue.removeFirst()
+                            
+                            completion?(nil)
+                        }
+                    } else {
+                        print(r)
+                    }
                 }
                 else {
                     handleError(error)
