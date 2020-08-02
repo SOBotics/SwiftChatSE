@@ -15,21 +15,22 @@ matrix:
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      sudo apt-get update && sudo apt-get install libwebsockets-dev \
-          binutils \
-          git \
-          gnupg2 \
-          libc6-dev \
-          libcurl4 \
-          libedit2 \
-          libgcc-9-dev \
-          libpython2.7 \
-          libsqlite3-0 \
-          libstdc++-9-dev \
-          libxml2 \
-          libz3-dev \
-          pkg-config \
-          tzdata \
+      sudo apt-get update && sudo apt-get install
+          libwebsockets-dev
+          binutils
+          git
+          gnupg2
+          libc6-dev
+          libcurl4
+          libedit2
+          libgcc-9-dev
+          libpython2.7
+          libsqlite3-0
+          libstdc++-9-dev
+          libxml2
+          libz3-dev
+          pkg-config
+          tzdata
           zlib1g-dev;
     else
       brew install libwebsockets;
