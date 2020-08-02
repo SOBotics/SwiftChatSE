@@ -28,8 +28,6 @@ private func websocketCallback(
 	_ len: size_t
 	) -> Int32 {
 	
-	print(reason)
-	
 	let reasons = [	//The callback reasons to listen for.
 		LWS_CALLBACK_CLIENT_RECEIVE,
 		LWS_CALLBACK_CLIENT_WRITEABLE,
