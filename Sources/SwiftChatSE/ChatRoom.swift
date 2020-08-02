@@ -9,6 +9,10 @@
 import Foundation
 import Dispatch
 
+#if os(Linux)
+import FoundationNetworking
+#endif
+
 ///A ChatRoom represents a Stack Exchange chat room.
 open class ChatRoom: NSObject {
     //MARK: - Instance variables
