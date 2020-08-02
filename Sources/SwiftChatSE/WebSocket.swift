@@ -317,7 +317,7 @@ public class WebSocket {
 	public func disconnect() {
 		state = .disconnecting
 		//force a callback so LWS knows to close the connection
-		//lws_callback_all_protocol(WebSocket.context, WebSocket.protocols, Int32(LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION.rawValue))
+		//lws_callback_all_protocol(WebSocket.context, WebSocket.protocols, Int32(LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION))
 		lws_callback_on_writable(ws)
 	}
 	
@@ -473,7 +473,7 @@ public class WebSocket {
 			info.ssl_private_key_filepath = nil
 			info.gid = -1
 			info.uid = -1
-			info.options = LWS_SERVER_OPTION_DO_SSL_GLOBAL_INIT.rawValue
+			info.options = UInt64(bitPattern: LWS_SERVER_OPTION_DO_SSL_GLOBAL_INIT)
 			info.user = nil
 			
 			if debugLoggingEnabled {

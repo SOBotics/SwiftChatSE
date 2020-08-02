@@ -271,7 +271,7 @@ public extension String {
 	/// Returns a new string made by replacing in the `String`
 	/// all HTML character entity references with the corresponding
 	/// character.
-	public var stringByDecodingHTMLEntities : String {
+    var stringByDecodingHTMLEntities : String {
 		
 		// ===== Utility functions =====
 		

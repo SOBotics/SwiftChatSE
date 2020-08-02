@@ -8,7 +8,7 @@ let packageDependencies: [Package.Dependency] = [
     .package(url: "git://github.com/NobodyNada/Clibwebsockets", from: "1.0.0"),
     .package(url: "git://github.com/stephencelis/CSQLite", from: "0.0.0"),
 ]
-let targetDependencies: [Target.Dependency] = []
+let targetDependencies: [Target.Dependency] = ["Clibwebsockets"]
 
 /*#else
 
