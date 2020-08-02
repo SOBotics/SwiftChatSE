@@ -21,14 +21,14 @@ private func binToStr(_ data: Data) -> String? {
 }
 
 private func websocketCallback(
-	_ context: OpaquePointer?,
+	_ wsi: OpaquePointer?,
 	_ reason: lws_callback_reasons,
 	_ user: UnsafeMutableRawPointer?,
 	_ inData: UnsafeMutableRawPointer?,
 	_ len: size_t
 	) -> Int32 {
 	
-	//print(reason)
+	print(reason)
 	
 	let reasons = [	//The callback reasons to listen for.
 		LWS_CALLBACK_CLIENT_RECEIVE,
@@ -52,7 +52,17 @@ private func websocketCallback(
 		return 0
 	}
 	
-	var ws: WebSocket! = user?.bindMemory(to: WebSocket.self, capacity: 1).pointee
+	var ws: WebSocket!
+        
+    if let socket = user?.bindMemory(to: WebSocket.self, capacity: 1).pointee {
+        ws = socket
+    } else {
+        for socket in WebSocket.sockets {
+            if socket.ws == wsi {
+                ws = socket
+            }
+        }
+    }
 	
 	switch reason {
 	case LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER:
@@ -71,21 +81,15 @@ private func websocketCallback(
 				}
 			}
 		}
-	case LWS_CALLBACK_CLIENT_ESTABLISHED:
-		for socket in WebSocket.sockets {
-			if socket.state == .connecting {
-				ws = socket
-				ws.opened()
-				user?.bindMemory(to: WebSocket.self, capacity: 1).pointee = ws
-				break
-			}
-		}
-		
+    case LWS_CALLBACK_CLIENT_ESTABLISHED:
+        ws.opened()
+        user?.bindMemory(to: WebSocket.self, capacity: 1).pointee = ws
+        break
 		
 		
 	case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:
 		let message = inData.map { String(cString: $0.bindMemory(to: Int8.self, capacity: len)) }
-		ws?.connectionError(message)
+		ws.connectionError(message)
 		
 		
 		
@@ -309,12 +313,14 @@ public class WebSocket {
 	}
 	
 	private func doWrite(_ data: Data, _ format: lws_write_protocol) {
+        guard state == .connected else { return }
 		toWrite.append((data, format))
 		
 		lws_callback_on_writable(ws)
 	}
 	
 	public func disconnect() {
+        guard state == .connecting || state == .connected else { return }
 		state = .disconnecting
 		//force a callback so LWS knows to close the connection
 		//lws_callback_all_protocol(WebSocket.context, WebSocket.protocols, Int32(LWS_CALLBACK_FILTER_PROTOCOL_CONNECTION))
@@ -333,6 +339,7 @@ public class WebSocket {
 	fileprivate func connectionError(_ message: String?) {
 		state = .error
 		error = .lwsError(error: message)
+        errorHandler?(self)
 	}
 	
 	fileprivate func opened() {
@@ -477,7 +484,7 @@ public class WebSocket {
 			info.user = nil
 			
 			if debugLoggingEnabled {
-				lws_set_log_level(255, wsLog)
+				lws_set_log_level(0xFFFF, wsLog)
 			}
 			
 			

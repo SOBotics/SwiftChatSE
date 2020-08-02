@@ -591,11 +591,11 @@ open class ChatRoom: NSObject {
             headers += "\(header): \(value)\u{0d}\u{0a}"
         }
         
-        #if os(Linux)
+        //#if os(Linux)
         let origin = host.chatDomain
-        #else
-        let origin = "http://\(host.chatDomain)"
-        #endif
+        //#else
+        //let origin = "http://\(host.chatDomain)"
+        //#endif
         
         ws = try WebSocket.open(url, origin: origin, headers: headers)
         //ws.eventQueue = client.queue
