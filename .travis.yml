@@ -16,7 +16,6 @@ matrix:
 install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo apt-get update && sudo apt-get install
-          libwebsockets-dev
           binutils
           git
           gnupg2
@@ -32,6 +31,11 @@ install:
           pkg-config
           tzdata
           zlib1g-dev;
+      git clone "https://github.com/warmcat/libwebsockets" || exit 3;
+      pushd libwebsockets || exit 5;
+      (cmake . && make && sudo make install) || exit 5;
+      sudo ldconfig;
+      popd;
     else
       brew install libwebsockets;
     fi;
