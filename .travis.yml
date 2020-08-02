@@ -17,7 +17,7 @@ install:
   - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
 
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      sudo apt install libwebsockets-dev zlib1g-dev;
+      sudo apt update && sudo apt install libwebsockets-dev zlib1g-dev;
     else
       brew install libwebsockets;
     fi;
