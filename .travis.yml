@@ -4,24 +4,22 @@ branches:
 
 language: generic
 sudo: required
-env: SWIFT_VERSION=4.1
+env: SWIFT_VERSION=5.2.4
 
 matrix:
   include:
     - os: linux
-      dist: trusty
+      dist: focal
     - os: osx
-      osx_image: xcode9
+      osx_image: xcode11
 
 install:
   - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
 
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      git clone "https://github.com/warmcat/libwebsockets" || exit 3;
-      pushd libwebsockets || exit 5;
-      (cmake . && make && sudo make install) || exit 5;
-      sudo ldconfig;
-      popd;
+      sudo apt install libwebsockets-dev
+    else
+      brew install libwebsockets
     fi;
 
 script:
