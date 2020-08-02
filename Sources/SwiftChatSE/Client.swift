@@ -10,6 +10,10 @@
 import Foundation
 import Dispatch
 
+#if os(Linux)
+import FoundationNetworking
+#endif
+
 //MARK: - Convenience extensions
 
 extension String {
