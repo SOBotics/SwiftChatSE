@@ -19,7 +19,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo apt install libwebsockets-dev zlib1g-dev;
     else
-      brew install libwebsockets
+      brew install libwebsockets;
     fi;
 
 script:
