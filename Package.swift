@@ -3,21 +3,21 @@
 import PackageDescription
 
 
-#if os(Linux)
+//#if os(Linux)
 let packageDependencies: [Package.Dependency] = [
     .package(url: "git://github.com/NobodyNada/Clibwebsockets", from: "1.0.0"),
     .package(url: "git://github.com/stephencelis/CSQLite", from: "0.0.0"),
 ]
 let targetDependencies: [Target.Dependency] = []
 
-#else
+/*#else
 
 let packageDependencies: [Package.Dependency] = [
-    .package(url: "https://github.com/IBM-Swift/CZlib", from: "0.1.2"),
+    .package(url: "https://github.com/IBM-Swift/CZlib", .revision("318dbf1")),
     .package(url: "git://github.com/stephencelis/CSQLite", from: "0.0.0"),
 ]
 let targetDependencies: [Target.Dependency] = ["CZlib"]
-#endif
+#endif*/
 
 
 let package = Package(

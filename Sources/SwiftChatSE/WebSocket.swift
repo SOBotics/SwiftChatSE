@@ -6,7 +6,7 @@
 //  Copyright © 2016 NobodyNada. All rights reserved.
 //
 
-#if os(Linux)
+//#if os(Linux)
 
 import Foundation
 import Clibwebsockets
@@ -491,4 +491,4 @@ public class WebSocket {
 	}
 }
 
-#endif
+//#endif
