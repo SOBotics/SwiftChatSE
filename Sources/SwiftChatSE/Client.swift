@@ -299,7 +299,7 @@ open class Client: NSObject, URLSessionDataDelegate {
         }
         
         guard let response = resp as? HTTPURLResponse, data != nil else {
-            throw error
+            throw error ?? RequestError.unknownError
         }
         
         return (data, response)
@@ -341,35 +341,7 @@ open class Client: NSObject, URLSessionDataDelegate {
         
         request.setValue(contentType, forHTTPHeaderField: "Content-Type")
         
-        
-        let sema = DispatchSemaphore(value: 0)
-        
-        var responseData: Data?
-        var resp: HTTPURLResponse?
-        var responseError: Error?
-        
-        queue.async {
-            let task = self.session.uploadTask(with: request, from: data)
-            self.performTask(task) {data, response, error in
-                (responseData, resp, responseError) = (data, response, error)
-                sema.signal()
-            }
-        }
-        
-        if sema.wait(timeout: DispatchTime.now() + timeoutDuration) == .timedOut {
-            responseError = RequestError.timeout
-        }
-        
-        
-        guard let response = resp else {
-            throw responseError ?? RequestError.unknownError
-        }
-        
-        if responseData == nil {
-            responseData = Data()
-        }
-        
-        return (responseData!, response)
+        return try performRequest(request)
     }
     
     
