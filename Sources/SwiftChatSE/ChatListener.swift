@@ -88,8 +88,8 @@ open class ChatListener {
     
     fileprivate func handleCommand(_ message: ChatMessage) {
         var components =
-            message.content.lowercased()
-                .trimmingCharacters(in: CharacterSet(charactersIn: "?"))
+            message.content//.lowercased()
+                //.trimmingCharacters(in: CharacterSet(charactersIn: "?"))
                 .components(separatedBy: CharacterSet.whitespaces)
                 .filter { !$0.isEmpty }
         components.removeFirst()
@@ -121,7 +121,7 @@ open class ChatListener {
                         //everything else is arguments; add them to the list
                         args.append(contentsOf: components[i..<components.count])
                     }
-                    else if component != usageComponent {
+                    else if component.lowercased() != usageComponent.lowercased() {
                         match = false
                     }
                 }
@@ -153,7 +153,7 @@ open class ChatListener {
                         
                         for usageComponent in availableUsageComponents {
                             for component in availableComponents {
-                                let distance = Levenshtein.distanceBetween(usageComponent, and: component)
+                                let distance = Levenshtein.distanceBetween(usageComponent.lowercased(), and: component.lowercased())
                                 let componentScore = min(distance, usageComponent.count)
                                 
                                 if componentScore < bestMatch?.score ?? Int.max {
